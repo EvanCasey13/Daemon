@@ -1,3 +1,3 @@
 # Daemon
 
-![My Image](src/images/daemon_logo.jpg)
+![My Image](src/images/daemon_logo.png)
