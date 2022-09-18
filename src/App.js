@@ -21,26 +21,26 @@ function App() {
   return (
     <div className="App">
 
-{loading ? (
-  <div className="loader-wrapper">
-  <div className="loader">
-        <img src={Logo} />
-</div>
-</div>
-): (
+      {loading ? (
+        <div className="loader-wrapper">
+          <div className="loader">
+            <img src={Logo} alt="loader logo" />
+          </div>
+        </div>
+      ) : (
 
-<header className="App-header">
-  <BrowserRouter>
-    <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="gameHomepage" element={<GameHomepage />} />
-          <Route path="forumHomepage" element={<ForumHomepage />} />
-          <Route path="about" element={<About />} />
-        </Route>
-    </Routes>
-  </BrowserRouter>
-      </header>
+        <header className="App-header">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="gameHomepage" element={<GameHomepage />} />
+                <Route path="forumHomepage" element={<ForumHomepage />} />
+                <Route path="about" element={<About />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </header>
       )}
     </div>
   );
