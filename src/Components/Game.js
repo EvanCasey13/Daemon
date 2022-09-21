@@ -1,11 +1,19 @@
 // A component that return a Game
 import React from "react";
+import Card from 'react-bootstrap/Card';
+
 const Game = ({ game }) => {
     return (
-        <div className = "GameComponent">
-            <h5>{game.name}</h5>
-            <h5>Rating: {game.rating}</h5>
-            <img src={game.background_image} alt="" />
+        <div className="HomeComponent">
+            <Card background='primary' className="homeCard">
+                <Card.Img variant="top" src={game.background_image} />
+                <Card.Body>
+                    <Card.Title>{game.name}</Card.Title>
+                    <Card.Text>
+                        Rating: {game.rating}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
         </div>
     );
 };
