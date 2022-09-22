@@ -7,17 +7,32 @@ import Slider from "react-slick";
 import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useParams } from 'react-router-dom';
 
 function Home() {
+
     const [popular, setPopular] = useState([]);
     const [genres, setGenres] = useState([]);
     const [platforms, setPlatforms] = useState([]);
     const [developers, setDevelopers] = useState([]);
+    const [details, setDetails] = useState({});
 
-    const url = "https://rawg.io/api/games?token&key=8a8630a556d54818aeb790b5e9c140c1";
-    const genresUrl= "https://rawg.io/api/genres?token&key=8a8630a556d54818aeb790b5e9c140c1";
-    const platformUrl="https://rawg.io/api/platforms?token&key=8a8630a556d54818aeb790b5e9c140c1";
-    const developersUrl="https://rawg.io/api/developers?token&key=8a8630a556d54818aeb790b5e9c140c1";
+    let params = useParams(); 
+
+    const fetchDetails = async () => {
+        const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const detailData = await data.json();
+        setDetails(detailData);
+    }
+
+    useEffect(() => {
+        fetchDetails();
+    }, [params.id]);
+
+    const url = "https://rawg.io/api/games?token&key=0532a1e505284b338b68cf1f1dcdee02";
+    const genresUrl= "https://rawg.io/api/genres?token&key=0532a1e505284b338b68cf1f1dcdee02";
+    const platformUrl="https://rawg.io/api/platforms?token&key=0532a1e505284b338b68cf1f1dcdee02";
+    const developersUrl="https://rawg.io/api/developers?token&key=0532a1e505284b338b68cf1f1dcdee02";
 
     const settings = {
         infinite: true,
@@ -77,9 +92,10 @@ function Home() {
             <h2>Popular Games</h2>
             <div className="popular-games">
                 <Slider {...settings}>
-                    {popular.map(game => {
-                        return <Game
-                            key={game.id} game={game}
+                    {popular.map(game => {       
+                        return <Game 
+                            key={game.id} game={game} onClick={() => fetchDetails(game.id)}
+                            
                         />;
                     })}
                 </Slider>
@@ -121,5 +137,4 @@ function Home() {
     );
 
 }
-
 export default Home;

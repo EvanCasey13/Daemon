@@ -7,6 +7,7 @@ import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
 import About from './Pages/About/About';
 import Layout from './Pages/Layout';
+import GameDetail from './Components/GameDetail';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,7 @@ function App() {
                 <Route path="gameHomepage" element={<GameHomepage />} />
                 <Route path="forumHomepage" element={<ForumHomepage />} />
                 <Route path="about" element={<About />} />
+                <Route path="/games/:id" element={<GameDetail />}/>
               </Route>
             </Routes>
           </BrowserRouter>
