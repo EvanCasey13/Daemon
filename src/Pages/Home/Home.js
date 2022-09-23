@@ -39,10 +39,10 @@ function Home() {
         dots: false,
         slidesToShow: 5,
         slidesToScroll: 1,
-        lazyLoad: true,
+        lazyLoad: false,
         autoplay: true,
         autoplaySpeed: 2000,
-        arrows: false
+        arrows: true
     };
 
     useEffect(() => {

@@ -17,7 +17,17 @@ function GameDetail() {
     }, [params.id]);
 
     return(
-  <h1>{details.description}</h1>
+      <div className="gameDetailsPage">
+        <h2>{details.name}</h2>
+        <h5>Released: {details.released}</h5>
+        <h5>Rating: {details.rating}</h5>
+        <h5>Metacritic: {details.metacritic} %</h5>
+        <h5>Playtime: {details.playtime} hours</h5>
+        <h5>Achievements: {details.achievements_count}</h5>
+        <img src = {details.background_image} />
+        <h3>Description</h3>
+        <p className='descriptionGame'>{details.description_raw}</p>
+      </div>
     )
 };
 
