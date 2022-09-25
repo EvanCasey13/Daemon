@@ -16,6 +16,9 @@ function Home() {
     const [platforms, setPlatforms] = useState([]);
     const [developers, setDevelopers] = useState([]);
     const [details, setDetails] = useState({});
+    const [platformDetails, setPlatformDetails] = useState([]);
+    const [genreDetails, setGenreDetails] = useState([]);
+    const [developerDetails, setDeveloperDetails] = useState([]);
 
     let params = useParams(); 
 
@@ -27,6 +30,36 @@ function Home() {
 
     useEffect(() => {
         fetchDetails();
+    }, [params.id]);
+
+    const fetchPlatformDetails = async () => {
+        const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const platformDetailData = await data.json();
+        setPlatformDetails(platformDetailData.results);
+    }
+
+    useEffect(() => {
+        fetchPlatformDetails();
+    }, [params.id]);
+
+    const fetchGenreDetails = async () => {
+        const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const genreDetailData = await data.json();
+        setGenreDetails(genreDetailData.results);
+    }
+
+    useEffect(() => {
+        fetchGenreDetails();
+    }, [params.id]);
+
+    const fetchDeveloperDetails = async () => {
+        const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const developerDetailData = await data.json();
+        setDeveloperDetails(developerDetailData.results);
+    }
+
+    useEffect(() => {
+        fetchDeveloperDetails();
     }, [params.id]);
 
     const url = "https://rawg.io/api/games?token&key=0532a1e505284b338b68cf1f1dcdee02";
@@ -106,7 +139,7 @@ function Home() {
                 <Slider {...settings}>
                     {genres.map(genre => {
                         return <Genre
-                            key={genre.id} genre={genre}
+                            key={genre.id} genre={genre} onClick={() => fetchGenreDetails(genre.id)}
                         />;
                     })}
                 </Slider>
@@ -117,7 +150,7 @@ function Home() {
                 <Slider {...settings}>
                     {platforms.map(platform => {
                         return <Platform
-                            key={platform.id} platform={platform}
+                            key={platform.id} platform={platform} onClick={() => fetchPlatformDetails(platform.id)}
                         />;
                     })}
                 </Slider>
@@ -128,7 +161,7 @@ function Home() {
                 <Slider {...settings}>
                     {developers.map(developer => {
                         return <Developer
-                            key={developer.id} developer={developer}
+                            key={developer.id} developer={developer} onClick={() => fetchDeveloperDetails(developer.id)}
                         />;
                     })}
                 </Slider>

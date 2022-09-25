@@ -19,12 +19,14 @@ function GameDetail() {
     return(
       <div className="gameDetailsPage">
         <h2>{details.name}</h2>
+        <img src = {details.background_image} />
+        <div className="gameStats">
         <h5>Released: {details.released}</h5>
         <h5>Rating: {details.rating}</h5>
         <h5>Metacritic: {details.metacritic} %</h5>
         <h5>Playtime: {details.playtime} hours</h5>
         <h5>Achievements: {details.achievements_count}</h5>
-        <img src = {details.background_image} />
+        </div>
         <h3>Description</h3>
         <p className='descriptionGame'>{details.description_raw}</p>
       </div>

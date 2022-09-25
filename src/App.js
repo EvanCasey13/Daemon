@@ -8,6 +8,9 @@ import ForumHomepage from './Pages/Forum/ForumHomepage';
 import About from './Pages/About/About';
 import Layout from './Pages/Layout';
 import GameDetail from './Components/GameDetail';
+import PlatformDetails from './Components/PlatformDetails';
+import GenreDetails from './Components/GenreDetails';
+import DeveloperDetails from './Components/DeveloperDetails';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -39,6 +42,9 @@ function App() {
                 <Route path="forumHomepage" element={<ForumHomepage />} />
                 <Route path="about" element={<About />} />
                 <Route path="/games/:id" element={<GameDetail />}/>
+                <Route path="/platforms/:id" element={<PlatformDetails />}/>
+                <Route path="/genres/:id" element={<GenreDetails />}/>
+                <Route path="/developers/:id" element={<DeveloperDetails />}/>
               </Route>
             </Routes>
           </BrowserRouter>
