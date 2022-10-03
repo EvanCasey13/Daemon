@@ -11,6 +11,7 @@ import GameDetail from './Components/GameDetail';
 import PlatformDetails from './Components/PlatformDetails';
 import GenreDetails from './Components/GenreDetails';
 import DeveloperDetails from './Components/DeveloperDetails';
+import Search from './Components/Search';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/platforms/:id" element={<PlatformDetails />}/>
                 <Route path="/genres/:id" element={<GenreDetails />}/>
                 <Route path="/developers/:id" element={<DeveloperDetails />}/>
+                <Route path="/search" element={<Search />}/>
               </Route>
             </Routes>
           </BrowserRouter>
