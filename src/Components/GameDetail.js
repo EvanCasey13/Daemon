@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TabContext from '@mui/lab/TabContext';
@@ -56,7 +55,8 @@ function GameDetail() {
               <h5>{details.name} <a href ={details.website} target="_blank">Website</a></h5>
             </div>
           </TabPanel>
-          <TabPanel value="2"><h5>Developer: {details.developers?.map(dev => dev.name)}</h5>
+          <TabPanel value="2">
+            <h5>Developer: {details.developers?.map(dev => dev.name)}</h5>
             <h6>Games: {details.developers?.map(dev => dev.games_count)}</h6>
             <img src={details.developers?.map(dev => dev.image_background)} className="developerImg" />
           </TabPanel>

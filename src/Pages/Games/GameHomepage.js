@@ -4,7 +4,6 @@ import './GameHomepage.css';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
 
-
 function GameHomepage() {
 
     const [games, setGames] = useState([]);
@@ -13,9 +12,9 @@ function GameHomepage() {
 
     const handleChange = (event, value) => {
         setPage(value);
-      };
+    };
 
-    const url = `https://rawg.io/api/games?token&key=0532a1e505284b338b68cf1f1dcdee02&page=${page}`;
+    const url = `https://rawg.io/api/games?page_size=18&key=81688d70ee2b41e6a9f01561f582b912&page=${page}`;
 
     const fetchGames = async () => {
         const data = await fetch(url);
@@ -29,18 +28,16 @@ function GameHomepage() {
 
     return (
         <div className='GameHome'>
-        <div className="games">
-                {games?.map(game => {       
-                    return <Game 
-                        key={game.id} game={game}     
+            <div className="games">
+                {games?.map(game => {
+                    return <Game
+                        key={game.id} game={game}
                     />;
                 })}
-
-    <Stack spacing={2}>
-      <Pagination variant="outlined" shape="rounded" showFirstButton showLastButton count={100} page={page} onChange={handleChange} onClick={fetchGames} />
-    </Stack>
-
-        </div>
+            </div>
+            <Stack spacing={2}>
+                <Pagination variant="outlined" shape="rounded" showFirstButton showLastButton count={1000} page={page} onChange={handleChange} onClick={fetchGames} />
+            </Stack>
         </div>
     );
 

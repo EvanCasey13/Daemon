@@ -1,19 +1,32 @@
 // A component that return a Developer
 import React from "react";
-import Card from 'react-bootstrap/Card';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 
 const Developers = ({ developer }) => {
-    
+
     return (
         <div className="HomeComponent">
             <Link to={`/developers/${developer.id}`}>
-            <Card background='primary' className="homeCard">
-                <Card.Img variant="top" src={developer.image_background} />
-                <Card.Body>
-                    <Card.Title>{developer.name}</Card.Title>
-                </Card.Body>
-            </Card>
+                <Card sx={{ maxWidth: 345, height: '100%' }}>
+                    <CardMedia
+                        sx={{ height: 300 }}
+                        image={developer.image_background}
+                    />
+                    <CardContent>
+                        <Grid container >
+                            <Grid item xs={20}>
+                                <Typography variant="h6" component="p">
+                                    {developer.name}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                </Card>
             </Link>
         </div>
     );
