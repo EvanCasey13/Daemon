@@ -8,6 +8,7 @@ import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useParams } from 'react-router-dom';
+import { fetchPopular, fetchGenres, fetchDevelopers, fetchPlatforms } from "../../api/rawg-api";
 
 function Home() {
 
@@ -20,7 +21,7 @@ function Home() {
     const [genreDetails, setGenreDetails] = useState([]);
     const [developerDetails, setDeveloperDetails] = useState([]);
 
-    let params = useParams(); 
+    let params = useParams();
 
     const fetchDetails = async () => {
         const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
@@ -62,11 +63,6 @@ function Home() {
         fetchDeveloperDetails();
     }, [params.id]);
 
-    const url = `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
-    const genresUrl= `https://rawg.io/api/genres?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
-    const platformUrl=`https://rawg.io/api/platforms?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
-    const developersUrl=`https://rawg.io/api/developers?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
-
     const settings = {
         infinite: true,
         dots: false,
@@ -79,95 +75,77 @@ function Home() {
     };
 
     useEffect(() => {
-        fetchPopular();
+        fetchPopular().then(games => {
+            setPopular(games);
+        })
     }, []);
 
     useEffect(() => {
-        fetchGenres();
-    }, []);
+        fetchGenres().then(genres => {
+            setGenres(genres);
+        })
+        }, []);
 
-    useEffect(() => {
-        fetchPlatforms();
-    }, []);
+        useEffect(() => {
+            fetchPlatforms().then(plaforms => {
+                setPlatforms(plaforms);
+            })
+        }, []);
 
-    useEffect(() => {
-        fetchDevelopers();
-    });
+        useEffect(() => {
+            fetchDevelopers().then(developers => {
+                setDevelopers(developers);
+            })
+        }, []);
 
-    const fetchPopular = async () => {
-        const data = await fetch(url);
-        const games = await data.json();
-        console.log(games.next);
-        setPopular(games.results);
-    };
+        return (
+            <div className='Home' >
+                <h2>Popular Games</h2>
+                <div className="popular-games">
+                    <Slider {...settings}>
+                        {popular.map(game => {
+                            return <Game
+                                key={game.id} game={game} onClick={() => fetchDetails(game.id)}
 
-    const fetchGenres = async () => {
-      const data = await fetch(genresUrl);
-      const genres = await data.json();
-      console.log(genres.results);
-      setGenres(genres.results);
-    };
+                            />;
+                        })}
+                    </Slider>
+                </div>
 
-     const fetchPlatforms = async () => {
-        const data = await fetch(platformUrl);
-        const platforms = await data.json();
-        setPlatforms(platforms.results);
-     };
+                <h3>Genres</h3>
+                <div className="genres">
+                    <Slider {...settings}>
+                        {genres.map(genre => {
+                            return <Genre
+                                key={genre.id} genre={genre} onClick={() => fetchGenreDetails(genre.id)}
+                            />;
+                        })}
+                    </Slider>
+                </div>
 
-     const fetchDevelopers = async () => {
-        const data = await fetch(developersUrl);
-        const developers = await data.json();
-        setDevelopers(developers.results);
-     };
+                <h3>Platforms</h3>
+                <div className="Platforms">
+                    <Slider {...settings}>
+                        {platforms.map(platform => {
+                            return <Platform
+                                key={platform.id} platform={platform} onClick={() => fetchPlatformDetails(platform.id)}
+                            />;
+                        })}
+                    </Slider>
+                </div>
 
-    return (
-        <div className='Home' >
-            <h2>Popular Games</h2>
-            <div className="popular-games">
-                <Slider {...settings}>
-                    {popular.map(game => {       
-                        return <Game 
-                            key={game.id} game={game} onClick={() => fetchDetails(game.id)}
-                            
-                        />;
-                    })}
-                </Slider>
+                <h3>Developers</h3>
+                <div className="Developers">
+                    <Slider {...settings}>
+                        {developers.map(developer => {
+                            return <Developer
+                                key={developer.id} developer={developer} onClick={() => fetchDeveloperDetails(developer.id)}
+                            />;
+                        })}
+                    </Slider>
+                </div>
             </div>
-
-            <h3>Genres</h3>
-            <div className="genres">
-                <Slider {...settings}>
-                    {genres.map(genre => {
-                        return <Genre
-                            key={genre.id} genre={genre} onClick={() => fetchGenreDetails(genre.id)}
-                        />;
-                    })}
-                </Slider>
-            </div>
-
-            <h3>Platforms</h3>
-            <div className="Platforms">
-                <Slider {...settings}>
-                    {platforms.map(platform => {
-                        return <Platform
-                            key={platform.id} platform={platform} onClick={() => fetchPlatformDetails(platform.id)}
-                        />;
-                    })}
-                </Slider>
-            </div>
-
-            <h3>Developers</h3>
-            <div className="Developers">
-                <Slider {...settings}>
-                    {developers.map(developer => {
-                        return <Developer
-                            key={developer.id} developer={developer} onClick={() => fetchDeveloperDetails(developer.id)}
-                        />;
-                    })}
-                </Slider>
-            </div>
-        </div>
-    );
-
-}
+    )
+};
+                    
 export default Home;

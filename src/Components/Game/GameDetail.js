@@ -27,8 +27,6 @@ function GameDetail() {
     setValue(newValue);
   };
 
-  const genre = details.genres?.map(g => g.name)
-
   return (
     <div className="gameDetailsPage">
 

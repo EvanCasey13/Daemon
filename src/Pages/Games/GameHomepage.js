@@ -14,10 +14,25 @@ function GameHomepage() {
         setPage(value);
     };
 
-    const url = `https://rawg.io/api/games?page_size=18&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}`;
+    const [searchTerm, setSearchTerm] = useState("")
+    const [searchGames, setSearchGames] = useState([]);
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value)
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        let slug = searchTerm.split(' ').join('-').toLowerCase()
+        const url = `https://rawg.io/api/games?page_size=17&key=${process.env.REACT_APP_RAWG_API_KEY}&search=${slug}`;
+        const data = await fetch(url);
+        const games = await data.json();
+        setGames(games.results);
+        console.log(games.results)
+    }
 
     const fetchGames = async () => {
-        const data = await fetch(url);
+        const data = await fetch(`https://rawg.io/api/games?page_size=17&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}`);
         const games = await data.json();
         setGames(games?.results);
     };
@@ -29,6 +44,11 @@ function GameHomepage() {
     return (
         <div className='GameHome'>
             <div className="games">
+            <form onSubmit={onSubmit}>
+                <input type="text" value={searchTerm} onChange={handleSearchChange} />
+                <br></br>
+                <input type="submit" />
+                </form>
                 {games?.map(game => {
                     return <Game
                         key={game.id} game={game}

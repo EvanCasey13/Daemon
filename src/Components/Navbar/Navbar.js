@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Logo from '../images/daemon_logo_navbar.png'
+import Logo from '../../images/daemon_logo_navbar.png'
 
 function NavBar() {
     return (
@@ -20,9 +20,6 @@ function NavBar() {
                 </li>
                 <li>
                     <Link to ="/about"> About </Link>
-                </li>
-                <li>
-                    <Link to ="/search"> Search </Link>
                 </li>
             </ul>
         </nav>
