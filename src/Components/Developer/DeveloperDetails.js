@@ -7,7 +7,7 @@ function DeveloperDetails() {
     const  [developerDetail, setDeveloperDetails] = useState([]);
 
     const fetchDeveloperDetail = async () => {
-    const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`)
+    const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
     const developerDetailData = await data.json();
     setDeveloperDetails(developerDetailData);
     }

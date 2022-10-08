@@ -7,10 +7,10 @@ import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
 import About from './Pages/About/About';
 import Layout from './Pages/Layout';
-import GameDetail from './Components/GameDetail';
-import PlatformDetails from './Components/PlatformDetails';
-import GenreDetails from './Components/GenreDetails';
-import DeveloperDetails from './Components/DeveloperDetails';
+import GameDetail from './Components/Game/GameDetail';
+import PlatformDetails from './Components/Platform/PlatformDetails';
+import GenreDetails from './Components/Genre/GenreDetails';
+import DeveloperDetails from './Components/Developer/DeveloperDetails';
 import Search from './Components/Search';
 
 function App() {

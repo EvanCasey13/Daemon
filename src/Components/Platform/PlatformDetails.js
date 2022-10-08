@@ -7,7 +7,7 @@ function PlatformDetails() {
     const  [platformDetail, setPlatformDetails] = useState([]);
 
     const fetchPlatformDetail = async () => {
-    const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`)
+    const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
     const platformDetailData = await data.json();
     setPlatformDetails(platformDetailData);
     }

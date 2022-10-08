@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Game from '../../Components/Game';
+import Game from '../../Components/Game/Game';
 import './GameHomepage.css';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
@@ -14,12 +14,12 @@ function GameHomepage() {
         setPage(value);
     };
 
-    const url = `https://rawg.io/api/games?page_size=18&key=81688d70ee2b41e6a9f01561f582b912&page=${page}`;
+    const url = `https://rawg.io/api/games?page_size=18&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}`;
 
     const fetchGames = async () => {
         const data = await fetch(url);
         const games = await data.json();
-        setGames(games.results);
+        setGames(games?.results);
     };
 
     useEffect(() => {

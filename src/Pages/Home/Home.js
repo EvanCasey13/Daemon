@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Game from '../../Components/Game';
-import Genre from '../../Components/Genre';
-import Platform from '../../Components/Platforms';
-import Developer from '../../Components/Developers';
+import Game from '../../Components/Game/Game';
+import Genre from '../../Components/Genre/Genres';
+import Platform from '../../Components/Platform/Platforms';
+import Developer from '../../Components/Developer/Developers';
 import Slider from "react-slick";
 import './Home.css';
 import "slick-carousel/slick/slick.css";
@@ -23,7 +23,7 @@ function Home() {
     let params = useParams(); 
 
     const fetchDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
         const detailData = await data.json();
         setDetails(detailData);
     }
@@ -33,7 +33,7 @@ function Home() {
     }, [params.id]);
 
     const fetchPlatformDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
         const platformDetailData = await data.json();
         setPlatformDetails(platformDetailData.results);
     }
@@ -43,7 +43,7 @@ function Home() {
     }, [params.id]);
 
     const fetchGenreDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
         const genreDetailData = await data.json();
         setGenreDetails(genreDetailData.results);
     }
@@ -53,7 +53,7 @@ function Home() {
     }, [params.id]);
 
     const fetchDeveloperDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`);
+        const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
         const developerDetailData = await data.json();
         setDeveloperDetails(developerDetailData.results);
     }
@@ -62,10 +62,10 @@ function Home() {
         fetchDeveloperDetails();
     }, [params.id]);
 
-    const url = "https://rawg.io/api/games?token&key=0532a1e505284b338b68cf1f1dcdee02";
-    const genresUrl= "https://rawg.io/api/genres?token&key=0532a1e505284b338b68cf1f1dcdee02";
-    const platformUrl="https://rawg.io/api/platforms?token&key=0532a1e505284b338b68cf1f1dcdee02";
-    const developersUrl="https://rawg.io/api/developers?token&key=0532a1e505284b338b68cf1f1dcdee02";
+    const url = `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
+    const genresUrl= `https://rawg.io/api/genres?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
+    const platformUrl=`https://rawg.io/api/platforms?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
+    const developersUrl=`https://rawg.io/api/developers?token&key=${process.env.REACT_APP_RAWG_API_KEY}`;
 
     const settings = {
         infinite: true,

@@ -7,7 +7,7 @@ function GenreDetails() {
     const  [genreDetail, setGenreDetails] = useState([]);
 
     const fetchGenreDetail = async () => {
-    const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`)
+    const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
     const genreDetailData = await data.json();
     setGenreDetails(genreDetailData);
     }

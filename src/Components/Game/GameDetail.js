@@ -12,7 +12,7 @@ function GameDetail() {
   const [details, setDetails] = useState({});
 
   const fetchDetails = async () => {
-    const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=0532a1e505284b338b68cf1f1dcdee02`)
+    const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
     const detailData = await data.json();
     setDetails(detailData);
   }
