@@ -34,3 +34,27 @@ export const fetchDevelopers = async () => {
     const json = await res.json();
     return json.results;
 };
+
+export const fetchDetails = async (id) => {
+    const data = await fetch(`https://rawg.io/api/games/${id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
+    const detailData = await data.json();
+    return detailData;
+}
+
+export const fetchPlatformDetails = async (id) => {
+    const data = await fetch(`https://rawg.io/api/platforms/${id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
+    const platformDetailData = await data.json();
+    return platformDetailData.results;
+}
+
+export const fetchGenreDetails = async (id) => {
+    const data = await fetch(`https://rawg.io/api/genres/${id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
+    const genreDetailData = await data.json();
+    return genreDetailData.results;
+}
+
+export const fetchDeveloperDetails = async (id) => {
+    const data = await fetch(`https://rawg.io/api/developers/${id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
+    const developerDetailData = await data.json();
+    return developerDetailData.results;
+}

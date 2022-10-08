@@ -8,7 +8,7 @@ import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useParams } from 'react-router-dom';
-import { fetchPopular, fetchGenres, fetchDevelopers, fetchPlatforms } from "../../api/rawg-api";
+import { fetchPopular, fetchGenres, fetchDevelopers, fetchPlatforms, fetchDetails, fetchDeveloperDetails, fetchGenreDetails, fetchPlatformDetails } from "../../api/rawg-api";
 
 function Home() {
 
@@ -23,46 +23,6 @@ function Home() {
 
     let params = useParams();
 
-    const fetchDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-        const detailData = await data.json();
-        setDetails(detailData);
-    }
-
-    useEffect(() => {
-        fetchDetails();
-    }, [params.id]);
-
-    const fetchPlatformDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/platforms/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-        const platformDetailData = await data.json();
-        setPlatformDetails(platformDetailData.results);
-    }
-
-    useEffect(() => {
-        fetchPlatformDetails();
-    }, [params.id]);
-
-    const fetchGenreDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/genres/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-        const genreDetailData = await data.json();
-        setGenreDetails(genreDetailData.results);
-    }
-
-    useEffect(() => {
-        fetchGenreDetails();
-    }, [params.id]);
-
-    const fetchDeveloperDetails = async () => {
-        const data = await fetch(`https://rawg.io/api/developers/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-        const developerDetailData = await data.json();
-        setDeveloperDetails(developerDetailData.results);
-    }
-
-    useEffect(() => {
-        fetchDeveloperDetails();
-    }, [params.id]);
-
     const settings = {
         infinite: true,
         dots: false,
@@ -73,6 +33,35 @@ function Home() {
         autoplaySpeed: 2000,
         arrows: true
     };
+
+
+/*useEffect for detailed data on click*/
+
+    useEffect(() => {
+        fetchDetails().then((game) => {
+            setDetails(game);
+        })
+    }, [params.id]);
+
+    useEffect(() => {
+        fetchPlatformDetails().then((platform) => {
+            setPlatformDetails(platform);
+        })
+    }, [params.id]);
+
+    useEffect(() => {
+        fetchGenreDetails().then((genre) => {
+            setGenreDetails(genre);
+        })
+    }, [params.id]);
+
+    useEffect(() => {
+        fetchDeveloperDetails().then((developer) => {
+            setDeveloperDetails(developer);
+        })
+    }, [params.id]);
+
+    /*useEffect sliders of API data*/
 
     useEffect(() => {
         fetchPopular().then(games => {
