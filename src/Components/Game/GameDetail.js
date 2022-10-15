@@ -80,8 +80,8 @@ function GameDetail() {
             <h3>Description</h3>
             <p className='descriptionGame'>{details.description_raw}</p>
           </Grid>
-        </Grid>     
-
+        </Grid>
+      
       <h3>Related games</h3>
       <div className="related-games">
       <Slider {...settings}>
@@ -89,13 +89,13 @@ function GameDetail() {
           <Link to={`/games/${game.id}`}>
             <Card sx={{  marginBottom: 5, marginLeft: 1 }}>
               <CardMedia
-                sx={{ height: 150 }}
+                sx={{ height: 160 }}
                 image={game.background_image}
               />
               <CardContent>
                 <Grid container >
                   <Grid item xs={20}>
-                    <Typography variant="h6" component="p">
+                    <Typography variant="h6" component="p" sx={{ height:50 }}>
                       {game.name}
                     </Typography>
                   </Grid>
@@ -112,15 +112,15 @@ function GameDetail() {
       <Slider {...settings}>
         {addition.map(game =>
           <Link to={`/gameAdditions/${game.id}`}>
-            <Card sx={{ marginBottom: 5, marginLeft: 1 }}>
+            <Card sx={{  height: '100%', marginBottom: 5, marginLeft: 1 }}>
               <CardMedia
-                sx={{ height: 150 }}
+                sx={{ height:160 }}
                 image={game.background_image}
               />
               <CardContent>
                 <Grid container >
                   <Grid item xs={20}>
-                    <Typography variant="h6" component="p">
+                    <Typography variant="h6" component="p" sx={{ height:50 }}>
                       {game.name}
                     </Typography>
                   </Grid>
