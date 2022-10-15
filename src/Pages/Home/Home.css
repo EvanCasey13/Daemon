@@ -67,26 +67,20 @@
 .gameDetailsPage img {
     display: block;
     position: relative;
-    max-width: 40%;
-    height: auto;
+    max-width: 60%;
+    height: 60vh;
     border-radius: 10px;
-    margin-left: 5%;
+    margin-left: 10%;
+    float:left;
 }
 
 .gameDetailsPage h2 {
-    display: block;
-    position: relative;
-    max-width: 40%;
-    height: auto;
-    margin-left: 5%;
+padding-left: 10%;
 }
 
-.gameStats h2 {
-    display: block;
-    max-width: 40%;
-    position: relative;
-    padding-left: 2%;
-    margin-left: 3%;
+.gameDetailsPage {
+    overflow: hidden;
+    margin-left: 10%;
 }
 
 .descriptionGame {
@@ -96,13 +90,18 @@
 }
 
 .gameStats {
-    width: 50%;
-    float: left;
+    width: 100%;
     text-align: justify;
+    margin-left:70%;
 }
 
-.gameStats h5 {
-    display: block; 
+.gameStats p {
+    display: block;
+    position: relative;
+    max-width: 70%;
+    height: auto;
+    margin-left: 1%;
+    padding-top:1%;
 }
 
 .gameDetailsPage .developerImg {
@@ -128,11 +127,6 @@
 
 .tagName {
  padding-right: 50%;
-}
-
-.userStats {
-    text-align: justify;
-    float: left;
 }
 
 a:link {

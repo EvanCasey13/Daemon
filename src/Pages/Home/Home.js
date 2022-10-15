@@ -4,6 +4,8 @@ import Genre from '../../Components/Genre/Genres';
 import Platform from '../../Components/Platform/Platforms';
 import Developer from '../../Components/Developer/Developers';
 import Slider from "react-slick";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -89,6 +91,9 @@ function Home() {
 
         return (
             <div className='Home' >
+      <Box sx={{ flexGrow: 1, width: 1940}}>
+      <Grid>
+      <Grid item xs={12} >
                 <h2>Popular Games</h2>
                 <div className="popular-games">
                     <Slider {...settings}>
@@ -133,6 +138,9 @@ function Home() {
                         })}
                     </Slider>
                 </div>
+                </Grid>
+      </Grid>
+      </Box>
             </div>
     )
 };

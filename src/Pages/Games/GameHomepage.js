@@ -3,6 +3,8 @@ import Game from '../../Components/Game/Game';
 import './GameHomepage.css';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 function GameHomepage() {
 
@@ -43,7 +45,10 @@ function GameHomepage() {
 
     return (
         <div className='GameHome'>
-            <div className="games">
+<Box sx={{ flexGrow: 1 }}>
+      <Grid>
+        <Grid item xs={8}>
+          <div className="games">
             <form onSubmit={onSubmit}>
                 <input type="text" value={searchTerm} onChange={handleSearchChange} />
                 <br></br>
@@ -58,6 +63,10 @@ function GameHomepage() {
             <Stack spacing={2}>
                 <Pagination variant="outlined" shape="rounded" showFirstButton showLastButton count={1000} page={page} onChange={handleChange} onClick={fetchGames} />
             </Stack>
+        </Grid>
+      </Grid>
+    </Box>
+            
         </div>
     );
 
