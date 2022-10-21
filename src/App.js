@@ -12,6 +12,10 @@ import GameAdditionDetail from './Components/Game/GameAdditionDetail';
 import PlatformDetails from './Components/Platform/PlatformDetails';
 import GenreDetails from './Components/Genre/GenreDetails';
 import DeveloperDetails from './Components/Developer/DeveloperDetails';
+import Login from './Components/Login/Login'
+import Register from "./Components/Register/Register";
+import Reset from "./Components/Reset/Reset";
+import { AuthProvider } from "./AuthProvider";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -34,23 +38,26 @@ function App() {
         </div>
       ) : (
 
-        <header className="App-header">
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="gameHomepage" element={<GameHomepage />} />
-                <Route path="forumHomepage" element={<ForumHomepage />} />
-                <Route path="about" element={<About />} />
-                <Route path="/games/:id" element={<GameDetail />}/>
-                <Route path="/gameAdditions/:id" element={<GameAdditionDetail />}/>
-                <Route path="/platforms/:id" element={<PlatformDetails />}/>
-                <Route path="/genres/:id" element={<GenreDetails />}/>
-                <Route path="/developers/:id" element={<DeveloperDetails />}/>
-              </Route>
-            </Routes>
+            <AuthProvider>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="gameHomepage" element={<GameHomepage />} />
+                  <Route path="forumHomepage" element={<ForumHomepage />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="/games/:id" element={<GameDetail />} />
+                  <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
+                  <Route path="/platforms/:id" element={<PlatformDetails />} />
+                  <Route path="/genres/:id" element={<GenreDetails />} />
+                  <Route path="/developers/:id" element={<DeveloperDetails />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route exact path="/register" element={<Register />} />
+                  <Route exact path="/reset" element={<Reset />} />
+                </Route>
+              </Routes>
+            </AuthProvider>
           </BrowserRouter>
-        </header>
       )}
     </div>
   );

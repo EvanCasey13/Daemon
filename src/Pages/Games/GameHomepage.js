@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 import Game from '../../Components/Game/Game';
 import './GameHomepage.css';
 import Stack from '@mui/material/Stack';
 import Pagination from '@mui/material/Pagination';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import AuthContext from "../../AuthContext";
 
 function GameHomepage() {
 
@@ -42,6 +44,11 @@ function GameHomepage() {
     useEffect(() => {
         fetchGames();
     }, []);
+
+    const { user } = useContext(AuthContext);
+    if (!user) {
+        return <Navigate replace to="/login" />;
+        }
 
     return (
         <div className='GameHome'>

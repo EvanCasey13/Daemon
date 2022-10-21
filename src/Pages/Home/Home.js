@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Game from '../../Components/Game/Game';
 import Genre from '../../Components/Genre/Genres';
 import Platform from '../../Components/Platform/Platforms';
@@ -9,8 +9,9 @@ import Box from '@mui/material/Box';
 import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { fetchPopular, fetchGenres, fetchDevelopers, fetchPlatforms, fetchDetails, fetchDeveloperDetails, fetchGenreDetails, fetchPlatformDetails } from "../../api/rawg-api";
+import AuthContext from "../../AuthContext";
 
 function Home() {
 
@@ -89,6 +90,11 @@ function Home() {
             })
         }, []);
 
+        const { user } = useContext(AuthContext);
+        if (!user) {
+            return <Navigate replace to="/login" />;
+            }
+            
         return (
             <div className='Home' >
       <Box sx={{ flexGrow: 1, width: 1940}}>
