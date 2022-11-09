@@ -19,7 +19,7 @@ const GameDetail = ({ game }) => {
   };
   return (
     <div className="gameDetailsPage">
-      <Grid container spacing={5} sx={{ paddingTop: "10%" }}>
+      <Grid container spacing={1} sx={{ paddingTop: "10%" }}>
         <Paper
           component="div"
           sx={{

@@ -1,4 +1,18 @@
-export const fetchPopular = (page) => {
+export const fetchPopular = (page, query) => {
+    return fetch(
+        `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18&search=${query}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchPopularHome = (page) => {
     return fetch(
         `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18`
     ).then((response) => {

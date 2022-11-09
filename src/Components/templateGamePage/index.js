@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 
-const TemplateGamePage = ({ movie, children }) => {
+const TemplateGamePage = ({ children }) => {
 
 
   return (

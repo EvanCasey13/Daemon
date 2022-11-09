@@ -4,7 +4,7 @@ import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Navigate } from 'react-router-dom';
-import { fetchPopular } from "../../api/rawg-api";
+import { fetchPopularHome } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import PageTemplate from '../../Components/gameListPage';
 import { useQuery } from 'react-query';
@@ -20,7 +20,7 @@ function Home() {
         console.log(value)
     };
 
-    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopular(activePage), { keepPreviousData: true })
+    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopularHome(activePage), { keepPreviousData: true })
 
     if (isLoading) {
         return <h1>Games loading...</h1>
