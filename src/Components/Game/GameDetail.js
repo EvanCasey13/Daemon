@@ -1,138 +1,78 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Slider from "react-slick";
-
-function GameDetail() {
-
-  let params = useParams();
-  const [details, setDetails] = useState({});
-  const [series, setSeries] = useState([]);
-  const [addition, setAdditions] = useState([]);
-
-  const settings = {
-    infinite: false,
-    dots: false,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    lazyLoad: false,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: true
+import React from 'react';
+import Chip from "@mui/material/Chip";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import StarRate from "@mui/icons-material/StarRate";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+const GameDetail = ({ game }) => {
+  const chip = { margin: 0.5 };
+  const root = {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 1.5,
+    margin: 0,
   };
-
-  const fetchDetails = async () => {
-    const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
-    const detailData = await data.json();
-    setDetails(detailData);
-  }
-
-  const fetchGameAdditions = async () => {
-    const data = await fetch(`https://rawg.io/api/games/${params.id}/additions?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-    const additionData = await data.json();
-    setAdditions(additionData.results)
-  }
-
-  const fetchGameSeries = async () => {
-    const data = await fetch(`https://rawg.io/api/games/${params.id}/game-series?token&key=${process.env.REACT_APP_RAWG_API_KEY}`);
-    const seriesData = await data.json();
-    setSeries(seriesData.results)
-  }
-
-  useEffect(() => {
-    fetchDetails();
-  }, [params.id]);
-
-  useEffect(() => {
-    fetchGameAdditions();
-  }, [params.id]);
-
-  useEffect(() => {
-    fetchGameSeries();
-  }, [params.id]);
-
   return (
     <div className="gameDetailsPage">
+      <Grid container spacing={5} sx={{ paddingTop: "10%" }}>
+        <Paper
+          component="div"
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+            padding: 1.5,
+            margin: 0,
+          }}
+        >
 
-      <Box sx={{ flexGrow: 1, width: 1500  }}>
-        <Grid container spacing={1} >
-          <Grid item xs={4} sm={6} md={12} >
-            <h2>{details.name}</h2>
-            <img src={details.background_image} />
-            <div className="gameStats">
-              <p>Released: {details.released}</p>
-              <p>Rating: {details.rating}</p>
-              <p>Metacritic: {details.metacritic} %</p>
-              <p>Playtime: {details.playtime} hours</p>
-              <p>Achievements: {details.achievements_count}</p>
-              <p>Developer: {details.developers?.map(dev => dev.name + " ")}</p>
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-
-            <h3>Description</h3>
-            <p className='descriptionGame'>{details.description_raw}</p>
+          <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+            <ImageList
+              cols={1}>
+              <Typography variant="h4" component="h3" className='nameDetailsPage'>
+                {game.name}
+              </Typography>
+              <ImageListItem cols={1}>
+                <img
+                  src={game.background_image}
+                  alt="game_image"
+                />
+              </ImageListItem>
+            </ImageList>
           </Grid>
-        </Grid>
-      
-      <h3>Related games</h3>
-      <div className="related-games">
-      <Slider {...settings}>
-        {series.map(game =>
-          <Link to={`/games/${game.id}`}>
-            <Card sx={{  marginBottom: 5, marginLeft: 1 }}>
-              <CardMedia
-                sx={{ height: 160 }}
-                image={game.background_image}
-              />
-              <CardContent>
-                <Grid container >
-                  <Grid item xs={20}>
-                    <Typography variant="h6" component="p" sx={{ height:50 }}>
-                      {game.name}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Link>
-        )}
-      </Slider>
-      </div>
-      
-      <h3>Related DLC</h3>
-      <div className="related-dlc">
-      <Slider {...settings}>
-        {addition.map(game =>
-          <Link to={`/gameAdditions/${game.id}`}>
-            <Card sx={{  height: '100%', marginBottom: 5, marginLeft: 1 }}>
-              <CardMedia
-                sx={{ height:160 }}
-                image={game.background_image}
-              />
-              <CardContent>
-                <Grid container >
-                  <Grid item xs={20}>
-                    <Typography variant="h6" component="p" sx={{ height:50 }}>
-                      {game.name}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Link>
-        )}
-      </Slider>
+        </Paper>
+        <>
+
+          <Typography variant="h6" component="p" className='descriptionGame'>
+            {game.description_raw}
+          </Typography>
+          <Paper
+            component="ul"
+            sx={{ ...root }}
+          >
+            <Chip label="Genres" sx={{ ...chip }} color="primary" />
+            {game.genres.map((g) => (
+              <li key={g.name}>
+                <Chip label={g.name} sx={{ ...chip }} />
+              </li>
+            ))}
+            <Chip icon={<AccessTimeIcon />} label={`Playtime: ${game.playtime} hours`} />
+            <Chip
+              icon={<StarRate />}
+              label={`${game.rating}`}
+            />
+            <Chip label={`Released: ${game.released}`} />
+          </Paper>
+
+        </>
+      </Grid>
     </div>
-    </Box>
-    </div>
+
   )
 };
 

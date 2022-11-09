@@ -1,154 +1,59 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Game from '../../Components/Game/Game';
-import Genre from '../../Components/Genre/Genres';
-import Platform from '../../Components/Platform/Platforms';
-import Developer from '../../Components/Developer/Developers';
-import Slider from "react-slick";
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import React, { useState, useContext } from 'react';
+import Pagination from '@mui/material/Pagination';
 import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useParams, Navigate } from 'react-router-dom';
-import { fetchPopular, fetchGenres, fetchDevelopers, fetchPlatforms, fetchDetails, fetchDeveloperDetails, fetchGenreDetails, fetchPlatformDetails } from "../../api/rawg-api";
+import { Navigate } from 'react-router-dom';
+import { fetchPopular } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
+import PageTemplate from '../../Components/gameListPage';
+import { useQuery } from 'react-query';
 
 function Home() {
 
-    const [popular, setPopular] = useState([]);
-    const [genres, setGenres] = useState([]);
-    const [platforms, setPlatforms] = useState([]);
-    const [developers, setDevelopers] = useState([]);
-    const [details, setDetails] = useState({});
-    const [platformDetails, setPlatformDetails] = useState([]);
-    const [genreDetails, setGenreDetails] = useState([]);
-    const [developerDetails, setDeveloperDetails] = useState([]);
+    const { user } = useContext(AuthContext);
 
-    let params = useParams();
+    const [activePage, setActivePage] = useState(1);
 
-    const settings = {
-        infinite: true,
-        dots: false,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        lazyLoad: false,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        arrows: true
+    const handleChange = (event, value) => {
+        setActivePage(value);
+        console.log(value)
     };
 
+    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopular(activePage), { keepPreviousData: true })
 
-/*useEffect for detailed data on click*/
+    if (isLoading) {
+        return <h1>Games loading...</h1>
+    }
 
-    useEffect(() => {
-        fetchDetails().then((game) => {
-            setDetails(game);
-        })
-    }, [params.id]);
+    if (isError) {
+        return <h1>{error.message}</h1>
+    }
+    const games = data.results;
 
-    useEffect(() => {
-        fetchPlatformDetails().then((platform) => {
-            setPlatformDetails(platform);
-        })
-    }, [params.id]);
+    if (!user) {
+        return <Navigate replace to="/login" />;
+    }
 
-    useEffect(() => {
-        fetchGenreDetails().then((genre) => {
-            setGenreDetails(genre);
-        })
-    }, [params.id]);
-
-    useEffect(() => {
-        fetchDeveloperDetails().then((developer) => {
-            setDeveloperDetails(developer);
-        })
-    }, [params.id]);
-
-    /*useEffect sliders of API data*/
-
-    useEffect(() => {
-        fetchPopular().then(games => {
-            setPopular(games);
-        })
-    }, []);
-
-    useEffect(() => {
-        fetchGenres().then(genres => {
-            setGenres(genres);
-        })
-        }, []);
-
-        useEffect(() => {
-            fetchPlatforms().then(plaforms => {
-                setPlatforms(plaforms);
-            })
-        }, []);
-
-        useEffect(() => {
-            fetchDevelopers().then(developers => {
-                setDevelopers(developers);
-            })
-        }, []);
-
-        const { user } = useContext(AuthContext);
-        if (!user) {
-            return <Navigate replace to="/login" />;
-            }
-            
-        return (
-            <div className='Home' >
-      <Box sx={{ flexGrow: 1, width: 1940}}>
-      <Grid>
-      <Grid item xs={12} >
-                <h2>Popular Games</h2>
-                <div className="popular-games">
-                    <Slider {...settings}>
-                        {popular.map(game => {
-                            return <Game
-                                key={game.id} game={game} onClick={() => fetchDetails(game.id)}
-
-                            />;
-                        })}
-                    </Slider>
-                </div>
-
-                <h3>Genres</h3>
-                <div className="genres">
-                    <Slider {...settings}>
-                        {genres.map(genre => {
-                            return <Genre
-                                key={genre.id} genre={genre} onClick={() => fetchGenreDetails(genre.id)}
-                            />;
-                        })}
-                    </Slider>
-                </div>
-
-                <h3>Platforms</h3>
-                <div className="Platforms">
-                    <Slider {...settings}>
-                        {platforms.map(platform => {
-                            return <Platform
-                                key={platform.id} platform={platform} onClick={() => fetchPlatformDetails(platform.id)}
-                            />;
-                        })}
-                    </Slider>
-                </div>
-
-                <h3>Developers</h3>
-                <div className="Developers">
-                    <Slider {...settings}>
-                        {developers.map(developer => {
-                            return <Developer
-                                key={developer.id} developer={developer} onClick={() => fetchDeveloperDetails(developer.id)}
-                            />;
-                        })}
-                    </Slider>
-                </div>
-                </Grid>
-      </Grid>
-      </Box>
-            </div>
+    return (
+        <div className='Home' >
+            <h2>Popular Games</h2>
+            <PageTemplate   
+            games={games}
+            />
+              <Pagination
+        count='100'
+        variant='outlined'
+        color='primary'
+        shape="rounded"
+        showFirstButton 
+        showLastButton
+        className='pagination'
+        page={activePage}
+        onChange={handleChange}
+      />
+        </div>
     )
 };
-                    
+
 export default Home;

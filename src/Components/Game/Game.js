@@ -6,13 +6,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
-
 const Game = ({ game }) => {
 
   return (
     <div className="HomeComponent">
       <Link to={`/games/${game.id}`}>
-        <Card sx={{ maxWidth: 345, height: '100%' }}>
+        <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardMedia
             sx={{ height: 300 }}
             image={game.background_image}

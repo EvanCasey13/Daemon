@@ -20,7 +20,7 @@ function Reset() {
     <div className="reset">
       <Card sx={{ maxWidth: 345 }}>
         <Typography gutterBottom variant="h5" component="div" className="cardTitle">
-          TMDB Client
+          Daemon
         </Typography>
         <form className="form">
           <TextField type="text"

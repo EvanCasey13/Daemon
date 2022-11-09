@@ -1,3 +1,7 @@
+.Home {
+    overflow-x: hidden; 
+}
+
 .Platforms {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -51,41 +55,31 @@
     right: 0;
 }
 
-.detailsPage img {
-    width: 30%;
-    height: 40vh;
-    object-fit: cover;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    float: left;
-    position: absolute;
-    left: 0;
-    margin-top: -19.5%;
-    margin-left: 0.5%;
+.gameDetailsPage {
+    margin-left: 15%;
+    overflow-x: hidden; 
 }
 
 .gameDetailsPage img {
-    display: block;
-    position: relative;
-    max-width: 60%;
-    height: 60vh;
-    border-radius: 10px;
-    margin-left: 10%;
-    float:left;
+    display: flex;
+    max-width: 40%;
+    height: 50vh;
+    border-radius: 20px;
 }
 
 .gameDetailsPage h2 {
 padding-left: 10%;
 }
 
-.gameDetailsPage {
-    margin-left: 10%;
-}
-
 .descriptionGame {
     text-align: justify;
-    padding-left: 5%;
-    padding-right: 5%;
+    margin: auto;
+    padding: 10px;
+    padding-left:5%;
+}
+
+.nameDetailsPage {
+    padding-right:60%;
 }
 
 .gameStats {

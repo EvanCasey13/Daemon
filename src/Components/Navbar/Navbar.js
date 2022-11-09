@@ -50,7 +50,8 @@ const NavBar = ( ) => {
     { label: "Forum", path: "/forumhomepage" },
     { label: "About", path: "/about" },
     { label: "Register", path: "/register" },
-    { label: "Login", path: "/login" },  ];
+    { label: "Login", path: "/login" },
+    { label: user?.displayName }  ];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
@@ -64,11 +65,8 @@ const NavBar = ( ) => {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <div>{user?.displayName}</div>
-         <div>{user?.email}</div>
          <img src ={Logo} alt ="Daemon Logo"></img>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            
             Daemon
           </Typography>
             {isMobile ? (

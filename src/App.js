@@ -7,7 +7,7 @@ import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
 import About from './Pages/About/About';
 import Layout from './Pages/Layout';
-import GameDetail from './Components/Game/GameDetail';
+import GameDetail from './Pages/Games/GameDetailsPage';
 import GameAdditionDetail from './Components/Game/GameAdditionDetail';
 import PlatformDetails from './Components/Platform/PlatformDetails';
 import GenreDetails from './Components/Genre/GenreDetails';
@@ -16,6 +16,19 @@ import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
 import { AuthProvider } from "./AuthProvider";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { createRoot } from "react-dom/client";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 360000,
+      refetchInterval: 360000, 
+      refetchOnWindowFocus: false
+    },
+  },
+});
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -37,7 +50,7 @@ function App() {
           </div>
         </div>
       ) : (
-
+<QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <AuthProvider>
               <Routes>
@@ -58,6 +71,8 @@ function App() {
               </Routes>
             </AuthProvider>
           </BrowserRouter>
+          <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
       )}
     </div>
   );
