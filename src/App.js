@@ -5,8 +5,8 @@ import Logo from './images/daemon_logo.png'
 import Home from './Pages/Home/Home';
 import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
+import UserProfile from './Pages/UserProfile/UserProfile';
 import About from './Pages/About/About';
-import Layout from './Pages/Layout';
 import GameDetail from './Pages/Games/GameDetailsPage';
 import GameAdditionDetail from './Components/Game/GameAdditionDetail';
 import PlatformDetails from './Components/Platform/PlatformDetails';
@@ -15,10 +15,10 @@ import DeveloperDetails from './Components/Developer/DeveloperDetails';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
+import NavBar from "./Components/Navbar/Navbar";
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { createRoot } from "react-dom/client";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,14 +52,15 @@ function App() {
       ) : (
 <QueryClientProvider client={queryClient}>
           <BrowserRouter>
+          <NavBar />
             <AuthProvider>
               <Routes>
-                <Route path="/" element={<Layout />}>
                   <Route index element={<Home />} />
                   <Route path="gameHomepage" element={<GameHomepage />} />
                   <Route path="forumHomepage" element={<ForumHomepage />} />
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
+                  <Route path="/profile/:id" element={<UserProfile />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="/platforms/:id" element={<PlatformDetails />} />
                   <Route path="/genres/:id" element={<GenreDetails />} />
@@ -67,7 +68,6 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
                   <Route exact path="/reset" element={<Reset />} />
-                </Route>
               </Routes>
             </AuthProvider>
           </BrowserRouter>

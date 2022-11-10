@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage"
 import {
   GoogleAuthProvider,
   getAuth,
@@ -29,7 +30,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-
+const storage = getStorage(app)
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
@@ -39,6 +40,7 @@ const signInWithGoogle = async () => {
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
+        profilePicture: user.photoURL,
         authProvider: "google",
         email: user.email,
       });
@@ -56,12 +58,13 @@ const logInWithEmailAndPassword = async (email, password) => {
     alert(err.message);
   }
 };
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, profilePicture) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const res = await createUserWithEmailAndPassword(auth, email, password, profilePicture);
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,
+      profilePicture,
       name,
       authProvider: "local",
       email,
@@ -87,6 +90,7 @@ export {
   auth,
   db,
   signInWithGoogle,
+  storage,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
