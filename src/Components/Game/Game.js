@@ -26,7 +26,7 @@ const Game = ({ game }) => {
     console.log(documentId)
    try {
     const docRef = await addDoc(
-      collection(db, "users", documentId, "favourites"),
+      collection(db, "users", user.uid, "favourites"),
       {
        gameName: game.name
       }
