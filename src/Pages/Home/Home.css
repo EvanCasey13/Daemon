@@ -62,9 +62,10 @@
 
 .gameDetailsPage img {
     display: flex;
-    max-width: 40%;
+    max-width: 100%;
     height: 50vh;
     border-radius: 20px;
+    width: 100vw;
 }
 
 .gameDetailsPage h2 {
@@ -76,10 +77,6 @@ padding-left: 10%;
     margin: auto;
     padding: 10px;
     padding-left:5%;
-}
-
-.nameDetailsPage {
-    padding-right:60%;
 }
 
 .gameStats {

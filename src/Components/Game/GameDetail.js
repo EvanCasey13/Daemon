@@ -47,28 +47,9 @@ const GameDetail = ({ game }) => {
           </Grid>
         </Paper>
         <>
-
           <Typography variant="h6" component="p" className='descriptionGame'>
             {game.description_raw}
           </Typography>
-          <Paper
-            component="ul"
-            sx={{ ...root }}
-          >
-            <Chip label="Genres" sx={{ ...chip }} color="primary" />
-            {game.genres.map((g) => (
-              <li key={g.name}>
-                <Chip label={g.name} sx={{ ...chip }} />
-              </li>
-            ))}
-            <Chip icon={<AccessTimeIcon />} label={`Playtime: ${game.playtime} hours`} />
-            <Chip
-              icon={<StarRate />}
-              label={`${game.rating}`}
-            />
-            <Chip label={`Released: ${game.released}`} />
-          </Paper>
-
         </>
       </Grid>
     </div>
