@@ -53,8 +53,7 @@ const NavBar = ( ) => {
     { label: "Forum", path: "/forumhomepage" },
     { label: "About", path: "/about" },
     { label: "Register", path: "/register" },
-    { label: "Login", path: "/login" },
-    { label: user?.email },
+    { label: "Login", path: "/login" }
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -90,7 +89,7 @@ const NavBar = ( ) => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar alt={name} src={profilePicture} sx={{ width: 56, height: 56 }}/>
+            <Avatar alt={name} src={user?.photoURL} sx={{ width: 56, height: 56 }}/>
           </IconButton>
         </Tooltip>
         

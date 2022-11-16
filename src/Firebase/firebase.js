@@ -16,6 +16,8 @@ import {
   collection,
   where,
   addDoc,
+  doc,
+  setDoc
 } from "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyB1Or775fgqlbBijv2kc5_7JUXLBTuGBPw",
@@ -35,15 +37,16 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
+    const docRef = doc(db, 'users', user.uid)
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await setDoc(docRef, {
         uid: user.uid,
         profilePicture: user.photoURL,
         authProvider: "google",
         email: user.email,
-      });
+      }, { merge: true });
     }
   } catch (err) {
     console.error(err);
