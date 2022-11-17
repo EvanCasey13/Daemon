@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import MessageIcon from '@mui/icons-material/Message';
+import IconButton from '@mui/material/IconButton';
+import './User.css'
 
 const UserCard = () => {
     const [user, loading, error] = useAuthState(auth);
@@ -29,34 +33,31 @@ const UserCard = () => {
         }
     };
 
-    const chip = { margin: 0.5 };
-    const root = {
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        listStyle: "none",
-        padding: 1.5,
-        margin: 0,
-    };
     return (
-        <div className="HomeComponent">
-            <Grid container sx={{ paddingTop: "10%" }}>
-                <Grid item xs={8} sm={8} md={8} lg={8} xl={2}>
-                    <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <div className="UserCard">
+            <Grid container spacing={3} sx={{ paddingTop: "10%" }}>
+                <Grid item xs={8} sm={8} md={8} lg={8} xl={12} > 
+                    <Card>
                         <CardMedia
                             component="img"
-                            height="140"
+                            height="280"
                             image={user?.photoURL}
                             alt="user_profile_picture"
                         />
-                     <CardContent>
+                        <CardContent>
 
-              <Grid item xs={20}>
-                <Typography variant="h6" component="p">
-                  {user?.displayName}
-                </Typography>
-              </Grid>
-          </CardContent>
+                            <Grid item xs={20}>
+                                <Typography variant="h6" component="p">
+                                    {user?.displayName}
+                                </Typography>
+                            </Grid>
+                            <IconButton aria-label="addFriend">
+                                <PersonAddIcon />
+                            </IconButton>
+                            <IconButton aria-label="Message">
+                                <MessageIcon />
+                            </IconButton>
+                        </CardContent>
                     </Card>
                 </Grid>
             </Grid>
