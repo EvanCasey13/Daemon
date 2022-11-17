@@ -16,19 +16,22 @@ import Box from '@mui/material/Box';
 import 'reactjs-popup/dist/index.css';
 import Popup from 'reactjs-popup';
 import { auth, db } from "../../Firebase/firebase";
-import { query, collection, addDoc,setDoc, doc, where, documentId } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const Game = ({ game }) => {
 
   const [user, loading, error] = useAuthState(auth);
+  const [status, setStatus] = React.useState('');
+  const [rating, setRating] = React.useState('');
 
   const addToList = async () => {
-    console.log(documentId)
    try {
     const docRef = await addDoc(
       collection(db, "users", user.uid, "favourites"),
       {
-       gameName: game.name
+       game: game,
+       Status: status,
+       Rating: rating
       }
     );
     } catch (err) {
@@ -36,9 +39,6 @@ const Game = ({ game }) => {
       alert("An error occured while adding a game");
     }
   }
-
-  const [status, setStatus] = React.useState('');
-  const [rating, setRating] = React.useState('');
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);

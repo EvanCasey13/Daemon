@@ -1,0 +1,30 @@
+.UserCard {
+    width: '25rem';
+    background-color: white;
+    border-radius: 1rem;
+    margin-bottom: 6rem;
+    margin-top:4.5%;
+    color: #000;
+    overflow-x: hidden; 
+    border-style: solid;
+    border-width: 2px;
+}
+
+.userProfile {
+    display:flex; 
+    flex-direction:row;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.userListPage {
+    display:flex; 
+    flex-direction:row;
+    padding-top: 5%;
+}
+
+.Underline {
+    text-decoration: underline;     
+}
+
+.userListTitle {padding-right: 70%;}
