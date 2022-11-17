@@ -89,7 +89,7 @@ const NavBar = ( ) => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar alt={name} src={user?.photoURL} sx={{ width: 56, height: 56 }}/>
+            <Avatar alt={name} src={profilePicture} sx={{ width: 56, height: 56 }}/>
           </IconButton>
         </Tooltip>
         
