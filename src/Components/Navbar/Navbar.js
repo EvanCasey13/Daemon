@@ -74,9 +74,9 @@ const NavBar = ( ) => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar position="fixed" style={{ backgroundColor: "black"}}>
         <Toolbar>
-         <img src ={Logo} alt ="Daemon Logo"></img>
+         <img src ={Logo} className ="logo" alt ="Daemon Logo"/>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             Daemon
           </Typography>

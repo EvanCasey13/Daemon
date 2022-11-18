@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  background-color: white;
+  background: rgb(102,231,255);
+  background: radial-gradient(circle, rgba(102,231,255,1) 0%, rgba(56,58,60,1) 99%);
 }
 
 .App-logo {
@@ -14,6 +15,9 @@
   }
 }
 
+.logo {
+  border-radius: 50%;
+}
 .loader {
   display: inline-block;
   position:relative;

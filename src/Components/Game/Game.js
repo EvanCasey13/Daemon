@@ -50,8 +50,8 @@ const Game = ({ game }) => {
 
   return (
     <div className="HomeComponent">
-
-      <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+<Box sx={{ boxShadow: 3 }}>
+      <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
         <Link to={`/games/${game.id}`}>
           <CardMedia
             sx={{ height: 300 }}
@@ -145,6 +145,7 @@ const Game = ({ game }) => {
           )}
         </Popup>
       </Card>
+      </Box>
     </div>
   );
 };
