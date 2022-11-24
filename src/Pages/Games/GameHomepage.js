@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import './GameHomepage.css';
 import Pagination from '@mui/material/Pagination';
 import PageTemplate from '../../Components/gameListPage';
@@ -20,14 +20,16 @@ function GameHomepage() {
         console.log(value)
     };
 
-    const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useSearchParams();
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   
     const handleSearchChange = (e) => {
-      setSearchTerm(e.target.value)
+      setSearchTerm({ query: e.target.value })
     }
 
-    const { data, error, isLoading, isError } = useQuery(['games', activePage, debouncedSearchTerm], () => fetchPopular(activePage, debouncedSearchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm})
+    const term = searchTerm.get("query")
+
+    const { data, error, isLoading, isError } = useQuery(['games', activePage, term], () => fetchPopular(activePage, searchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm})
 
     if (isLoading) {
         return <h1>Games loading...</h1>
@@ -44,21 +46,20 @@ function GameHomepage() {
 
     return (
         <div className='Home' >
-            <form>
-
-            <br></br>
+            <br /><br /><br /><br />
+            <h2>Popular Games</h2>
+    <form>
     <TextField
     id="filled-search"
     fullWidth 
     label="Search for a game"
     type="search"
     variant="filled"
-    value={searchTerm}
+    value={term == null ? '' : term}
     onChange={handleSearchChange}
         />
        
         </form>
-            <h2>Popular Games</h2>
             <PageTemplate   
             games={games}
             />

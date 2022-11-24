@@ -14,7 +14,7 @@ const GameDetail = ({ game }) => {
             display: "flex",
             justifyContent: "space-around",
             flexWrap: "wrap",
-            padding: 1.5,
+            padding: 0.5,
             margin: 0,
           }}
         >

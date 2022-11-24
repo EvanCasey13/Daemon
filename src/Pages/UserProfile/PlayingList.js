@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../../Firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth"
 import Game from "../../Components/FavouriteGame/FavouriteGame"
 import Grid from "@mui/material/Grid";
@@ -20,12 +20,11 @@ const PlayingList = () => {
         })))
       }
     });
-  }, [])
+  }, [favourites])
 
   return (
     <div className="PlayingList">
     {favourites.map(fav => {
-      console.log(favourites)
       return (
         <Grid container spacing={1} sx={{ padding: "5px" }}>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
