@@ -16,7 +16,6 @@ import PlayingList from './Pages/UserProfile/PlayingList';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
-import NavBar from "./Components/Navbar/Navbar";
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -53,7 +52,6 @@ function App() {
       ) : (
 <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-          <NavBar />
             <AuthProvider>
               <Routes>
                   <Route index element={<Home />} />

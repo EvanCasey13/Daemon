@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import Game from "../../Components/FavouriteGame/FavouriteGame"
 import Grid from "@mui/material/Grid";
 import './UserProfile.css'
+import NavBar from "../../Components/Navbar/Navbar"
 
 const PlayingList = () => {
 
@@ -24,6 +25,7 @@ const PlayingList = () => {
 
   return (
     <div className="PlayingList">
+      <NavBar />
     {favourites.map(fav => {
       return (
         <Grid container spacing={1} sx={{ padding: "5px" }}>
