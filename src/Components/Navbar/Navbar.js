@@ -51,9 +51,7 @@ const NavBar = ( ) => {
     { label: "Home", path: "/" },
     { label: "Games", path: "/gamehomepage" },
     { label: "Forum", path: "/forumhomepage" },
-    { label: "About", path: "/about" },
-    { label: "Register", path: "/register" },
-    { label: "Login", path: "/login" }
+    { label: "About", path: "/about" }
   ];
 
   const handleMenuSelect = (pageURL) => {

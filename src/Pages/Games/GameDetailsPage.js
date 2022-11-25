@@ -4,6 +4,7 @@ import GameDetails from "../../Components/Game/GameDetail";
 import PageTemplate from '../../Components/templateGamePage';
 import { fetchDetails } from '../../api/rawg-api'
 import { useQuery } from "react-query";
+import NavBar from "../../Components/Navbar/Navbar"
 
 const GameDetailsPage = (props) => {
   const { id } = useParams();
@@ -22,6 +23,7 @@ const GameDetailsPage = (props) => {
 
   return (
     <>
+      <NavBar />
       {game ? (
         <>
           <PageTemplate game={game}>

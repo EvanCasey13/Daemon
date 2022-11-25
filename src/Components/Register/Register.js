@@ -61,8 +61,7 @@ function Register() {
     initialValues: {
       accountName: '',
       email: '',
-      password: '',
-      urlV: '',
+      password: ''
     },
     validationSchema: validationSchema,
   });

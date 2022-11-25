@@ -8,6 +8,7 @@ import { fetchPopularHome } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import PageTemplate from '../../Components/gameListPage';
 import { useQuery } from 'react-query';
+import NavBar from "../../Components/Navbar/Navbar"
 
 function Home() {
 
@@ -37,21 +38,22 @@ function Home() {
 
     return (
         <div className='Home' >
+            <NavBar />
             <h2>Popular Games</h2>
-            <PageTemplate   
-            games={games}
+            <PageTemplate
+                games={games}
             />
-              <Pagination
-        count='100'
-        variant='outlined'
-        color='primary'
-        shape="rounded"
-        showFirstButton 
-        showLastButton
-        className='pagination'
-        page={activePage}
-        onChange={handleChange}
-      />
+            <Pagination
+                count='100'
+                variant='outlined'
+                color='primary'
+                shape="rounded"
+                showFirstButton
+                showLastButton
+                className='pagination'
+                page={activePage}
+                onChange={handleChange}
+            />
         </div>
     )
 };
