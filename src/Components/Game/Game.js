@@ -50,7 +50,9 @@ const Game = ({ game }) => {
 
   return (
     <div className="HomeComponent">
-<Box sx={{ boxShadow: 3 }}>
+      <Grid container style={{ display: 'grid' }}>
+  <Grid item>
+<Box sx={{ boxShadow: 3 }} >
       <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
         <Link to={`/games/${game.id}`}>
           <CardMedia
@@ -58,7 +60,10 @@ const Game = ({ game }) => {
             image={game.background_image}
           />
         </Link>
-        <CardContent>
+        <CardContent style={{
+                  paddingBottom: "10%",
+                  maxHeight: "100px"
+                }}>
           <Grid container >
             <Grid item xs={20}>
               <Typography variant="h6" component="p">
@@ -146,6 +151,8 @@ const Game = ({ game }) => {
         </Popup>
       </Card>
       </Box>
+      </Grid>
+      </Grid>
     </div>
   );
 };
