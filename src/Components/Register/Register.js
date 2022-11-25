@@ -13,67 +13,104 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "./Register.css";
+import Logo from '../../images/daemon_logo.png'
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [url, setUrl] = useState("");
-  const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const image = e.target[0]?.files[0]
-  
+
     if (!image) return null;
     const storageRef = ref(storage, `images/${image.name}`)
     uploadBytes(storageRef, image)
-    .then((snapshot) => {
-      e.target[0].value = ''
-      getDownloadURL(snapshot.ref).then((downloadURL) => {
-        setUrl(downloadURL)
-        console.log(downloadURL)
+      .then((snapshot) => {
+        e.target[0].value = ''
+        getDownloadURL(snapshot.ref).then((downloadURL) => {
+          setUrl(downloadURL)
+          console.log(downloadURL)
         })
       })
-  } 
+  }
 
   const nav = useNavigate();
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password, url);
-  };
   useEffect(() => {
     if (loading) return;
     if (user) nav("/");
   }, [user, loading]);
+
+  const validationSchema = yup.object({
+    accountName: yup
+      .string('Enter your account name')
+      .required('Account name is required'),
+    email: yup
+      .string('Enter your email')
+      .email('Enter a valid email')
+      .required('Email is required'),
+    password: yup
+      .string('Enter your password')
+      .min(8, 'Password should be of minimum 8 characters length')
+      .required('Password is required'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      accountName: '',
+      email: '',
+      password: '',
+      urlV: '',
+    },
+    validationSchema: validationSchema,
+  });
+
+  const register = () => {
+    registerWithEmailAndPassword(formik.values.accountName, formik.values.email, formik.values.password, url);
+  };
+
   return (
     <div className="register">
-      <Card sx={{ maxWidth: 345 }}>
-        <Typography gutterBottom variant="h5" component="div" className="cardTitle">
-          Daemon
-        </Typography>
-        <form className="form">
-          <TextField type="text"
+      <Card sx={{ maxWidth: 380 }}>
+        <img src={Logo} className="logo" alt="Daemon Logo" />
+        <form className="form" onSubmit={formik.handleSubmit}>
+          <TextField
+            fullWidth
+            id="accountName"
             className="register__textBox"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-            variant="standard" />
+            label="Account name"
+            value={formik.values.accountName}
+            onChange={formik.handleChange}
+            error={formik.touched.accountName && Boolean(formik.errors.accountName)}
+            helperText={formik.touched.accountName && formik.errors.accountName}
+          />
           <br />
-          <TextField type="text"
+          <TextField
+            fullWidth
+            id="email"
             className="register__textBox"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email Address"
-            variant="standard" />
+            label="Email address"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
           <br />
-          <TextField type="password"
+          <TextField
+            fullWidth
+            id="password"
             className="register__textBox"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            variant="standard" />
+            label="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
           <br />
-          <Button className="register__btn" onClick={register} variant="outlined">Register</Button>
+          <Button className="register__btn" onClick={register} variant="outlined" type="submit">Register</Button>
           <br />
           <Button className="register__btn register__google"
             onClick={signInWithGoogle} variant="outlined">Register with Google</Button>
@@ -82,11 +119,11 @@ function Register() {
             Already have an account? <Link to="/login">Login</Link> now.
           </Typography>
         </form>
-        <form className='app__form' name='upload_file' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
         <input type='file' />
         <button type='submit'>Upload</button>
         <p>URL: {url}</p>
-      </form>
+        </form>
       </Card>
     </div>
   );
