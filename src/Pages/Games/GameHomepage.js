@@ -47,7 +47,7 @@ function GameHomepage() {
 
     return (
         <div className='Home' >
-            <NavBar />
+           
             <br /><br /><br /><br />
             <h2>Popular Games</h2>
             <form>

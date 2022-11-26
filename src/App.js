@@ -10,7 +10,6 @@ import About from './Pages/About/About';
 import GameDetail from './Pages/Games/GameDetailsPage';
 import GameAdditionDetail from './Components/Game/GameAdditionDetail';
 import PlatformDetails from './Components/Platform/PlatformDetails';
-import GenreDetails from './Components/Genre/GenreDetails';
 import DeveloperDetails from './Components/Developer/DeveloperDetails';
 import PlayingList from './Pages/UserProfile/PlayingList';
 import Login from './Components/Login/Login'
@@ -63,7 +62,6 @@ function App() {
                   <Route path="/playing/:id" element={<PlayingList />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="/platforms/:id" element={<PlatformDetails />} />
-                  <Route path="/genres/:id" element={<GenreDetails />} />
                   <Route path="/developers/:id" element={<DeveloperDetails />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
