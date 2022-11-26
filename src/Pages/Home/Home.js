@@ -1,14 +1,11 @@
 import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
 import './Home.css';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Navigate } from 'react-router-dom';
 import { fetchPopularHome } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import PageTemplate from '../../Components/gameListPage';
 import { useQuery } from 'react-query';
-import NavBar from "../../Components/Navbar/Navbar"
 
 function Home() {
 
@@ -38,11 +35,11 @@ function Home() {
 
     return (
         <div className='Home' >
-            <NavBar />
             <h2>Popular Games</h2>
-            <PageTemplate
-                games={games}
-            />
+                <PageTemplate
+                    games={games}
+                />
+            
             <Pagination
                 count='100'
                 variant='outlined'
