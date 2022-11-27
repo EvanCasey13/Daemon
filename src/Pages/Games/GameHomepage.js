@@ -8,7 +8,6 @@ import { useQuery } from 'react-query';
 import { fetchPopular } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
-import NavBar from "../../Components/Navbar/Navbar"
 
 function GameHomepage() {
 

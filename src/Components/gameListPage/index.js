@@ -24,7 +24,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import GenreList from "../Genres/genreList"
 
 function GameListPageTemplate({ games }) {
   //Sidebar
@@ -236,9 +235,6 @@ function GameListPageTemplate({ games }) {
             </IconButton>
           </DrawerHeader>
           <Divider />
-          <List>
-            <GenreList />
-          </List>
         </Drawer>
         <Main open={openD}>
           <DrawerHeader />
