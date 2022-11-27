@@ -8,6 +8,7 @@ import ForumHomepage from './Pages/Forum/ForumHomepage';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import About from './Pages/About/About';
 import GameDetail from './Pages/Games/GameDetailsPage';
+import GenrePage from './Pages/Genre/GenrePage';
 import GameAdditionDetail from './Components/Game/GameAdditionDetail';
 import PlatformDetails from './Components/Platform/PlatformDetails';
 import DeveloperDetails from './Components/Developer/DeveloperDetails';
@@ -58,6 +59,7 @@ function App() {
                   <Route path="forumHomepage" element={<ForumHomepage />} />
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
+                  <Route path="/genres/:name" element={<GenrePage />} />
                   <Route path="/profile/:id" element={<UserProfile />} />
                   <Route path="/playing/:id" element={<PlayingList />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />

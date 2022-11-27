@@ -8,10 +8,7 @@ import NavBar from "../../Components/Navbar/Navbar"
 
 const GameDetailsPage = (props) => {
   const { id } = useParams();
-  const { data: game, error, isLoading, isError } = useQuery(
-    ["game", { id: id }],
-    fetchDetails
-  );
+  const { data: game, error, isLoading, isError } = useQuery(["game", { id: id }],fetchDetails);
 
   if (isLoading) {
     return <h1>Retreiving game details....</h1>

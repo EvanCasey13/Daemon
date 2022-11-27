@@ -14,7 +14,7 @@ export const fetchPopular = (page, query) => {
 
   export const fetchPopularHome = (page) => {
     return fetch(
-        `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18`
+        `https://rawg.io/api/games?&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -29,6 +29,20 @@ export const fetchPopular = (page, query) => {
   export const fetchGenres = () => {
     return fetch(
         `https://rawg.io/api/genres?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchPopularByGenre = (genre) => {
+    return fetch(
+        `https://rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);

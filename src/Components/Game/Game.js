@@ -25,15 +25,15 @@ const Game = ({ game }) => {
   const [rating, setRating] = React.useState('');
 
   const addToList = async () => {
-   try {
-    const docRef = await addDoc(
-      collection(db, "users", user.uid, "favourites"),
-      {
-       game: game,
-       Status: status,
-       Rating: rating
-      }
-    );
+    try {
+      const docRef = await addDoc(
+        collection(db, "users", user.uid, "favourites"),
+        {
+          game: game,
+          Status: status,
+          Rating: rating
+        }
+      );
     } catch (err) {
       console.error(err);
       alert("An error occured while adding a game");
@@ -51,107 +51,107 @@ const Game = ({ game }) => {
   return (
     <div className="HomeComponent">
       <Grid container style={{ display: 'grid' }}>
-  <Grid item>
-<Box sx={{ boxShadow: 3 }} >
-      <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-        <Link to={`/games/${game.id}`}>
-          <CardMedia
-            sx={{ height: 300 }}
-            image={game.background_image}
-          />
-        </Link>
-        <CardContent style={{
-                  paddingBottom: "10%",
-                  maxHeight: "100px"
-                }}>
-          <Grid container >
-            <Grid item xs={20}>
-              <Typography variant="h6" component="p">
-                {game.name}
-              </Typography>
-              <Typography variant="h6" component="p">
-                Rating: {game.rating}
-              </Typography>
-              <Typography variant="h6" component="p">
-                Released: {game.released}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Popup
-          trigger={<Button className="button" variant="contained">Add to list</Button>}
-          modal
-          nested
-        >
-          {close => (
-            <div className="modal">
-              <button className="close" onClick={close}>
-                &times;
-              </button>
-              <div className="header"> Add game to your list</div>
-              <div className="content">
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  minHeight="50vh"
-                >
-                  <FormControl sx={{ width: '35ch' }}>
-                  <h2>Game title</h2>
+        <Grid item>
+          <Box sx={{ boxShadow: 3 }} >
+            <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+              <Link to={`/games/${game.id}`}>
+                <CardMedia
+                  sx={{ height: 300 }}
+                  image={game.background_image}
+                />
+              </Link>
+              <CardContent style={{
+                paddingBottom: "10%",
+                maxHeight: "100px"
+              }}>
+                <Grid container >
+                  <Grid item xs={20}>
                     <Typography variant="h6" component="p">
                       {game.name}
                     </Typography>
-                    <div className="status-select">
-                      <Select
-                        labelId="select-status"
-                        id="select-status"
-                        label="Status"
-                        variant="outlined" size="small" fullWidth
-                        value={status}
-                        onChange={handleStatusChange}
+                    <Typography variant="h6" component="p">
+                      Rating: {game.rating}
+                    </Typography>
+                    <Typography variant="h6" component="p">
+                      Released: {game.released}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+              <Popup
+                trigger={<Button className="button" variant="contained">Add to list</Button>}
+                modal
+                nested
+              >
+                {close => (
+                  <div className="modal">
+                    <button className="close" onClick={close}>
+                      &times;
+                    </button>
+                    <div className="header"> Add game to your list</div>
+                    <div className="content">
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        minHeight="50vh"
                       >
-                        <MenuItem value="Completed">Completed</MenuItem>
-                        <MenuItem value="Playing">Playing</MenuItem>
-                        <MenuItem value="Plan to play">Plan to play</MenuItem>
-                        <MenuItem value="Dropped">Dropped</MenuItem>
-                        <MenuItem value="On-Hold">On-Hold</MenuItem>
-                      </Select>
+                        <FormControl sx={{ width: '35ch' }}>
+                          <h2>Game title</h2>
+                          <Typography variant="h6" component="p">
+                            {game.name}
+                          </Typography>
+                          <div className="status-select">
+                            <Select
+                              labelId="select-status"
+                              id="select-status"
+                              label="Status"
+                              variant="outlined" size="small" fullWidth
+                              value={status}
+                              onChange={handleStatusChange}
+                            >
+                              <MenuItem value="Completed">Completed</MenuItem>
+                              <MenuItem value="Playing">Playing</MenuItem>
+                              <MenuItem value="Plan to play">Plan to play</MenuItem>
+                              <MenuItem value="Dropped">Dropped</MenuItem>
+                              <MenuItem value="On-Hold">On-Hold</MenuItem>
+                            </Select>
+                          </div>
+                          <div className="rating-select">
+                            <Select
+                              labelId="rating-status"
+                              id="rating-status"
+                              label="Rating"
+                              variant="outlined" size="small" fullWidth
+                              value={rating}
+                              onChange={handleRatingChange}
+                            >
+                              <MenuItem value="1">1</MenuItem>
+                              <MenuItem value="2">2</MenuItem>
+                              <MenuItem value="3">3</MenuItem>
+                              <MenuItem value="4">4</MenuItem>
+                              <MenuItem value="5">5</MenuItem>
+                            </Select>
+                          </div>
+                        </FormControl>
+                      </Box>
                     </div>
-                    <div className="rating-select">
-                      <Select
-                        labelId="rating-status"
-                        id="rating-status"
-                        label="Rating"
-                        variant="outlined" size="small" fullWidth
-                        value={rating}
-                        onChange={handleRatingChange}
+                    <div className="actions">
+                      <Button
+                        className="button"
+                        onClick={() => {
+                          addToList()
+                        }}
                       >
-                        <MenuItem value="1">1</MenuItem>
-                        <MenuItem value="2">2</MenuItem>
-                        <MenuItem value="3">3</MenuItem>
-                        <MenuItem value="4">4</MenuItem>
-                        <MenuItem value="5">5</MenuItem>
-                      </Select>
+                        Submit
+                      </Button>
                     </div>
-                  </FormControl>
-                </Box>
-              </div>
-              <div className="actions">
-                <Button
-                  className="button"
-                  onClick={() => {
-                    addToList()
-                  }}
-                >
-                  Submit
-                </Button>
-              </div>
-            </div>
-          )}
-        </Popup>
-      </Card>
-      </Box>
-      </Grid>
+                  </div>
+                )}
+              </Popup>
+            </Card>
+          </Box>
+        </Grid>
       </Grid>
     </div>
   );
