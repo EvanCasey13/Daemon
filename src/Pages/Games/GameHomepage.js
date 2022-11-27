@@ -65,7 +65,7 @@ function GameHomepage() {
                 games={games}
             />
             <Pagination
-                count='100'
+                count={100}
                 variant='outlined'
                 color='primary'
                 shape="rounded"

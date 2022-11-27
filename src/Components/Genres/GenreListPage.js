@@ -1,5 +1,5 @@
 import React from "react";
-import GenreList from "./GenreList";
+import GenreList from "./genreList";
 import Grid from "@mui/material/Grid";
 
 function GenreListPage({ genres }) {
