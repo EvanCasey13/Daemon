@@ -9,8 +9,8 @@ import UserProfile from './Pages/UserProfile/UserProfile';
 import About from './Pages/About/About';
 import GameDetail from './Pages/Games/GameDetailsPage';
 import GenrePage from './Pages/Genre/GenrePage';
+import PlatformPage from './Pages/PlatformPage/PlatformPage';
 import GameAdditionDetail from './Components/Game/GameAdditionDetail';
-import PlatformDetails from './Components/Platform/PlatformDetails';
 import DeveloperDetails from './Components/Developer/DeveloperDetails';
 import PlayingList from './Pages/UserProfile/PlayingList';
 import Login from './Components/Login/Login'
@@ -60,10 +60,10 @@ function App() {
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
                   <Route path="/genres/:name" element={<GenrePage />} />
+                  <Route path="/platforms/:id" element={<PlatformPage />} />
                   <Route path="/profile/:id" element={<UserProfile />} />
                   <Route path="/playing/:id" element={<PlayingList />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
-                  <Route path="/platforms/:id" element={<PlatformDetails />} />
                   <Route path="/developers/:id" element={<DeveloperDetails />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />

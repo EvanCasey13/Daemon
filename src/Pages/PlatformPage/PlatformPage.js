@@ -2,16 +2,17 @@ import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
 import TextField from "@mui/material/TextField";
 import { Navigate, useSearchParams } from 'react-router-dom';
-import { fetchPopularByGenre } from "../../api/rawg-api";
+import { fetchGamesByPlatform } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
-import PageTemplate from '../../Components/gameListPage';
+import PageTemplate from '../../Components/gameListPage/index';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
 
-function GenrePage() {
-    const { name } = useParams();
+function PlatformPage() {
+    
+    const { id } = useParams();
    
     const { user } = useContext(AuthContext);
 
@@ -31,7 +32,7 @@ function GenrePage() {
 
     const term = searchTerm.get("query")
 
-    const { data, error, isLoading, isError } = useQuery(['genres/', name, activePage, term], () => fetchPopularByGenre(name, activePage, searchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
+    const { data, error, isLoading, isError } = useQuery(['platforms/', id, activePage, term], () => fetchGamesByPlatform(id, activePage, searchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
 
     if (isLoading) {
         return <h1>Games loading...</h1>
@@ -40,14 +41,14 @@ function GenrePage() {
     if (isError) {
         return <h1>{error.message}</h1>
     }
-    const games = data.results;
+    const games = data?.results;
 
     if (!user) {
         return <Navigate replace to="/login" />;
     }
 
     return (
-        <div className='Genre' >
+        <div className='Platform' >
             <NavBar />
             <br /><br /><br /><br />
             <form>
@@ -78,4 +79,4 @@ function GenrePage() {
     )
 };
 
-export default GenrePage;
+export default PlatformPage;
