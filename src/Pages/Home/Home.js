@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
 import './Home.css';
 import { Navigate } from 'react-router-dom';
-import { fetchPopularHome, fetchGenres } from "../../api/rawg-api";
+import { fetchPopularHome, fetchGenres, fetchPlatforms } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
-import GenreListPage from '../../Components/Genres/GenreListPage';
 import { useQuery } from 'react-query';
 import NavBar from "../../Components/Navbar/Navbar"
 import Game from '../../Components/Game/Game';
+import Platform from '../../Components/Platform/Platforms'
 import Genre from '../../Components/Genres/Genre';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -104,9 +104,11 @@ function Home() {
         console.log(value)
     };
 
-    const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres })
+    const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres });
 
-    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopularHome(activePage), { keepPreviousData: true })
+    const platformResults = useQuery({ queryKey: ['platforms'], queryFn: fetchPlatforms });
+
+    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopularHome(activePage), { keepPreviousData: true });
 
     if (isLoading) {
         return <h1>Games loading...</h1>
@@ -118,6 +120,8 @@ function Home() {
     const games = data.results;
 
     const genres = genreResults.data.results;
+
+    const platforms = platformResults.data.results;
 
     if (!user) {
         return <Navigate replace to="/login" />;
@@ -144,6 +148,17 @@ function Home() {
                     {genres.map(genre => {
                         return <Genre
                             key={genre.id} genre={genre}
+                        />;
+                    })}
+                </Slider>
+            </div>
+
+            <h2>Platforms</h2>
+            <div className="platforms">
+                <Slider {...genreSettings}>
+                    {platforms.map(platform => {
+                        return <Platform
+                            key={platform.id} platform={platform}
                         />;
                     })}
                 </Slider>

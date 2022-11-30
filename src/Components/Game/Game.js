@@ -56,6 +56,7 @@ const Game = ({ game }) => {
             <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
               <Link to={`/games/${game.id}`}>
                 <CardMedia
+                  component="img"
                   sx={{ height: 300 }}
                   image={game.background_image}
                 />

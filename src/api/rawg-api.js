@@ -42,7 +42,21 @@ export const fetchPopular = (page, query) => {
 
   export const fetchPopularByGenre = (genre, page, query) => {
     return fetch(
-        `https://rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&page_size=18&search=${query}&ordering=-rating`
+        `https://rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&ordering=-rating`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchGamesByPlatform = (platform, page, query) => {
+    return fetch(
+        `https://rawg.io/api/games?platforms=${platform}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&exclude_additions`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
