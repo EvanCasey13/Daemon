@@ -25,6 +25,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 
+
 function GameListPageTemplate({ games }) {
   //Sidebar
   const drawerWidth = 250;
