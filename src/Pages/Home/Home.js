@@ -4,20 +4,96 @@ import './Home.css';
 import { Navigate } from 'react-router-dom';
 import { fetchPopularHome, fetchGenres } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
-import PageTemplate from '../../Components/gameListPage';
 import GenreListPage from '../../Components/Genres/GenreListPage';
 import { useQuery } from 'react-query';
+import NavBar from "../../Components/Navbar/Navbar"
+import Game from '../../Components/Game/Game';
+import Genre from '../../Components/Genres/Genre';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Home() {
 
-const handleChange = (e, type, value) => {
-    e.preventDefault();
-    console.log((type, value));
-  };
+    const settings = {
+        infinite: true,
+        dots: false,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        lazyLoad: false,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+    };
 
-  const handleGenreChange = (e) => {
-    handleChange(e, "genre", e.target.value);
-  };
+    const genreSettings = {
+        infinite: true,
+        dots: false,
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        lazyLoad: false,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        arrows: true,
+        rows: 1,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+    };
+
+    const handleChange = (e, type, value) => {
+        e.preventDefault();
+        console.log((type, value));
+    };
 
     const { user } = useContext(AuthContext);
 
@@ -49,11 +125,30 @@ const handleChange = (e, type, value) => {
 
     return (
         <div className='Home' >
+            <NavBar />
+            <br/>  <br/> <br/>
             <h2>Popular Games</h2>
-            <PageTemplate
-                games={games}
-            />
-<GenreListPage genres={genres} />
+            <div className="popular-games">
+                <Slider {...settings}>
+                    {games.map(game => {
+                        return <Game
+                            key={game.id} game={game}
+                        />;
+                    })}
+                </Slider>
+            </div>
+
+            <h2>Genres</h2>
+            <div className="genres">
+                <Slider {...genreSettings}>
+                    {genres.map(genre => {
+                        return <Genre
+                            key={genre.id} genre={genre}
+                        />;
+                    })}
+                </Slider>
+            </div>
+            <br/><br/>
             <Pagination
                 count={100}
                 variant='outlined'
