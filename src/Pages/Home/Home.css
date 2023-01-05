@@ -1,5 +1,5 @@
 .Home {
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
 .Platforms {
@@ -34,21 +34,11 @@
     width: 100%;
     height: 30vh;
     object-fit: cover;
-    border-radius: 1rem;
     margin-bottom: 1rem;
 }
 
 .HomeComponent h5 {
     font-size: medium;
-}
-
-.homeCard {
-    width: '25rem';
-    background-color: white;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
-    margin-right: 10%;
-    color: #000;
 }
 
 .slick-next {
@@ -57,7 +47,7 @@
 
 .gameDetailsPage {
     margin-left: 15%;
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
 .gameDetailsPage img {
@@ -69,20 +59,20 @@
 }
 
 .gameDetailsPage h2 {
-padding-left: 10%;
+    padding-left: 10%;
 }
 
 .descriptionGame {
     text-align: justify;
     margin: auto;
     padding: 10px;
-    padding-left:5%;
+    padding-left: 5%;
 }
 
 .gameStats {
     width: 100%;
     text-align: justify;
-    margin-left:70%;
+    margin-left: 70%;
 }
 
 .gameStats p {
@@ -91,7 +81,7 @@ padding-left: 10%;
     max-width: 70%;
     height: auto;
     margin-left: 1%;
-    padding-top:1%;
+    padding-top: 1%;
 }
 
 .gameDetailsPage .developerImg {
@@ -116,13 +106,23 @@ padding-left: 10%;
 }
 
 .tagName {
- padding-right: 50%;
+    padding-right: 50%;
 }
 
 a:link {
     text-decoration: none;
 }
 
-.slick-slide>div {padding: 0 15px;}
+.slick-slide>div {
+    padding: 0 15px;
+}
 
-.slick-slide>div {padding-top:15px;}
+.slick-slide>div {
+    padding-top: 15px;
+}
+
+h2 {
+    padding-top:15px;
+    font-family: "Press Start 2P";
+    font-size: 1em;
+}

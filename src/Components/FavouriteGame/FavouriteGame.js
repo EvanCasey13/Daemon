@@ -1,22 +1,17 @@
 import React from "react";
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { Link } from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import 'reactjs-popup/dist/index.css';
-import { CardActions, CardContent } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, where, query } from "firebase/firestore";
+import { Card, Col, Row, Text, Button } from "@nextui-org/react";
 
 const FavouriteGame = ({ game, rating, status, id }) => {
 
   const [user, loading, error] = useAuthState(auth);
 
-    const deleteItem = async() => {
-      if (user) {
+  const deleteItem = async () => {
+    if (user) {
       const d = query(collection(db, "users/" + user.uid + "/favourites"), where('game.id', '==', id));
       const docSnap = await getDocs(d);
       docSnap.forEach((doc) => {
@@ -28,23 +23,45 @@ const FavouriteGame = ({ game, rating, status, id }) => {
 
   return (
     <div className="FavouriteComponent">
-      <Card style={{ display: 'block', justifyContent: 'space-between', flexDirection: 'column', backgroundColor: "#EEFFFF"}}>
-        <Link to={`/games/${game.id}`}>
-          <CardMedia
-            sx={{ height: 170, width: 200, float: 'left' }}
-            image={game.background_image}
-          />
-        </Link>
-        <CardContent>
-          <Typography sx={{ paddingTop: 7, paddingLeft: 2, float: "left" }}>{game.name}</Typography>
-          <Typography sx={{ paddingTop: 7, paddingRight: 5, float: "right" }}>{rating}</Typography>
-          <Typography sx={{ paddingTop: 7, paddingRight: 20, float: "right", }}>{status}</Typography>
-        </CardContent>
-        <CardActions>
-          <IconButton onClick={() => { deleteItem() }} aria-label="delete" size="inherit">
-            <DeleteIcon fontSize="inherit" sx={{ paddingTop: 3, paddingLeft: 5, float: 'right' }} />
-          </IconButton>
-        </CardActions>
+      <Card css={{ display: 'block', justifyContent: 'space-between', flexDirection: 'column', backgroundColor: "#EEFFFF" }} isHoverable>
+        <Card.Body css={{ p: 0 }}>
+          <Link to={`/games/${game.id}`}>
+            <Card.Image
+              src={game.background_image}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+              alt="Game card"
+            />
+          </Link>
+        </Card.Body>
+        <Card.Footer
+          isBlurred
+          css={{
+            position: "absolute",
+            bgBlur: "#ffffff66",
+            borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+            bottom: 0,
+            zIndex: 1,
+          }}
+        >
+          <Row>
+            <Col>
+              <Text color="#000" size={12}>
+                {game.name}
+              </Text>
+              <Text color="#000" size={12}>
+                Rating: {rating}
+              </Text>
+              <Text color="#000" size={12}>
+                 Status: {status}
+              </Text>
+              <Button onClick={() => { deleteItem() }} size="sm">
+                Delete
+              </Button>
+            </Col>
+          </Row>
+        </Card.Footer>
       </Card>
     </div>
   )

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../../Firebase/firebase";
-import { collection, getDocs} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth"
 import Game from "../../Components/FavouriteGame/FavouriteGame"
-import Grid from "@mui/material/Grid";
 import './UserProfile.css'
 import NavBar from "../../Components/Navbar/Navbar"
+import { Grid } from "@nextui-org/react";
 
 const PlayingList = () => {
 
@@ -26,18 +26,18 @@ const PlayingList = () => {
   return (
     <div className="PlayingList">
       <NavBar />
-    {favourites.map(fav => {
-      return (
-        <Grid container spacing={1} sx={{ padding: "5px" }}>
-          <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <Game
-              key={fav.game.id} game={fav.game} rating={fav.Rating} status={fav.Status} id={fav.game.id}/>          
-          </Grid>
-        </Grid>
-      )
-    })
-}</div>
-)  
+      <Grid.Container gap={1} justify="flex-start">
+        {favourites.map(fav => {
+          return (
+            <Grid xs={6} sm={3} key={fav.game.id}>
+              <Game
+                key={fav.game.id} game={fav.game} rating={fav.Rating} status={fav.Status} id={fav.game.id} />
+            </Grid>
+          )
+        })}
+      </Grid.Container>
+    </div>
+  )
 };
 
 export default PlayingList;

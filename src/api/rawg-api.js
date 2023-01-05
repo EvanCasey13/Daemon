@@ -12,9 +12,9 @@ export const fetchPopular = (page, query) => {
     });
   };
 
-  export const fetchPopularHome = (page) => {
+  export const fetchPopularHome = () => {
     return fetch(
-        `https://rawg.io/api/games?&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18`
+        `https://rawg.io/api/games?&key=${process.env.REACT_APP_RAWG_API_KEY}`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);

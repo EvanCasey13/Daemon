@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
+import { NextUIProvider } from '@nextui-org/react';
 import Logo from './images/daemon_logo.png'
 import Home from './Pages/Home/Home';
 import GameHomepage from './Pages/Games/GameHomepage';
@@ -53,6 +54,7 @@ function App() {
 <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <AuthProvider>
+            <NextUIProvider>
               <Routes>
                   <Route index element={<Home />} />
                   <Route path="gameHomepage" element={<GameHomepage />} />
@@ -69,6 +71,7 @@ function App() {
                   <Route exact path="/register" element={<Register />} />
                   <Route exact path="/reset" element={<Reset />} />
               </Routes>
+              </NextUIProvider>
             </AuthProvider>
           </BrowserRouter>
           <ReactQueryDevtools initialIsOpen={false} />

@@ -62,6 +62,7 @@ function PlatformPage() {
                     onChange={handleSearchChange}
                 />
             </form>
+            <h4>{id}</h4>
             <PageTemplate games={games} />
             <Pagination
                 count={100}
@@ -73,8 +74,7 @@ function PlatformPage() {
                 className='pagination'
                 page={activePage}
                 onChange={handleChange}
-            />
-            
+            /> 
         </div>
     )
 };

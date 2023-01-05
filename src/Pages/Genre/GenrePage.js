@@ -50,6 +50,7 @@ function GenrePage() {
         <div className='Genre' >
             <NavBar />
             <br /><br /><br /><br />
+            <h4>{name} games</h4>
             <form>
                 <TextField
                     id="filled-search"
