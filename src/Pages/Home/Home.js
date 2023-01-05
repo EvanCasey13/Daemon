@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import Pagination from '@mui/material/Pagination';
+import React, { useContext } from 'react';
 import './Home.css';
 import { Navigate } from 'react-router-dom';
 import { fetchPopularHome, fetchGenres, fetchPlatforms } from "../../api/rawg-api";
@@ -12,6 +11,7 @@ import Genre from '../../Components/Genres/Genre';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "@fontsource/press-start-2p";
 
 function Home() {
 
@@ -97,18 +97,11 @@ function Home() {
 
     const { user } = useContext(AuthContext);
 
-    const [activePage, setActivePage] = useState(1);
-
-    const handlePageChange = (event, value) => {
-        setActivePage(value);
-        console.log(value)
-    };
-
     const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres });
 
     const platformResults = useQuery({ queryKey: ['platforms'], queryFn: fetchPlatforms });
 
-    const { data, error, isLoading, isError } = useQuery(['home/games', activePage], () => fetchPopularHome(activePage), { keepPreviousData: true });
+    const { data, error, isLoading, isError } = useQuery(['home/games'], () => fetchPopularHome(), { keepPreviousData: true });
 
     if (isLoading) {
         return <h1>Games loading...</h1>
@@ -162,19 +155,7 @@ function Home() {
                         />;
                     })}
                 </Slider>
-            </div>
-            <br/><br/>
-            <Pagination
-                count={100}
-                variant='outlined'
-                color='primary'
-                shape="rounded"
-                showFirstButton
-                showLastButton
-                className='pagination'
-                page={activePage}
-                onChange={handlePageChange}
-            />
+            </div>     
         </div>
     )
 };

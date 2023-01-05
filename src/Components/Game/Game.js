@@ -1,28 +1,34 @@
-// A component that return a Game
 import React from "react";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Grid from "@mui/material/Grid";
-import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import './Game.css'
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import 'reactjs-popup/dist/index.css';
-import Popup from 'reactjs-popup';
 import { auth, db } from "../../Firebase/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { Modal, Dropdown, Card, Col, Row, Button, Text } from "@nextui-org/react";
 
 const Game = ({ game }) => {
 
   const [user, loading, error] = useAuthState(auth);
-  const [status, setStatus] = React.useState('');
-  const [rating, setRating] = React.useState('');
+  const [visible, setVisible] = React.useState(false);
+  const [selected, setSelected] = React.useState('');
+  const [selectedRating, setSelectedRating] = React.useState('');
+  const handler = () => setVisible(true);
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selected).join(", ").replaceAll("_", " "),
+    [selected]
+  );
+
+  const selectedRatingValue = React.useMemo(
+    () => Array.from(selectedRating).join(", ").replaceAll("_", " "),
+    [selectedRating]
+  );
+
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
 
   const addToList = async () => {
     try {
@@ -30,8 +36,8 @@ const Game = ({ game }) => {
         collection(db, "users", user.uid, "favourites"),
         {
           game: game,
-          Status: status,
-          Rating: rating
+          Status: selectedValue,
+          Rating: selectedRatingValue
         }
       );
     } catch (err) {
@@ -40,120 +46,122 @@ const Game = ({ game }) => {
     }
   }
 
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handleRatingChange = (event) => {
-    setRating(event.target.value);
-  };
-
   return (
     <div className="HomeComponent">
-      <Grid container style={{ display: 'grid' }}>
-        <Grid item>
-          <Box sx={{ boxShadow: 3 }} >
-            <Card style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
-              <Link to={`/games/${game.id}`}>
-                <CardMedia
-                  component="img"
-                  sx={{ height: 300 }}
-                  image={game.background_image}
-                />
-              </Link>
-              <CardContent style={{
-                paddingBottom: "10%",
-                maxHeight: "100px"
-              }}>
-                <Grid container >
-                  <Grid item xs={20}>
-                    <Typography variant="h6" component="p">
+      <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
+        <Card.Body css={{ p: 0 }}>
+          <Link to={`/games/${game.id}`}>
+            <Card.Image
+              src={game.background_image}
+              width="100%"
+              height="100%"
+              objectFit="cover"
+              alt="Card example background"
+            />
+          </Link>
+        </Card.Body>
+        <Card.Footer
+          isBlurred
+          css={{
+            position: "absolute",
+            bgBlur: "#ffffff66",
+            borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+            bottom: 0,
+            zIndex: 1,
+          }}
+        >
+          <Row>
+            <Col>
+              <Text color="#000" size={12}>
+                {game.name}
+              </Text>
+              <Text color="#000" size={12}>
+                Rating: {game.rating}
+              </Text>
+            </Col>
+            <Col>
+              <Row justify="flex-end">
+                <Button flat auto rounded color="secondary" onClick={handler}>
+                  <Text
+                    css={{ color: "inherit" }}
+                    size={12}
+                    weight="bold"
+                    transform="uppercase"
+                  >
+                    Add to list
+                  </Text>
+                </Button>
+                <Modal
+                  closeButton
+                  aria-labelledby="modal-title"
+                  open={visible}
+                  onClose={closeHandler}
+                >
+                  <Modal.Header>
+                    <Text id="modal-title" size={18}>
                       {game.name}
-                    </Typography>
-                    <Typography variant="h6" component="p">
-                      Rating: {game.rating}
-                    </Typography>
-                    <Typography variant="h6" component="p">
-                      Released: {game.released}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Popup
-                trigger={<Button className="button" variant="contained">Add to list</Button>}
-                modal
-                nested
-              >
-                {close => (
-                  <div className="modal">
-                    <button className="close" onClick={close}>
-                      &times;
-                    </button>
-                    <div className="header"> Add game to your list</div>
-                    <div className="content">
-                      <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        minHeight="50vh"
-                      >
-                        <FormControl sx={{ width: '35ch' }}>
-                          <h2>Game title</h2>
-                          <Typography variant="h6" component="p">
-                            {game.name}
-                          </Typography>
-                          <div className="status-select">
-                            <Select
-                              labelId="select-status"
-                              id="select-status"
-                              label="Status"
-                              variant="outlined" size="small" fullWidth
-                              value={status}
-                              onChange={handleStatusChange}
-                            >
-                              <MenuItem value="Completed">Completed</MenuItem>
-                              <MenuItem value="Playing">Playing</MenuItem>
-                              <MenuItem value="Plan to play">Plan to play</MenuItem>
-                              <MenuItem value="Dropped">Dropped</MenuItem>
-                              <MenuItem value="On-Hold">On-Hold</MenuItem>
-                            </Select>
-                          </div>
-                          <div className="rating-select">
-                            <Select
-                              labelId="rating-status"
-                              id="rating-status"
-                              label="Rating"
-                              variant="outlined" size="small" fullWidth
-                              value={rating}
-                              onChange={handleRatingChange}
-                            >
-                              <MenuItem value="1">1</MenuItem>
-                              <MenuItem value="2">2</MenuItem>
-                              <MenuItem value="3">3</MenuItem>
-                              <MenuItem value="4">4</MenuItem>
-                              <MenuItem value="5">5</MenuItem>
-                            </Select>
-                          </div>
-                        </FormControl>
-                      </Box>
-                    </div>
-                    <div className="actions">
-                      <Button
-                        className="button"
-                        onClick={() => {
-                          addToList()
-                        }}
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </Popup>
-            </Card>
-          </Box>
-        </Grid>
-      </Grid>
+                    </Text>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <FormControl sx={{ width: '35ch' }}>
+                      <div className="status-select">
+                        <Dropdown>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                            {selectedValue}
+                          </Dropdown.Button>
+                          <Dropdown.Menu
+                            aria-label="Single selection actions"
+                            color="secondary"
+                            disallowEmptySelection
+                            selectionMode="single"
+                            selectedKeys={selected}
+                            onSelectionChange={setSelected}
+                          >
+                            <Dropdown.Item key="Completed">Completed</Dropdown.Item>
+                            <Dropdown.Item key="Dropped">Dropped</Dropdown.Item>
+                            <Dropdown.Item key="Plan to play">Plan to play</Dropdown.Item>
+                            <Dropdown.Item key="On-hold">On-hold</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
+                      <div className="rating-select">
+                        <Dropdown>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                            {selectedRatingValue}
+                          </Dropdown.Button>
+                          <Dropdown.Menu
+                            aria-label="Single selection actions"
+                            color="secondary"
+                            disallowEmptySelection
+                            selectionMode="single"
+                            selectedKeys={selectedRating}
+                            onSelectionChange={setSelectedRating}
+                          >
+                            <Dropdown.Item key="1">1</Dropdown.Item>
+                            <Dropdown.Item key="2">2</Dropdown.Item>
+                            <Dropdown.Item key="3">3</Dropdown.Item>
+                            <Dropdown.Item key="4">4</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
+                    </FormControl>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button auto flat color="error" onClick={closeHandler}>
+                      Close
+                    </Button>
+                    <Button auto onClick={() => {
+                      addToList()
+                    }}>
+                      Submit
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </Row>
+            </Col>
+          </Row>
+        </Card.Footer>
+      </Card>
     </div>
   );
 };
