@@ -18,7 +18,8 @@ body {
 }
 
 .logo {
-  border-radius: 50%;
+  height:70px;
+  padding-right:5%;
 }
 .loader {
   display: inline-block;

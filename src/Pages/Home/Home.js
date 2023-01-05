@@ -123,7 +123,7 @@ function Home() {
     return (
         <div className='Home' >
             <NavBar />
-            <br/>  <br/> <br/>
+            <br/>
             <h2>Popular Games</h2>
             <div className="popular-games">
                 <Slider {...settings}>

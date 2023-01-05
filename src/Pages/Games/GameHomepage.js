@@ -8,6 +8,7 @@ import { useQuery } from 'react-query';
 import { fetchPopular } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
+import NavBar from "../../Components/Navbar/Navbar"
 
 function GameHomepage() {
 
@@ -46,8 +47,8 @@ function GameHomepage() {
 
     return (
         <div className='Home' >
-           
-            <br /><br /><br /><br />
+                 <NavBar />
+            <br />
             <h2>Popular Games</h2>
             <form>
                 <TextField

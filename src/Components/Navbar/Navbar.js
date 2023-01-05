@@ -14,8 +14,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { auth, db, logout } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Logo from '../../images/daemon_logo_navbar.png'
-import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 
 const NavBar = ( ) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -70,92 +70,130 @@ const NavBar = ( ) => {
     setAnchorEl(null);
   };
 
+  const collapseItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
+
   return (
     <>
-      <AppBar position="fixed" style={{ backgroundColor: "black"}}>
-        <Toolbar>
-         <img src ={Logo} className ="logo" alt ="Daemon Logo"/>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            Daemon
-          </Typography>
-          <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
+    <Navbar isBordered variant="floating" color="inherit"
           >
-            <Avatar alt={name} src={profilePicture} sx={{ width: 56, height: 56 }}/>
-          </IconButton>
-        </Tooltip>
-        
-        <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose} component="button" href={`profile/${user?.uid}`}>Profile</MenuItem>
-        <MenuItem onClick={handleClose} component="button">My account</MenuItem>
-        <MenuItem onClick={logout} component="button">Logout</MenuItem>
-      </Menu>
-      {isMobile ? (
-              <>
-                <IconButton
-                  aria-label="menu"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={open}
-                  onClose={() => setAnchorEl(null)}
-                >
-                  
-                  {menuOptions.map((opt) => (
-                    <MenuItem
+        <Navbar.Toggle showIn="xs" />
+        <Navbar.Brand
+          css={{
+            "@xs": {
+              w: "12%",
+            },
+          }}
+        >
+          <img src ={Logo} className ="logo" alt ="Daemon Logo"/>
+          <Text b color="inherit" hideIn="xs">
+            Daemon
+          </Text>
+        </Navbar.Brand>
+        <Navbar.Content
+          enableCursorHighlight
+          activeColor="secondary"
+          hideIn="xs"
+          variant="highlight-rounded"
+        >
+          {menuOptions.map((opt) => (
+                    <Navbar.Link
                       key={opt.label}
                       onClick={() => handleMenuSelect(opt.path)}
                     >
                       {opt.label}
-                    </MenuItem>
+                    </Navbar.Link>
                   ))}
-                </Menu>
-              </>
-            ) : (
-              <>
-                {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </Button>
-                ))}
-              </>
-            )}
-        </Toolbar>
-      </AppBar>
+        </Navbar.Content>
+        <Navbar.Content
+          css={{
+            "@xs": {
+              w: "12%",
+              jc: "flex-end",
+            },
+          }}
+        >
+          <Dropdown placement="bottom-right">
+            <Navbar.Item>
+              <Dropdown.Trigger>
+                <Avatar
+                  bordered
+                  as="button"
+                  color="secondary"
+                  size="md"
+                  src={profilePicture}
+                />
+              </Dropdown.Trigger>
+            </Navbar.Item>
+            <Dropdown.Menu
+              aria-label="User menu actions"
+              color="secondary"
+              onAction={(actionKey) => console.log({ actionKey })}
+            >
+              <Dropdown.Item key="profile" css={{ height: "$18" }}>
+                <Text b color="inherit" css={{ d: "flex" }}>
+                  Signed in as
+                </Text>
+                <Text b color="inherit" css={{ d: "flex" }}>
+                  {user?.email}
+                </Text>
+              </Dropdown.Item>
+              <Dropdown.Item key="settings" withDivider>
+                Settings
+              </Dropdown.Item>
+              <Dropdown.Item key="team_settings"><Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href={`profile/${user?.uid}`}
+              >My Profile </Link></Dropdown.Item>
+              <Dropdown.Item key="logout" withDivider color="error">
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                onClick={logout}
+              >Logout </Link>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Navbar.Content>
+        <Navbar.Collapse>
+          {collapseItems.map((item, index) => (
+            <Navbar.CollapseItem
+              key={item}
+              activeColor="secondary"
+              css={{
+                color: index === collapseItems.length - 1 ? "$error" : "",
+              }}
+              isActive={index === 2}
+            >
+              <Link
+                color="inherit"
+                css={{
+                  minWidth: "100%",
+                }}
+                href="#"
+              >
+                {item}
+              </Link>
+            </Navbar.CollapseItem>
+          ))}
+        </Navbar.Collapse>
+      </Navbar>
+
     </>
   );
 };
