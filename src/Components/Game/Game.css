@@ -49,7 +49,14 @@
     content: 'Rating';
     color: black;
   }
+
+.gameDetailsPage {
+  text-align: justify;
+}
   
+.gameDescription {
+  padding-left:2%;
+}
 
 
   

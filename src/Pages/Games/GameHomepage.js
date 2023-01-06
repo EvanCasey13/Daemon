@@ -3,13 +3,12 @@ import { Navigate, useSearchParams } from 'react-router-dom';
 import './GameHomepage.css';
 import Pagination from '@mui/material/Pagination';
 import PageTemplate from '../../Components/gameListPage';
-import TextField from "@mui/material/TextField";
 import { useQuery } from 'react-query';
 import { fetchPopular } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
-
+import { Input } from "@nextui-org/react";
 function GameHomepage() {
 
     const { user } = useContext(AuthContext);
@@ -47,20 +46,18 @@ function GameHomepage() {
 
     return (
         <div className='Home' >
-                 <NavBar />
+            <NavBar />
             <br />
             <h2>Popular Games</h2>
             <form>
-                <TextField
-                    id="filled-search"
+                <Input
+                id="filled-search"
+                    bordered
                     fullWidth
-                    label="Search for a game"
-                    type="search"
-                    variant="filled"
+                    labelPlaceholder="Search for a game"
+                    color="default"
                     value={term == null ? '' : term}
-                    onChange={handleSearchChange}
-                />
-
+                    onChange={handleSearchChange} />
             </form>
             <PageTemplate
                 games={games}
