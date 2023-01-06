@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
 import { auth, db } from "../../Firebase/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { Modal, Dropdown, Card, Col, Row, Button, Text } from "@nextui-org/react";
 
 const Game = ({ game }) => {
@@ -30,16 +30,18 @@ const Game = ({ game }) => {
     console.log("closed");
   };
 
+  const docRef = doc(db, "users/" + user.uid + "/favourites", game.name);
+
+  const data = {
+    game: game,
+    Status: selectedValue,
+    Rating: selectedRatingValue
+  }
+
   const addToList = async () => {
     try {
-      const docRef = await addDoc(
-        collection(db, "users", user.uid, "favourites"),
-        {
-          game: game,
-          Status: selectedValue,
-          Rating: selectedRatingValue
-        }
-      );
+     setDoc(docRef, data)
+     alert("Game added successfully")
     } catch (err) {
       console.error(err);
       alert("An error occured while adding a game");
