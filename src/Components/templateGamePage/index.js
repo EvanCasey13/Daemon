@@ -1,15 +1,15 @@
 import React from "react";
-import Grid from "@mui/material/Grid";
+import { Grid } from "@nextui-org/react";
 
 const TemplateGamePage = ({ children }) => {
 
   return (
     <>
-      <Grid container spacing={3} sx={{ padding: "5px" }}>
-        <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
+      <Grid.Container>
+        <Grid xs={10} sm={10} md={10} lg={10} xl={10}>
           {children}
         </Grid>
-      </Grid>
+      </Grid.Container>
     </>
   );
 };
