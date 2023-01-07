@@ -1,8 +1,58 @@
 import React from 'react';
-import { Text, Badge, Image, Avatar, Popover, Link, Grid } from "@nextui-org/react";
+import { useQuery } from 'react-query';
+import { Text, Badge, Image, Avatar, Popover, Grid, Card, Row, Col } from "@nextui-org/react";
+import { useParams } from 'react-router-dom';
 import "./Game.css"
+import { fetchGameAdditions, fetchGameSeries } from '../../api/rawg-api';
+import Slider from "react-slick";
+import { Link } from "react-router-dom";
+
 
 const GameDetail = ({ game }) => {
+  let params = useParams();
+  const gameAdditionsResults = useQuery(['gameAdditions', params.id], () => fetchGameAdditions(params.id));
+  const gameAdditions = gameAdditionsResults.data
+
+  const gameSeriesResults = useQuery(['gameSeries', params.id], () => fetchGameSeries(params.id));
+  const gameSeries = gameSeriesResults.data
+
+  const settings = {
+    infinite: false,
+    dots: false,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    lazyLoad: false,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
   return (
     <div className="gameDetailsPage">
       <Grid.Container gap={1} >
@@ -14,36 +64,36 @@ const GameDetail = ({ game }) => {
             alt="game_image"
             objectFit="cover"
           />
-          </Grid>
-        <Grid css={{ float: "right", marginTop: "2%"}}>
-        <Text h3>
-        {game.name}
-        </Text>
+        </Grid>
+        <Grid css={{ float: "right", marginTop: "2%" }}>
+          <Text h3>
+            {game.name}
+          </Text>
           Publishers:
           {game.publishers?.map(p =>
             <Popover placement='top'>
               <Popover.Trigger>
-              <Badge color="white" isSquared disableOutline size="xs" placement="bottom-right">
-              <Avatar
-                bordered
-                squared
-                size="lg"
-                color="error"
-                src={p.image_background}
-              />
-            </Badge>
+                <Badge color="white" isSquared disableOutline size="xs" placement="bottom-right">
+                  <Avatar
+                    bordered
+                    squared
+                    size="lg"
+                    color="error"
+                    src={p.image_background}
+                  />
+                </Badge>
               </Popover.Trigger>
               <Popover.Content css={{ px: '$4', py: '$2' }}>
                 {p.name}
               </Popover.Content>
             </Popover>
           )}
-          <br/>
+          <br />
           Genres:
           {game.genres?.map(g =>
             <Badge size="sm" enableShadow disableOutline color="warning">{g.name}</Badge>
           )}
-          <br/>
+          <br />
           <Text h4>
             Game details
           </Text>
@@ -60,24 +110,98 @@ const GameDetail = ({ game }) => {
             Playtime: {game.playtime} Hours
           </Text>
           <Text h5>
-            Achievements: {game.parent_achievements_count} 
+            Achievements: {game.parent_achievements_count}
           </Text>
           <Text h5>
             Total games in the series: {game.game_series_count} Games
           </Text>
           <Badge size="sm" enableShadow disableOutline color="error">ESRB Rating: {game.esrb_rating.name}</Badge>
-          <Text>
-        <Link href={game.website} color="error" underline isExternal>
-          {game.name} Website
-        </Link>
-      </Text>
         </Grid>
         <Text css={{ paddingLeft: "2%" }}>
           {game.description_raw}
         </Text>
       </Grid.Container>
-    </div>
 
+      <Text h2 css={{ textAlign:"center" }}>Related Additions</Text>
+      <Slider {...settings}>
+        {gameAdditions?.results.map(gameA =>
+          <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
+            <Card.Body css={{ p: 0 }}>
+              <Link to={`/gameAdditions/${gameA.id}`}>
+                <Card.Image
+                  src={gameA.background_image}
+                  width="100%"
+                  height={250}
+                  objectFit="cover"
+                  alt="Card example background"
+                />
+              </Link>
+            </Card.Body>
+            <Card.Footer
+              isBlurred
+              css={{
+                position: "absolute",
+                bgBlur: "#ffffff66",
+                borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                bottom: 0,
+                zIndex: 1,
+              }}
+            >
+              <Row>
+                <Col>
+                  <Text color="#000" size={12}>
+                    {gameA.name}
+                  </Text>
+                  <Text color="#000" size={12}>
+                    Rating: {gameA.rating}
+                  </Text>
+                </Col>
+              </Row>
+            </Card.Footer>
+          </Card>
+        )}
+      </Slider>
+
+      <Text h2 css={{ textAlign:"center" }}>Related Games</Text>
+      <Slider {...settings}>
+        {gameSeries?.results.map(gameS =>
+          <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
+            <Card.Body css={{ p: 0 }}>
+              <Link to={`/games/${gameS.id}`}>
+                <Card.Image
+                  src={gameS.background_image}
+                  width="100%"
+                  height={250}
+                  objectFit="cover"
+                  alt="Card example background"
+                />
+              </Link>
+            </Card.Body>
+            <Card.Footer
+              isBlurred
+              css={{
+                position: "absolute",
+                bgBlur: "#ffffff66",
+                borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                bottom: 0,
+                zIndex: 1,
+              }}
+            >
+              <Row>
+                <Col>
+                  <Text color="#000" size={12}>
+                    {gameS.name}
+                  </Text>
+                  <Text color="#000" size={12}>
+                    Rating: {gameS.rating}
+                  </Text>
+                </Col>
+              </Row>
+            </Card.Footer>
+          </Card>
+        )}
+      </Slider>
+    </div>
   )
 };
 
