@@ -1,10 +1,10 @@
 import React from "react";
 import Platform from "./Platforms";
-import Grid from "@mui/material/Grid";
+import { Grid } from "@nextui-org/react";
 
 const PlatformList = ({ platforms }) => {
   let platformCards = platforms?.map((p) => (
-    <Grid key={p.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+    <Grid key={p.id} xs={6} sm={4} md={4} lg={2} xl={2} css={{ padding:"1%"}}>
       <Platform key={p.id} platforms={p} />
     </Grid>
   ));

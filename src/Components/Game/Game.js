@@ -30,7 +30,7 @@ const Game = ({ game }) => {
     console.log("closed");
   };
 
-  const docRef = doc(db, "users/" + user.uid + "/favourites", game.name);
+  const docRef = doc(db, "users/" + user.uid + "/favourites", game.slug);
 
   const data = {
     game: game,

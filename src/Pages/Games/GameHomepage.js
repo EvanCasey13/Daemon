@@ -52,12 +52,12 @@ function GameHomepage() {
             <form>
                 <Input
                 id="filled-search"
-                    bordered
-                    fullWidth
-                    labelPlaceholder="Search for a game"
-                    color="default"
-                    value={term == null ? '' : term}
-                    onChange={handleSearchChange} />
+                bordered
+                fullWidth
+                labelPlaceholder="Search for a game"
+                color="default"
+                value={term == null ? '' : term}
+                onChange={handleSearchChange} />
             </form>
             <PageTemplate
                 games={games}

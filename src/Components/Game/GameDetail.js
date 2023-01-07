@@ -1,16 +1,12 @@
 import React from 'react';
-import Grid from "@mui/material/Grid";
-import { Text, Badge, Image, Avatar, Popover, Link } from "@nextui-org/react";
+import { Text, Badge, Image, Avatar, Popover, Link, Grid } from "@nextui-org/react";
 import "./Game.css"
 
 const GameDetail = ({ game }) => {
   return (
     <div className="gameDetailsPage">
-      <Grid container spacing={1}>
-        <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-          <Text h3 css={{ textAlign:"center" }}>
-            {game.name}
-          </Text>
+      <Grid.Container gap={1} >
+        <Grid xs={0} sm={6} md={6} lg={8} xl={8} >
           <Image
             width="100%"
             height="100%"
@@ -18,13 +14,16 @@ const GameDetail = ({ game }) => {
             alt="game_image"
             objectFit="cover"
           />
-        </Grid>
-        <Text h4 css={{ float: "right", marginTop: "4%", paddingLeft: "2.2%" }}>
+          </Grid>
+        <Grid css={{ float: "right", marginTop: "2%"}}>
+        <Text h3>
+        {game.name}
+        </Text>
           Publishers:
           {game.publishers?.map(p =>
             <Popover placement='top'>
               <Popover.Trigger>
-              <Badge color="white" isSquared size="xs" placement="bottom-right">
+              <Badge color="white" isSquared disableOutline size="xs" placement="bottom-right">
               <Avatar
                 bordered
                 squared
@@ -66,16 +65,17 @@ const GameDetail = ({ game }) => {
           <Text h5>
             Total games in the series: {game.game_series_count} Games
           </Text>
+          <Badge size="sm" enableShadow disableOutline color="error">ESRB Rating: {game.esrb_rating.name}</Badge>
           <Text>
         <Link href={game.website} color="error" underline isExternal>
           {game.name} Website
         </Link>
       </Text>
-        </Text>
+        </Grid>
         <Text css={{ paddingLeft: "2%" }}>
           {game.description_raw}
         </Text>
-      </Grid>
+      </Grid.Container>
     </div>
 
   )
