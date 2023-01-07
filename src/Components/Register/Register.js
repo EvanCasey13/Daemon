@@ -8,10 +8,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../../Firebase/firebase";
-import Card from '@mui/material/Card';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Card, Image, Button, Input, Text } from '@nextui-org/react';
 import "./Register.css";
 import Logo from '../../images/daemon_logo.png'
 import { useFormik } from 'formik';
@@ -72,56 +69,57 @@ function Register() {
 
   return (
     <div className="register">
-      <Card sx={{ maxWidth: 380 }}>
-        <img src={Logo} className="logo" alt="Daemon Logo" />
+      <Card css={{ mw: "420px" }}>
+      <Image
+      width={200}
+      height={160}  
+      src={Logo} 
+      alt="Daemon Logo"
+      objectFit="cover"
+    />
         <form className="form" onSubmit={formik.handleSubmit}>
-          <TextField
-            fullWidth
+          <Input labelPlaceholder="Account name"
+            size="md" 
             id="accountName"
             className="register__textBox"
-            label="Account name"
             value={formik.values.accountName}
             onChange={formik.handleChange}
             error={formik.touched.accountName && Boolean(formik.errors.accountName)}
             helperText={formik.touched.accountName && formik.errors.accountName}
           />
           <br />
-          <TextField
-            fullWidth
+          <Input labelPlaceholder="Email address"
+            size="md" 
             id="email"
             className="register__textBox"
-            label="Email address"
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
           <br />
-          <TextField
-            fullWidth
+          <Input.Password labelPlaceholder="Password"
+            size="md" 
             id="password"
             className="register__textBox"
-            label="Password"
-            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
           <br />
-          <Button className="register__btn" onClick={register} variant="outlined" type="submit">Register</Button>
+          <Button className="register__btn" onClick={register} color="gradient" type="submit">Register</Button>
           <br />
           <Button className="register__btn register__google"
-            onClick={signInWithGoogle} variant="outlined">Register with Google</Button>
+            onClick={signInWithGoogle} color="gradient">Register with Google</Button>
           <br />
-          <Typography variant="p" color="text.secondary">
+          <Text p>
             Already have an account? <Link to="/login">Login</Link> now.
-          </Typography>
+          </Text>
         </form>
         <form onSubmit={handleSubmit}>
         <input type='file' />
         <button type='submit'>Upload</button>
-        <p>URL: {url}</p>
         </form>
       </Card>
     </div>

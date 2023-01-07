@@ -17,7 +17,7 @@ import Logo from '../../images/daemon_logo_navbar.png'
 import Tooltip from '@mui/material/Tooltip';
 import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
 
-const NavBar = ( ) => {
+const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -85,8 +85,8 @@ const NavBar = ( ) => {
 
   return (
     <>
-    <Navbar isBordered variant="floating" color="inherit"
-          >
+      <Navbar isBordered variant="floating" color="inherit"
+      >
         <Navbar.Toggle showIn="xs" />
         <Navbar.Brand
           css={{
@@ -95,7 +95,7 @@ const NavBar = ( ) => {
             },
           }}
         >
-          <img src ={Logo} className ="logo" alt ="Daemon Logo"/>
+          <img src={Logo} className="logo" alt="Daemon Logo" />
           <Text b color="inherit" hideIn="xs">
             Daemon
           </Text>
@@ -107,13 +107,13 @@ const NavBar = ( ) => {
           variant="highlight-rounded"
         >
           {menuOptions.map((opt) => (
-                    <Navbar.Link
-                      key={opt.label}
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </Navbar.Link>
-                  ))}
+            <Navbar.Link
+              key={opt.label}
+              onClick={() => handleMenuSelect(opt.path)}
+            >
+              {opt.label}
+            </Navbar.Link>
+          ))}
         </Navbar.Content>
         <Navbar.Content
           css={{
@@ -151,7 +151,7 @@ const NavBar = ( ) => {
               <Dropdown.Item key="settings" withDivider>
                 Settings
               </Dropdown.Item>
-              <Dropdown.Item key="team_settings"><Link
+              <Dropdown.Item key="my_profile"><Link
                 color="inherit"
                 css={{
                   minWidth: "100%",
@@ -159,41 +159,48 @@ const NavBar = ( ) => {
                 href={`profile/${user?.uid}`}
               >My Profile </Link></Dropdown.Item>
               <Dropdown.Item key="logout" withDivider color="error">
-              <Link
-                color="inherit"
-                css={{
-                  minWidth: "100%",
-                }}
-                onClick={logout}
-              >Logout </Link>
+                <Link
+                  color="inherit"
+                  css={{
+                    minWidth: "100%",
+                  }}
+                  onClick={logout}
+                >Logout </Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Navbar.Content>
         <Navbar.Collapse>
-          {collapseItems.map((item, index) => (
+          {menuOptions.map((opt) => (
             <Navbar.CollapseItem
-              key={item}
+              key={opt.label}
               activeColor="secondary"
-              css={{
-                color: index === collapseItems.length - 1 ? "$error" : "",
-              }}
-              isActive={index === 2}
             >
               <Link
                 color="inherit"
                 css={{
                   minWidth: "100%",
                 }}
-                href="#"
+                href={opt.path}
               >
-                {item}
+                {opt.label}
               </Link>
             </Navbar.CollapseItem>
           ))}
+          <Navbar.CollapseItem
+            key="logout"
+            activeColor="secondary"
+          >
+            <Link
+              color="error"
+              css={{
+                minWidth: "100%",
+              }}
+              onClick={logout}
+            >Logout </Link>
+          </Navbar.CollapseItem>
         </Navbar.Collapse>
       </Navbar>
-
     </>
   );
 };
