@@ -11,7 +11,7 @@ import About from './Pages/About/About';
 import GameDetail from './Pages/Games/GameDetailsPage';
 import GenrePage from './Pages/Genre/GenrePage';
 import PlatformPage from './Pages/PlatformPage/PlatformPage';
-import GameAdditionDetail from './Components/Game/GameAdditionDetail';
+import GameAdditionDetail from './Pages/Games/GameAdditionDetailsPage';
 import PlayingList from './Pages/UserProfile/PlayingList';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";

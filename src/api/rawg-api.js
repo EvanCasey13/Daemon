@@ -96,6 +96,34 @@ export const fetchPopular = (page, query) => {
     });
   };
 
+  export const fetchGameAdditions = (id) => {
+    return fetch(
+      `https://rawg.io/api/games/${id}/additions?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchGameSeries = (id) => {
+    return fetch(
+      `https://rawg.io/api/games/${id}/game-series?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
 export const fetchDetails = (args) => {
     // console.log(args)
     const [, idPart] = args.queryKey;

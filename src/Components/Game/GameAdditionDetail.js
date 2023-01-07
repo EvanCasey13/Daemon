@@ -1,49 +1,77 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Text, Badge, Image, Avatar, Popover, Grid } from "@nextui-org/react";
 
-function GameAdditionDetail() {
-
-  let params = useParams();
-  const [details, setDetails] = useState({});
-
-  const fetchDetails = async () => {
-    const data = await fetch(`https://rawg.io/api/games/${params.id}?token&key=${process.env.REACT_APP_RAWG_API_KEY}`)
-    const detailData = await data.json();
-    setDetails(detailData);
-  }
-
-  useEffect(() => {
-    fetchDetails();
-  }, [params.id]);
+const GameAdditionDetail = ({game}) => {
 
   return (
-    <div className="gameDetailsPage">
-      <Box sx={{ flexGrow: 1, width: 1500 }}>
-        <Grid container spacing={1} >
-          <Grid item xs={4} sm={6} md={12} >
-            <h2>{details.name}</h2>
-            <img src={details.background_image} />
-            <div className="gameStats">
-              <p>Released: {details.released}</p>
-              <p>Rating: {details.rating}</p>
-              <p>Metacritic: {details.metacritic} %</p>
-              <p>Playtime: {details.playtime} hours</p>
-              <p>Achievements: {details.achievements_count}</p>
-              <p>Developer: {details.developers?.map(dev => dev.name + " ")}</p>
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <h3>Description</h3>
-            <p className='descriptionGame'>{details.description_raw}</p>
-          </Grid>
+      <div className="gameDetailsPage">
+      <Grid.Container gap={1} >
+        <Grid xs={0} sm={6} md={6} lg={8} xl={8} >
+          <Image
+            width="100%"
+            height="100%"
+            src={game.background_image}
+            alt="game_image"
+            objectFit="cover"
+          />
         </Grid>
-      </Box>
+        <Grid css={{ float: "right", marginTop: "2%" }}>
+          <Text h5>
+            {game.name}
+          </Text>
+          Publishers:
+          {game.publishers?.map(p =>
+            <Popover placement='top'>
+              <Popover.Trigger>
+                <Badge color="white" isSquared disableOutline size="xs" placement="bottom-right">
+                  <Avatar
+                    bordered
+                    squared
+                    size="lg"
+                    color="error"
+                    src={p.image_background}
+                  />
+                </Badge>
+              </Popover.Trigger>
+              <Popover.Content css={{ px: '$4', py: '$2' }}>
+                {p.name}
+              </Popover.Content>
+            </Popover>
+          )}
+          <br />
+          Genres:
+          {game.genres?.map(g =>
+            <Badge size="sm" enableShadow disableOutline color="warning">{g.name}</Badge>
+          )}
+          <br />
+          <Text h4>
+            Game details
+          </Text>
+          <Text h5>
+            Released: {game.released}
+          </Text>
+          <Text h5>
+            Rating: {game.rating}
+          </Text>
+          <Text h5>
+            Metacritic: {game.metacritic} %
+          </Text>
+          <Text h5>
+            Playtime: {game.playtime} Hours
+          </Text>
+          <Text h5>
+            Achievements: {game.parent_achievements_count}
+          </Text>
+          <Text h5>
+            Total games in the series: {game.game_series_count} Games
+          </Text>
+          <Badge size="sm" enableShadow disableOutline color="error">ESRB Rating: {game.esrb_rating.name}</Badge>
+        </Grid>
+        <Text css={{ paddingLeft: "2%" }}>
+          {game.description_raw}
+        </Text>
+      </Grid.Container>
     </div>
   )
 };
