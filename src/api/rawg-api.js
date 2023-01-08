@@ -124,6 +124,48 @@ export const fetchPopular = (page, query) => {
     });
   };
 
+  export const fetchGameDevelopers = (id) => {
+    return fetch(
+      `https://rawg.io/api/games/${id}/development-team?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchGameAchievements = (id) => {
+    return fetch(
+      `https://rawg.io/api/games/${id}/achievements?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
+  export const fetchGameStores = (id) => {
+    return fetch(
+      `https://rawg.io/api/games/${id}/stores?token&key=${process.env.REACT_APP_RAWG_API_KEY}`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };
+
 export const fetchDetails = (args) => {
     // console.log(args)
     const [, idPart] = args.queryKey;

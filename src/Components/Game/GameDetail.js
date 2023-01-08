@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Text, Badge, Image, Avatar, Popover, Grid, Card, Row, Col } from "@nextui-org/react";
+import { Text, Badge, Image, Avatar, Popover, Grid, Card, Row, Col, Collapse } from "@nextui-org/react";
 import { useParams } from 'react-router-dom';
 import "./Game.css"
-import { fetchGameAdditions, fetchGameSeries } from '../../api/rawg-api';
+import { fetchGameAdditions, fetchGameSeries, fetchGameDevelopers, fetchGameAchievements } from '../../api/rawg-api';
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 
@@ -11,10 +11,16 @@ import { Link } from "react-router-dom";
 const GameDetail = ({ game }) => {
   let params = useParams();
   const gameAdditionsResults = useQuery(['gameAdditions', params.id], () => fetchGameAdditions(params.id));
-  const gameAdditions = gameAdditionsResults.data
+  const gameAdditions = gameAdditionsResults.data;
 
   const gameSeriesResults = useQuery(['gameSeries', params.id], () => fetchGameSeries(params.id));
-  const gameSeries = gameSeriesResults.data
+  const gameSeries = gameSeriesResults.data;
+
+  const gameDevelopersResults = useQuery(['gameDevelopers', params.id], () => fetchGameDevelopers(params.id));
+  const gameDevelopers = gameDevelopersResults.data;
+
+  const gameAchievementsResults = useQuery(['gameAchievements', params.id], () => fetchGameAchievements(params.id));
+  const gameAchievements = gameAchievementsResults.data;
 
   const settings = {
     infinite: false,
@@ -117,12 +123,63 @@ const GameDetail = ({ game }) => {
           </Text>
           <Badge size="sm" enableShadow disableOutline color="error">ESRB Rating: {game.esrb_rating.name}</Badge>
         </Grid>
-        <Text css={{ paddingLeft: "2%" }}>
-          {game.description_raw}
-        </Text>
+        <Collapse.Group>
+          <Collapse title="Description" expanded>
+            <Text css={{ paddingLeft: "2%" }}>
+              {game.description_raw}
+            </Text>
+          </Collapse>
+          <Collapse title="Developers">
+            {gameDevelopers?.results.map(gameD =>
+              <Text css={{ paddingLeft: "2%" }}>
+                {gameD.name}
+              </Text>
+            )}
+          </Collapse>
+          <Collapse title="Achievements">
+            <Grid.Container gap={1}>
+              {gameAchievements?.results.map(gameA =>
+                <Grid xs={12} sm={10} md={8} lg={6} xl={2} key={gameA.id}>
+                  <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', height: 300, width: "100%" }} isHoverable>
+                    <Card.Body css={{ p: 0 }}>
+                      <Card.Image
+                        src={gameA.image}
+                        width="100%"
+                        height={250}
+                        objectFit="cover"
+                        alt="Game series image"
+                      />
+                    </Card.Body>
+                    <Card.Footer
+                      isBlurred
+                      css={{
+                        position: "absolute",
+                        bgBlur: "#ffffff66",
+                        borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
+                        bottom: 0,
+                        zIndex: 1,
+                      }}
+                    >
+                      <Row>
+                        <Col>
+                          <Text h3 color="#000" size={12}>
+                            {gameA.name}
+                          </Text>
+                          <Text color="#000" size={12}>
+                            {gameA.description}
+                          </Text>
+                        </Col>
+                      </Row>
+                    </Card.Footer>
+                  </Card>
+                </Grid>
+              )}
+            </Grid.Container>
+          </Collapse>
+        </Collapse.Group>
       </Grid.Container>
 
-      <Text h2 css={{ textAlign:"center" }}>Related Additions</Text>
+      <Text h2 css={{ textAlign: "center" }}>Related Additions</Text>
       <Slider {...settings}>
         {gameAdditions?.results.map(gameA =>
           <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
@@ -133,7 +190,7 @@ const GameDetail = ({ game }) => {
                   width="100%"
                   height={250}
                   objectFit="cover"
-                  alt="Card example background"
+                  alt="Game addition image"
                 />
               </Link>
             </Card.Body>
@@ -162,7 +219,7 @@ const GameDetail = ({ game }) => {
         )}
       </Slider>
 
-      <Text h2 css={{ textAlign:"center" }}>Related Games</Text>
+      <Text h2 css={{ textAlign: "center" }}>Related Games</Text>
       <Slider {...settings}>
         {gameSeries?.results.map(gameS =>
           <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
@@ -173,7 +230,7 @@ const GameDetail = ({ game }) => {
                   width="100%"
                   height={250}
                   objectFit="cover"
-                  alt="Card example background"
+                  alt="Game series image"
                 />
               </Link>
             </Card.Body>

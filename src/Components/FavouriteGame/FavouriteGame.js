@@ -28,8 +28,8 @@ const FavouriteGame = ({ game, rating, status, id }) => {
           <Link to={`/games/${game.id}`}>
             <Card.Image
               src={game.background_image}
-              width="100%"
-              height="100%"
+              width={900}
+              height={500}
               objectFit="cover"
               alt="Game card"
             />
