@@ -40,8 +40,8 @@ const Game = ({ game }) => {
 
   const addToList = async () => {
     try {
-     setDoc(docRef, data)
-     alert("Game added successfully")
+      setDoc(docRef, data)
+      alert("Game added successfully")
     } catch (err) {
       console.error(err);
       alert("An error occured while adding a game");
@@ -95,6 +95,7 @@ const Game = ({ game }) => {
                 </Button>
                 <Modal
                   closeButton
+                  blur
                   aria-labelledby="modal-title"
                   open={visible}
                   onClose={closeHandler}
@@ -104,11 +105,14 @@ const Game = ({ game }) => {
                       {game.name}
                     </Text>
                   </Modal.Header>
-                  <Modal.Body>
+                  <Modal.Body >
                     <FormControl sx={{ width: '35ch' }}>
                       <div className="status-select">
+                        <Text size={14} css={{ textAlign: "center" }}>
+                          Status
+                        </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" , marginLeft: "30%"}}>
                             {selectedValue}
                           </Dropdown.Button>
                           <Dropdown.Menu
@@ -120,6 +124,7 @@ const Game = ({ game }) => {
                             onSelectionChange={setSelected}
                           >
                             <Dropdown.Item key="Completed">Completed</Dropdown.Item>
+                            <Dropdown.Item key="Playing">Playing</Dropdown.Item>
                             <Dropdown.Item key="Dropped">Dropped</Dropdown.Item>
                             <Dropdown.Item key="Plan to play">Plan to play</Dropdown.Item>
                             <Dropdown.Item key="On-hold">On-hold</Dropdown.Item>
@@ -127,8 +132,11 @@ const Game = ({ game }) => {
                         </Dropdown>
                       </div>
                       <div className="rating-select">
+                        <Text size={14} css={{ textAlign: "center" }}>
+                          Rating
+                        </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "30%" }}>
                             {selectedRatingValue}
                           </Dropdown.Button>
                           <Dropdown.Menu
@@ -143,6 +151,7 @@ const Game = ({ game }) => {
                             <Dropdown.Item key="2">2</Dropdown.Item>
                             <Dropdown.Item key="3">3</Dropdown.Item>
                             <Dropdown.Item key="4">4</Dropdown.Item>
+                            <Dropdown.Item key="5">5</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                       </div>
