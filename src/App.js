@@ -13,6 +13,10 @@ import GenrePage from './Pages/Genre/GenrePage';
 import PlatformPage from './Pages/PlatformPage/PlatformPage';
 import GameAdditionDetail from './Pages/Games/GameAdditionDetailsPage';
 import PlayingList from './Pages/UserProfile/PlayingList';
+import PlanList from './Pages/UserProfile/PlanList';
+import OnHoldList from './Pages/UserProfile/OnHoldList';
+import DroppedList from './Pages/UserProfile/DroppedList';
+import CompletedList from './Pages/UserProfile/CompletedList';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
@@ -64,6 +68,10 @@ function App() {
                   <Route path="/platforms/:id" element={<PlatformPage />} />
                   <Route path="/profile/:id" element={<UserProfile />} />
                   <Route path="/playing/:id" element={<PlayingList />} />
+                  <Route path="/planning/:id" element={<PlanList />} />
+                  <Route path="/on-hold/:id" element={<OnHoldList />} />
+                  <Route path="/dropped/:id" element={<DroppedList />} />
+                  <Route path="/completed/:id" element={<CompletedList />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
