@@ -119,25 +119,25 @@ const UserList = () => {
                                 </ListItem>
                                 <ListItem disablePadding>
                                     <CircleIcon sx={{ color: blue[500], fontSize: 15 }} />
-                                    <Link href="#" underline="none">
+                                    <Link href= {`/completed/${user?.uid}`} underline="none">
                                         Completed
                                     </Link>
                                 </ListItem>
                                 <ListItem disablePadding>
                                     <CircleIcon sx={{ color: yellow[500], fontSize: 15 }} />
-                                    <Link href="#" underline="none">
+                                    <Link href= {`/on-hold/${user?.uid}`} underline="none">
                                         On-Hold
                                     </Link>
                                 </ListItem>
                                 <ListItem disablePadding>
                                     <CircleIcon sx={{ color: red[500], fontSize: 15 }} />
-                                    <Link href="#" underline="none">
+                                    <Link href= {`/dropped/${user?.uid}`} underline="none">
                                         Dropped
                                     </Link>
                                 </ListItem>
                                 <ListItem disablePadding>
                                     <CircleIcon sx={{ color: grey[500], fontSize: 15 }} />
-                                    <Link href="#" underline="none">
+                                    <Link href= {`/planning/${user?.uid}`} underline="none">
                                         Planning to play
                                     </Link>
                                 </ListItem>
