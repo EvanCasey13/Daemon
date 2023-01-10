@@ -6,7 +6,7 @@ import ForumPostsListGuidelines from "../../../Components/Forum/Guidelines/Forum
 const Guidelines = () => {
 
     return (
-        <div className="Announcement">
+        <div className="Guidelines">
             <NavBar />
             <AddForumPost />
             <ForumPostsListGuidelines />
