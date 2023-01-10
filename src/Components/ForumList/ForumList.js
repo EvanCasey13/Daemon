@@ -76,6 +76,37 @@ const ForumList = () => {
             <Card.Divider />
           </Card>
         </Grid>
+
+        <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
+          <Card css={{ mw:"100%" }}>
+            <Card.Header>
+              <Text b>General</Text>
+            </Card.Header>
+            <Card.Divider />
+            <Card.Body css={{ py: "$10" }}>
+            <Link to={`/forum/games-tech-computer-support`}>Computers, Games & Tech support</Link>
+              <Text>
+                Have an Issue?, ask our community for help with a related question.
+              </Text>
+            </Card.Body>
+            <Card.Divider />
+            <Card.Divider />
+            <Card.Body css={{ py: "$10" }}>
+            <Link to={`/forum/introductions`}>Introductions</Link>
+              <Text>
+                Introduce yourself here
+              </Text>
+            </Card.Body>
+            <Card.Divider />
+            <Card.Body css={{ py: "$10" }}>
+            <Link to={`/forum/casual`}>Casual Discussion</Link>
+              <Text>
+                General interest topics that do not fall into the above sections.
+              </Text>
+            </Card.Body>
+            <Card.Divider />
+          </Card>
+        </Grid>
         </Grid.Container>
         </Card>
       );
