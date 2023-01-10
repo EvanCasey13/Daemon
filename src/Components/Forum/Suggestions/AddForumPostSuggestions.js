@@ -33,7 +33,7 @@ const AddForumPost = () => {
                 userName: user?.displayName,
                 postTitle: title,
                 postContent: content,
-                forum: "Guidelines"
+                forum: "Suggestions"
             })
             alert("Post created successfully")
         } catch (err) {
@@ -46,12 +46,12 @@ const AddForumPost = () => {
         <div className="AddForumPost">
             <Card>
                 <Card.Header>
-                    <Text size={20} b>Guidelines</Text>
+                    <Text size={20} b>Suggestions</Text>
                 </Card.Header>
                 <Card.Divider />
                 <Card.Body css={{ py: "$10" }}>
                     <Text>
-                        Forum rules, site rules & other various useful information.
+                        Post any suggestions for the site here.
                     </Text>
                 </Card.Body>
                 <Card.Divider />
@@ -69,7 +69,7 @@ const AddForumPost = () => {
                         >
                             <Modal.Header>
                                 <Text id="modal-title" size={18}>
-                                Forum rules, site rules & other various useful information.
+                                    Post any suggestions for the site here.
                                 </Text>
                             </Modal.Header>
                             <Modal.Body>
