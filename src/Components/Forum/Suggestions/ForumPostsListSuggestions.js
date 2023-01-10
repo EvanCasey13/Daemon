@@ -5,13 +5,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { onAuthStateChanged } from "firebase/auth"
 import { Grid, Card, Text, Avatar, Row } from "@nextui-org/react";
 
-const ForumPostsListGuidelines = () => {
+const ForumPostsListSuggestions = () => {
 
   const [posts, setPosts] = useState([]);
   const [user, loading, error] = useAuthState(auth);
 
   const postsRef = collection(db, "forumPosts");
-  const q = query(postsRef, where("forum", "==", "Guidelines"));
+  const q = query(postsRef, where("forum", "==", "Suggestions"));
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -26,7 +26,7 @@ const ForumPostsListGuidelines = () => {
   }, [posts])
 
   return (
-    <div className="ForumPostsListGuidelines">
+    <div className="ForumPostsListSuggestions">
       <Grid.Container gap={1}>
         {posts.map(post => {
           return (
@@ -62,4 +62,4 @@ const ForumPostsListGuidelines = () => {
   )
 };
 
-export default ForumPostsListGuidelines;
+export default ForumPostsListSuggestions;
