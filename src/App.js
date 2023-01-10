@@ -23,6 +23,7 @@ import SuggestionsPage from './Pages/Forum/ForumSectionPages/Suggestions';
 import SupportPage from './Pages/Forum/ForumSectionPages/Support';
 import NewsPage from './Pages/Forum/ForumSectionPages/News';
 import GameAnnouncementPage from './Pages/Forum/ForumSectionPages/GameAnnouncements';
+import RecommendationsPage from './Pages/Forum/ForumSectionPages/Recommendations';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
@@ -74,6 +75,7 @@ function App() {
                   <Route path="/forum/support" element={<SupportPage />} />
                   <Route path="/forum/news" element={<NewsPage />} />
                   <Route path="/forum/gameannouncements" element={<GameAnnouncementPage />} />
+                  <Route path="/forum/recommendations" element={<RecommendationsPage />} />
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
                   <Route path="/genres/:name" element={<GenrePage />} />
