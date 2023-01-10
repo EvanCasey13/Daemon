@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthContext from "../../AuthContext";
 import NavBar from "../../Components/Navbar/Navbar"
+import ForumList from '../../Components/ForumList/ForumList';
 
 function ForumHomepage() {
 
@@ -13,7 +14,7 @@ function ForumHomepage() {
     return (
         <div className='forumHome'>
             <NavBar />
-            <h1>This is the Forum Homepage</h1>
+            <ForumList />
         </div>
     );
 
