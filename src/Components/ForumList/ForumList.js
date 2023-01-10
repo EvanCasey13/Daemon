@@ -99,7 +99,7 @@ const ForumList = () => {
             </Card.Body>
             <Card.Divider />
             <Card.Body css={{ py: "$10" }}>
-            <Link to={`/forum/casual`}>Casual Discussion</Link>
+            <Link to={`/forum/casual-discussion`}>Casual Discussion</Link>
               <Text>
                 General interest topics that do not fall into the above sections.
               </Text>
