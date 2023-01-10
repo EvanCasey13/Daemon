@@ -20,6 +20,7 @@ import CompletedList from './Pages/UserProfile/CompletedList';
 import AnnouncementPage from './Pages/Forum/ForumSectionPages/Announcements';
 import GuidelinesPage from './Pages/Forum/ForumSectionPages/Guidelines';
 import SuggestionsPage from './Pages/Forum/ForumSectionPages/Suggestions';
+import SupportPage from './Pages/Forum/ForumSectionPages/Support';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
@@ -68,6 +69,7 @@ function App() {
                   <Route path="/forum/announcements" element={<AnnouncementPage />} />
                   <Route path="/forum/guidelines" element={<GuidelinesPage />} />
                   <Route path="/forum/suggestions" element={<SuggestionsPage />} />
+                  <Route path="/forum/support" element={<SupportPage />} />
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
                   <Route path="/genres/:name" element={<GenrePage />} />
