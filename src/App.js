@@ -30,15 +30,18 @@ import CasualDiscussionPage from './Pages/Forum/ForumSectionPages/CasualDiscussi
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
+import AdminPage from './Pages/Admin/admin';
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "./Firebase/firebase";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 360000,
-      refetchInterval: 360000, 
+      refetchInterval: 360000,
       refetchOnWindowFocus: false
     },
   },
@@ -46,6 +49,7 @@ const queryClient = new QueryClient({
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const [user, uloading, error] = useAuthState(auth);
 
   useEffect(() => {
     setLoading(true);
@@ -64,11 +68,11 @@ function App() {
           </div>
         </div>
       ) : (
-<QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <AuthProvider>
-            <NextUIProvider>
-              <Routes>
+              <NextUIProvider>
+                <Routes>
                   <Route index element={<Home />} />
                   <Route path="gameHomepage" element={<GameHomepage />} />
                   <Route path="forumHomepage" element={<ForumHomepage />} />
@@ -95,13 +99,13 @@ function App() {
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
-                  <Route exact path="/reset" element={<Reset />} />
-              </Routes>
+                  <Route exact path="/reset" element={<Reset />} />   
+                </Routes>
               </NextUIProvider>
             </AuthProvider>
           </BrowserRouter>
           <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+        </QueryClientProvider>
       )}
     </div>
   );
