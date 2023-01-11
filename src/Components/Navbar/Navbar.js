@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
-import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { onAuthStateChanged } from "firebase/auth"
 import { auth, db, logout } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Logo from '../../images/daemon_logo_navbar.png'
 import Tooltip from '@mui/material/Tooltip';
-import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { Navbar, Link, Text, Avatar, Dropdown, Button } from "@nextui-org/react";
 
 const NavBar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const [profilePicture, setProfilePicture] = useState("")
   const [userId, setUserId] = useState("")
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const userRef = collection(db, "users/");
+  const q = query(userRef, where("uid", "==", user?.uid));
+ 
+  useEffect(() => { 
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        let getUser = await getDocs(q);
+        setUsers(getUser.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id
+        })))
+      }
+    });
+  })
+
   const fetchUserNameProfilePicture = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -58,31 +59,6 @@ const NavBar = () => {
     navigate(pageURL, { replace: true });
   };
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const collapseItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-
   return (
     <>
       <Navbar isBordered variant="floating" color="inherit"
@@ -95,11 +71,21 @@ const NavBar = () => {
             },
           }}
         >
+          {users.map(userA => {
+          return (
+              userA.role === "Admin" && (
+                <>
+    	          <Button>Admin Only</Button>
+                </>
+              )
+          )
+        })}
           <img src={Logo} className="logo" alt="Daemon Logo" />
           <Text b color="inherit" hideIn="xs">
             Daemon
           </Text>
         </Navbar.Brand>
+       
         <Navbar.Content
           enableCursorHighlight
           activeColor="secondary"
