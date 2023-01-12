@@ -74,7 +74,7 @@ function Login() {
             </Button>
             <br />
             <Button className="login__btn login__google" onClick={signInWithGoogle} color="gradient">Login with Google</Button>
-            <Text p>
+            <Text>
               Don't have an account? <Link to="/register">Register</Link> now.
             </Text>
           </form>
