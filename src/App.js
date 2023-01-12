@@ -34,8 +34,6 @@ import AdminPage from './Pages/Admin/admin';
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "./Firebase/firebase";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,7 +47,6 @@ const queryClient = new QueryClient({
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [user, uloading, error] = useAuthState(auth);
 
   useEffect(() => {
     setLoading(true);
@@ -97,6 +94,7 @@ function App() {
                   <Route path="/dropped/:id" element={<DroppedList />} />
                   <Route path="/completed/:id" element={<CompletedList />} />
                   <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
+                  <Route path="/admin" element={<AdminPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
                   <Route exact path="/reset" element={<Reset />} />   
