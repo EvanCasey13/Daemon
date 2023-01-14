@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, doc, query, where } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, where, doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { onAuthStateChanged } from "firebase/auth"
-import { Grid, Card, Text, Avatar, Row } from "@nextui-org/react";
+import { Grid, Card, Text, Avatar, Button } from "@nextui-org/react";
 
 const ForumPostsListCGT = () => {
 
@@ -11,7 +11,16 @@ const ForumPostsListCGT = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const postsRef = collection(db, "forumPosts");
+
   const q = query(postsRef, where("forum", "==", "CGTSupport"));
+
+  const deleteItem = async (postID) => {
+      const d = query(collection(db, "forumPosts"), where('postID', '==', postID));
+      const docSnap = await getDocs(d);
+        docSnap.forEach((doc) => {
+        deleteDoc(doc.ref);
+      });
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -44,12 +53,15 @@ const ForumPostsListCGT = () => {
                   </Card.Header>
                   <Card.Divider />
                   <Card.Body css={{ py: "$10" }}>
-                  <Text h3>
-                     {post.postTitle}
+                    <Text h3>
+                      {post.postTitle}
                     </Text>
                     <Text>
-                     {post.postContent}
+                      {post.postContent}
                     </Text>
+                    <Button onClick={() => { deleteItem(post.postID) }} size="sm">
+                      Delete Post
+                    </Button>
                   </Card.Body>
                   <Card.Divider />
                 </Card>

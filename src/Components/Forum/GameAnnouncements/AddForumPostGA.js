@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { Modal, Input, Card, Textarea, Grid, Button, Text } from "@nextui-org/react";
 
 const AddForumPost = () => {
@@ -25,16 +25,21 @@ const AddForumPost = () => {
         setContent(e.target.value)
     }
 
+    const newPostRef = doc(collection(db, "forumPosts"));
+
+    const data = {
+        userUID: user?.uid,
+        userProfilePicture: user?.photoURL,
+        userName: user?.displayName,
+        postTitle: title,
+        postContent: content,
+        forum: "GameAnnouncement",
+        postID: newPostRef.id
+    }
+
     const createForumPost = async () => {
         try {
-            addDoc(collection(db, "forumPosts"), {
-                userUID: user?.uid,
-                userProfilePicture: user?.photoURL,
-                userName: user?.displayName,
-                postTitle: title,
-                postContent: content,
-                forum: "GameAnnouncement"
-            })
+            await setDoc(newPostRef, data)
             alert("Post created successfully")
         } catch (err) {
             console.error(err);
