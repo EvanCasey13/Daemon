@@ -59,9 +59,13 @@ const ForumPostsListGA = () => {
                       {post.postContent}
                     </Text>
                   </Card.Body>
-                  <Button onClick={() => { deleteItem(post.postID) }} size="sm">
-                    Delete Post
-                  </Button>
+                  {post.userName === user.displayName && (
+                      <>
+                        <Button onClick={() => { deleteItem(post.postID) }} size="sm">
+                          Delete Post
+                        </Button>
+                      </>
+                    )}
                   <Card.Divider />
                 </Card>
               </Grid>

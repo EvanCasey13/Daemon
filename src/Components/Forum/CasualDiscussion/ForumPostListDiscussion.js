@@ -58,9 +58,13 @@ const ForumPostsListDiscussion = () => {
                     <Text>
                      {post.postContent}
                     </Text>
-                    <Button onClick={() => { deleteItem(post.postID) }} size="sm">
-                      Delete Post
-                    </Button>
+                    {post.userName === user.displayName && (
+                      <>
+                        <Button onClick={() => { deleteItem(post.postID) }} size="sm">
+                          Delete Post
+                        </Button>
+                      </>
+                    )}
                   </Card.Body>
                   <Card.Divider />
                 </Card>
