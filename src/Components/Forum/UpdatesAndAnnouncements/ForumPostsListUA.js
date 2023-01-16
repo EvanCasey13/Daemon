@@ -16,10 +16,10 @@ const ForumPostsListUA = () => {
   const deleteItem = async (postID) => {
     const d = query(collection(db, "forumPosts"), where('postID', '==', postID));
     const docSnap = await getDocs(d);
-      docSnap.forEach((doc) => {
+    docSnap.forEach((doc) => {
       deleteDoc(doc.ref);
     });
-}
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -52,15 +52,19 @@ const ForumPostsListUA = () => {
                   </Card.Header>
                   <Card.Divider />
                   <Card.Body css={{ py: "$10" }}>
-                  <Text h3>
-                     {post.postTitle}
+                    <Text h3>
+                      {post.postTitle}
                     </Text>
                     <Text>
-                     {post.postContent}
+                      {post.postContent}
                     </Text>
-                    <Button onClick={() => { deleteItem(post.postID) }} size="sm">
-                      Delete Post
-                    </Button>
+                    {post.userName === user.displayName && (
+                      <>
+                        <Button onClick={() => { deleteItem(post.postID) }} size="sm">
+                          Delete Post
+                        </Button>
+                      </>
+                    )}
                   </Card.Body>
                   <Card.Divider />
                 </Card>
