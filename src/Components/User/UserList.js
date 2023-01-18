@@ -1,26 +1,15 @@
 import React, { useState } from "react";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import Link from '@mui/material/Link';
-import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 import { green, blue, yellow, red, grey } from '@mui/material/colors';
 import { auth, db } from "../../Firebase/firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import CircleIcon from '@mui/icons-material/Circle';
-import Stack from '@mui/material/Stack';
 import './User.css'
-import { Card, Col, Row, Button, Text } from "@nextui-org/react";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import MessageIcon from '@mui/icons-material/Message';
+import { Card, Col, Row, Table, Grid, Text } from "@nextui-org/react";
+import UserCard from "./UserCard";
 
 const UserList = () => {
-
     const [user, loading, error] = useAuthState(auth);
     const [name, setName] = useState("");
     const [profilePicture, setProfilePicture] = useState("")
@@ -39,113 +28,80 @@ const UserList = () => {
             alert("An error occured while fetching user data");
         }
     };
-    
-    const Item = styled(Paper)(({ theme }) => ({
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }));
+
     return (
         <div className="userListPage">
-            <Box sx={{ width: '100%' }}
-           
-            >
-                <Paper
-                    component="div"
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-around",
-                        flexWrap: "wrap",
-                        padding: 3,
-                        margin: 0,
-                    }}
-                >
-<Card css={{ w: "20%", h: "380px" }}>
-    <Card.Body css={{ p: 0 }}>
-      <Card.Image
-        src={user?.photoURL}
-        objectFit="contain"
-        width="100%"
-        height="100%"
-        alt="Relaxing app background"
-      />
-    </Card.Body>
-    <Card.Footer
-      isBlurred
-      css={{
-        position: "absolute",
-        bgBlur: "#0f111466",
-        borderTop: "$borderWeights$light solid $gray800",
-        bottom: 0,
-        zIndex: 1,
-      }}
-    >
-      <Row>
-        <Col>
-          <Row>
-            <Col>
-              <Text color="#d1d1d1" size={12}>
-              {user?.displayName}
-              </Text>
-            </Col>
-            <PersonAddIcon />
-          </Row>
-        </Col>
-      </Row>
-    </Card.Footer>
-  </Card>
-                    <Grid container >
-                        <Grid item xs={10} sm={10} md={10} lg={10} xl={10} >
-                            <Divider />
-                            <h4 className='userListTitle'>Statistics</h4>
-                            <Divider />
-                            <h5 className='userListTitle'>Game Stats</h5>
-                            <Divider />
-                            <Stack
-                                direction="row"
-                                divider={<Divider orientation="vertical" flexItem />}
-                                spacing={2}
-                            >
-                                <Item>Time played </Item>
-                                <Item>Average rating</Item>
-                            </Stack>
-                            <Divider />
-                            <List>
-                                <ListItem disablePadding>
+            <Grid container css={{
+                height: "auto",
+                minWidth: "100%",
+                marginLeft: "42%"
+            }}>
+                <Grid item xs={0} sm={0} md={0} lg={10} xl={10} >
+                <UserCard />
+                </Grid>
+            </Grid>
+
+            <Grid container css={{
+                paddingLeft: "14.5%"
+            }}>
+                <Grid item xs={10} sm={10} md={10} lg={10} xl={10} >
+                    <Table
+                        aria-label="List Links"
+                        css={{
+                            height: "auto",
+                            minWidth: "100%",
+                            left: "50%"
+                        }}
+                    >
+                        <Table.Header>
+                            <Table.Column>Game Statistics</Table.Column>
+                        </Table.Header>
+
+                        <Table.Body>
+                            <Table.Row key="1">
+                                <Table.Cell>
                                     <CircleIcon sx={{ color: green[500], fontSize: 15 }} />
-                                    <Link href= {`/playing/${user?.uid}`} underline="none">
+                                    <Link to={`/playing/${user?.uid}`} underline="none">
                                         Playing
                                     </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row key="2">
+                                <Table.Cell>
                                     <CircleIcon sx={{ color: blue[500], fontSize: 15 }} />
-                                    <Link href= {`/completed/${user?.uid}`} underline="none">
+                                    <Link to={`/completed/${user?.uid}`} underline="none">
                                         Completed
                                     </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row key="3">
+                                <Table.Cell>
                                     <CircleIcon sx={{ color: yellow[500], fontSize: 15 }} />
-                                    <Link href= {`/on-hold/${user?.uid}`} underline="none">
+                                    <Link to={`/on-hold/${user?.uid}`} underline="none">
                                         On-Hold
                                     </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row key="4">
+                                <Table.Cell>
                                     <CircleIcon sx={{ color: red[500], fontSize: 15 }} />
-                                    <Link href= {`/dropped/${user?.uid}`} underline="none">
+                                    <Link to={`/dropped/${user?.uid}`} underline="none">
                                         Dropped
                                     </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row key="5">
+                                <Table.Cell>
                                     <CircleIcon sx={{ color: grey[500], fontSize: 15 }} />
-                                    <Link href= {`/planning/${user?.uid}`} underline="none">
+                                    <Link to={`/planning/${user?.uid}`} underline="none">
                                         Planning to play
                                     </Link>
-                                </ListItem>
-                            </List>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </Box>
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>
+                    </Table>
+                </Grid>
+            </Grid>
         </div>
 
     )

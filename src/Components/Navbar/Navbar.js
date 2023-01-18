@@ -101,6 +101,41 @@ const NavBar = () => {
                       {opt.label}
                     </Navbar.Link>
                   ))}
+                  <Dropdown placement="bottom-right">
+                    <Dropdown.Button light>Lists</Dropdown.Button>
+                    <Dropdown.Menu
+                      aria-label="User menu actions"
+                      color="secondary"
+                      variant="light"
+                      onAction={(actionKey) => console.log({ actionKey })}
+                    >
+                      <Dropdown.Item key="playing" textValue="Playing">
+                        <Link href={`/playing/${user?.uid}`} underline="none">
+                          Playing
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="Completed" textValue="Completed">
+                        <Link href={`/completed/${user?.uid}`} underline="none">
+                          Completed
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="OnHold" textValue="OnHold">
+                        <Link href={`/on-hold/${user?.uid}`} underline="none">
+                          On-Hold
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="Dropped" textValue="Dropped"> 
+                        <Link href={`/dropped/${user?.uid}`} underline="none">
+                          Dropped
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="PlanningToPlay" textValue="PlanningToPlay">
+                        <Link href={`/planning/${user?.uid}`} underline="none">
+                          Planning to play
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Navbar.Content>
                 <Navbar.Content
                   css={{
@@ -227,6 +262,41 @@ const NavBar = () => {
                       {opt.label}
                     </Navbar.Link>
                   ))}
+                   <Dropdown placement="bottom-right">
+                    <Dropdown.Button light>Lists</Dropdown.Button>
+                    <Dropdown.Menu
+                      aria-label="User menu actions"
+                      color="secondary"
+                      variant="light"
+                      onAction={(actionKey) => console.log({ actionKey })}
+                    >
+                      <Dropdown.Item key="playing" textValue="Playing">
+                        <Link href={`/playing/${user?.uid}`} underline="none">
+                          Playing
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="Completed" textValue="Completed">
+                        <Link href={`/completed/${user?.uid}`} underline="none">
+                          Completed
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="OnHold" textValue="OnHold">
+                        <Link href={`/on-hold/${user?.uid}`} underline="none">
+                          On-Hold
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="Dropped" textValue="Dropped"> 
+                        <Link href={`/dropped/${user?.uid}`} underline="none">
+                          Dropped
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="PlanningToPlay" textValue="PlanningToPlay">
+                        <Link href={`/planning/${user?.uid}`} underline="none">
+                          Planning to play
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Navbar.Content>
                 <Navbar.Content
                   css={{

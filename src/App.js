@@ -1,8 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import Logo from './images/daemon_logo.png'
 import Home from './Pages/Home/Home';
 import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
@@ -46,25 +45,8 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-
   return (
-    <div className="App">
-
-      {loading ? (
-        <div className="loader-wrapper">
-          <div className="loader">
-            <img src={Logo} alt="loader logo" />
-          </div>
-        </div>
-      ) : (
+    <div className="App"> 
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
             <AuthProvider>
@@ -104,7 +86,6 @@ function App() {
           </BrowserRouter>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
-      )}
     </div>
   );
 }
