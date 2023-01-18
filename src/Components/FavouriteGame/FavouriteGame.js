@@ -23,13 +23,13 @@ const FavouriteGame = ({ game, rating, status, id }) => {
 
   return (
     <div className="FavouriteComponent">
-      <Card css={{ display: 'block', justifyContent: 'space-between', flexDirection: 'column', backgroundColor: "#EEFFFF" }} isHoverable>
+      <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
         <Card.Body css={{ p: 0 }}>
           <Link to={`/games/${game.id}`}>
             <Card.Image
               src={game.background_image}
-              width={900}
-              height={500}
+              width="100%"
+              height="100%"
               objectFit="cover"
               alt="Game card"
             />

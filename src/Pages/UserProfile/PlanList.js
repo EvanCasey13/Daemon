@@ -34,7 +34,7 @@ const PlanList = () => {
       <Grid.Container gap={1}>
         {favourites.map(fav => {
           return (
-            <Grid xs={12} sm={10} md={8} lg={6} xl={6} key={fav.game.id}>
+            <Grid xs={12} sm={6} md={6} lg={6} xl={6} key={fav.game.id}>
               <Game
                 key={fav.game.id} game={fav.game} rating={fav.Rating} status={fav.Status} id={fav.game.id} />
             </Grid>

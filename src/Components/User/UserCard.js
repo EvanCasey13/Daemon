@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Card from '@mui/material/Card';
+import { Card, Col, Row, Table, Grid, Text } from "@nextui-org/react";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import MessageIcon from '@mui/icons-material/Message';
-import IconButton from '@mui/material/IconButton';
 import './User.css'
 
 const UserCard = () => {
@@ -37,28 +31,39 @@ const UserCard = () => {
         <div className="UserCard">
             <Grid container spacing={3} sx={{ paddingTop: "10%" }}>
                 <Grid item xs={8} sm={8} md={8} lg={8} xl={12} > 
-                    <Card>
-                        <CardMedia
-                            component="img"
-                            height="280"
-                            image={user?.photoURL}
-                            alt="user_profile_picture"
-                        />
-                        <CardContent>
-
-                            <Grid item xs={20}>
-                                <Typography variant="h6" component="p">
-                                    {user?.displayName}
-                                </Typography>
-                            </Grid>
-                            <IconButton aria-label="addFriend">
+                <Card css={{ w: "20%", h: "380px" }}>
+                <Card.Body css={{ p: 0 }}>
+                    <Card.Image
+                        src={user?.photoURL}
+                        objectFit="contain"
+                        width="100%"
+                        height="100%"
+                    />
+                </Card.Body>
+                <Card.Footer
+                    isBlurred
+                    css={{
+                        position: "absolute",
+                        bgBlur: "#0f111466",
+                        borderTop: "$borderWeights$light solid $gray800",
+                        bottom: 0,
+                        zIndex: 1,
+                    }}
+                >
+                    <Row>
+                        <Col>
+                            <Row>
+                                <Col>
+                                    <Text color="#d1d1d1" size={12}>
+                                        {user?.displayName}
+                                    </Text>
+                                </Col>
                                 <PersonAddIcon />
-                            </IconButton>
-                            <IconButton aria-label="Message">
-                                <MessageIcon />
-                            </IconButton>
-                        </CardContent>
-                    </Card>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Card.Footer>
+            </Card>
                 </Grid>
             </Grid>
         </div>
