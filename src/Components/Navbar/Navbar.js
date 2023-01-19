@@ -14,20 +14,16 @@ const NavBar = () => {
   const [userId, setUserId] = useState("")
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const userRef = collection(db, "users/");
-  const q = query(userRef, where("uid", "==", userId));
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let getUser = await getDocs(q);
-        setUsers(getUser.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        })))
-      }
-    });
-  })
+    const userRef = collection(db, "users/");
+    const q = query(userRef, where("uid", "==", userId));
+    const getUser = async () =>{
+      const data = await getDocs(q)
+      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+    }
+    getUser()
+  }, [userId]);
 
   const fetchUserNameProfilePicture = async () => {
     try {
