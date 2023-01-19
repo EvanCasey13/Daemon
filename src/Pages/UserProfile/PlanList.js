@@ -13,20 +13,15 @@ const PlanList = () => {
   const [favourites, setFavourites] = useState([]);
   const [user, loading, error] = useAuthState(auth);
 
+useEffect(() => {
   const playingRef = collection(db, "users/" + user?.uid + "/favourites");
   const q = query(playingRef, where("Status", "==", "Plan to play"));
-
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let getFavourites = await getDocs(q);
-        setFavourites(getFavourites.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        })))
-      }
-    });
-  }, [favourites])
+  const getFavourites = async () =>{
+    const data = await getDocs(q)
+    setFavourites(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+  }
+  getFavourites()
+}, [user?.uid]);
 
   return (
     <div className="PlanList">
