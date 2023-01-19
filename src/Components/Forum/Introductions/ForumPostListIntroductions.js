@@ -10,9 +10,6 @@ const ForumPostsListIntroductions = () => {
   const [posts, setPosts] = useState([]);
   const [user, loading, error] = useAuthState(auth);
 
-  const postsRef = collection(db, "forumPosts");
-  const q = query(postsRef, where("forum", "==", "Introductions"));
-
   const deleteItem = async (postID) => {
     const d = query(collection(db, "forumPosts"), where('postID', '==', postID));
     const docSnap = await getDocs(d);
@@ -21,17 +18,15 @@ const ForumPostsListIntroductions = () => {
     });
 }
 
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let getPosts = await getDocs(q);
-        setPosts(getPosts.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id
-        })))
-      }
-    });
-  }, [posts])
+useEffect(() => {
+  const postsRef = collection(db, "forumPosts");
+  const q = query(postsRef, where("forum", "==", "Introductions"));
+  const getPosts = async () =>{
+    const data = await getDocs(q)
+    setPosts(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+  }
+  getPosts()
+}, []);
 
   return (
     <div className="ForumPostsListIntroductions">
