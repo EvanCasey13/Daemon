@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar"
-import AddForumPost from "../../../Components/Forum/UpdatesAndAnnouncements/AddForumPostUA";
-import ForumPostsListUA from "../../../Components/Forum/UpdatesAndAnnouncements/ForumPostsListUA";
+import AddForumPost from "../../../Components/Forum/ForumSections/UpdatesAndAnnouncements/AddForumPostUA";
+import ForumPostsListUA from "../../../Components/Forum/ForumSections/UpdatesAndAnnouncements/ForumPostsListUA";
 
 const Announcements = () => {
 

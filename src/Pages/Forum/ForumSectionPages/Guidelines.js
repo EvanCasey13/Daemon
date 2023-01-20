@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar"
-import AddForumPost from "../../../Components/Forum/Guidelines/AddForumPostGuidelines";
-import ForumPostsListGuidelines from "../../../Components/Forum/Guidelines/ForumPostsListGuidelines";
+import AddForumPost from "../../../Components/Forum/ForumSections/Guidelines/AddForumPostGuidelines";
+import ForumPostsListGuidelines from "../../../Components/Forum/ForumSections/Guidelines/ForumPostsListGuidelines";
 
 const Guidelines = () => {
 
