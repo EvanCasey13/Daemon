@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar"
-import AddForumPost from "../../../Components/Forum/Suggestions/AddForumPostSuggestions";
-import ForumPostsListSuggestions from "../../../Components/Forum/Suggestions/ForumPostsListSuggestions";
+import AddForumPost from "../../../Components/Forum/ForumSections/Suggestions/AddForumPostSuggestions";
+import ForumPostsListSuggestions from "../../../Components/Forum/ForumSections/Suggestions/ForumPostsListSuggestions";
 
 const Suggestions = () => {
 

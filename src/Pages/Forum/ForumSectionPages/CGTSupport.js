@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar";
-import AddForumPost from "../../../Components/Forum/CGTSupport/AddForumPostCGT";
-import ForumPostsListCGT from "../../../Components/Forum/CGTSupport/ForumPostListCGT";
+import AddForumPost from "../../../Components/Forum/ForumSections/CGTSupport/AddForumPostCGT";
+import ForumPostsListCGT from "../../../Components/Forum//ForumSections/CGTSupport/ForumPostListCGT";
 
 const CGTSupport = () => {
     return (

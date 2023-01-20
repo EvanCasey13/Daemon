@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar";
-import AddForumPost from "../../../Components/Forum/Support/AddForumPostSupport";
-import ForumPostsListSupport from "../../../Components/Forum/Support/ForumPostListSupport";
+import AddForumPost from "../../../Components/Forum/ForumSections/Support/AddForumPostSupport";
+import ForumPostsListSupport from "../../../Components/Forum/ForumSections/Support/ForumPostListSupport";
 
 const Support = () => {
     return (

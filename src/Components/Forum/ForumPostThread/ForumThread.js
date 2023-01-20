@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import NavBar from '../../Navbar/Navbar';
 import { auth, db } from "../../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, query, where, doc, addDoc } from "firebase/firestore";
+import ForumRepliesList from '../ForumRepliesList/ForumRepliesList';
 
 const ForumThread = () => {
     let params = useParams();
@@ -146,44 +147,10 @@ const ForumThread = () => {
                 )
             })}
 
-<Grid.Container gap={1}>
-        {replies.map(reply => {
-          return (
-            <Grid.Container gap={2}>
-              <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
-                <Card>
-                  <Card.Header>
-                    <Avatar
-                      size="lg"
-                      src={reply.userProfilePicture}
-                      color="primary"
-                      bordered
-                    />
-                    <Text b>{reply.userName}</Text>
-                  </Card.Header>
-                  <Card.Divider />
-                  <Card.Body css={{ py: "$10" }}>
-                      <Text h3>
-                        {reply.replyTitle}
-                      </Text>
-                    <Text>
-                      {reply.replyContent}
-                    </Text>
-                    {reply.userName === user.displayName && (
-                      <>
-                        <Button onClick={() => {  }} size="sm">
-                          Delete
-                        </Button>
-                      </>
-                    )}
-                  </Card.Body>
-                  <Card.Divider />
-                </Card>
-              </Grid>
-            </Grid.Container>
-          )
-        })}
-      </Grid.Container>
+       
+            <ForumRepliesList replies={replies}/>
+        
+
         </div>
     )
 };

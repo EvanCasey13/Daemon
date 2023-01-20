@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../../../Components/Navbar/Navbar"
-import AddForumPost from "../../../Components/Forum/GameAnnouncements/AddForumPostGA";
-import ForumPostsListGA from "../../../Components/Forum/GameAnnouncements/ForumPostListGA";
+import AddForumPost from "../../../Components/Forum/ForumSections/GameAnnouncements/AddForumPostGA";
+import ForumPostsListGA from "../../../Components/Forum/ForumSections/GameAnnouncements/ForumPostListGA";
 
 const GameAnnouncement = () => {
 
