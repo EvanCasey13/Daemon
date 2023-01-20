@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { onAuthStateChanged } from "firebase/auth"
+import { Link } from "react-router-dom";
 import { Grid, Card, Text, Avatar, Button } from "@nextui-org/react";
 
 const ForumPostsListDiscussion = () => {
@@ -13,17 +13,18 @@ const ForumPostsListDiscussion = () => {
   const deleteItem = async (postID) => {
     const d = query(collection(db, "forumPosts"), where('postID', '==', postID));
     const docSnap = await getDocs(d);
-      docSnap.forEach((doc) => {
+    docSnap.forEach((doc) => {
       deleteDoc(doc.ref);
     });
-}
+  }
 
   useEffect(() => {
     const postsRef = collection(db, "forumPosts");
     const q = query(postsRef, where("forum", "==", "Discussion"));
-    const getPosts = async () =>{
-      const data = await getDocs(q)
-      setPosts(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+    const getPosts = async () => {
+      onSnapshot(q, (data) => {
+        setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      })
     }
     getPosts()
   }, []);
@@ -47,11 +48,13 @@ const ForumPostsListDiscussion = () => {
                   </Card.Header>
                   <Card.Divider />
                   <Card.Body css={{ py: "$10" }}>
-                  <Text h3>
-                     {post.postTitle}
-                    </Text>
+                    <Link to={`/forum/post/${post.postID}`}>
+                      <Text h3>
+                        {post.postTitle}
+                      </Text>
+                    </Link>
                     <Text>
-                     {post.postContent}
+                      {post.postContent}
                     </Text>
                     {post.userName === user.displayName && (
                       <>
