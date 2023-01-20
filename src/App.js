@@ -26,6 +26,7 @@ import RecommendationsPage from './Pages/Forum/ForumSectionPages/Recommendations
 import CGTSupportPage from './Pages/Forum/ForumSectionPages/CGTSupport';
 import IntroductionsPage from './Pages/Forum/ForumSectionPages/Introductions';
 import CasualDiscussionPage from './Pages/Forum/ForumSectionPages/CasualDiscussion';
+import ForumThread from './Components/Forum/ForumPostThread/ForumThread';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/forum/games-tech-computer-support" element={<CGTSupportPage />} />
                   <Route path="/forum/introductions" element={<IntroductionsPage />} />
                   <Route path="/forum/casual-discussion" element={<CasualDiscussionPage />} />
+                  <Route path="/forum/post/:id" element={<ForumThread />} />
                   <Route path="about" element={<About />} />
                   <Route path="/games/:id" element={<GameDetail />} />
                   <Route path="/genres/:name" element={<GenrePage />} />

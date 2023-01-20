@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { onAuthStateChanged } from "firebase/auth"
+import { Link } from "react-router-dom";
 import { Grid, Card, Text, Avatar, Button } from "@nextui-org/react";
 
 const ForumPostsListGA = () => {
@@ -22,8 +22,9 @@ const ForumPostsListGA = () => {
     const postsRef = collection(db, "forumPosts");
     const q = query(postsRef, where("forum", "==", "GameAnnouncement"));
     const getPosts = async () =>{
-      const data = await getDocs(q)
-      setPosts(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+      onSnapshot(q, (data) => {
+        setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      })
     }
     getPosts()
   }, []);
@@ -47,9 +48,11 @@ const ForumPostsListGA = () => {
                   </Card.Header>
                   <Card.Divider />
                   <Card.Body css={{ py: "$10" }}>
+                  <Link to={`/forum/post/${post.postID}`}>
                     <Text h3>
                       {post.postTitle}
                     </Text>
+                    </Link>
                     <Text>
                       {post.postContent}
                     </Text>
