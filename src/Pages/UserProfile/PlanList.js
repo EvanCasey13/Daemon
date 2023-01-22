@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { auth, db } from "../../Firebase/firebase";
 import { collection, getDocs, doc, query, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { onAuthStateChanged } from "firebase/auth"
-import Game from "../../Components/FavouriteGame/FavouriteGame"
 import './UserProfile.css'
 import NavBar from "../../Components/Navbar/Navbar"
-import { Grid } from "@nextui-org/react";
+import FavouritesList from "../../Components/FavouriteListPage/FavouriteListPage";
 
 const PlanList = () => {
 
@@ -26,16 +24,7 @@ useEffect(() => {
   return (
     <div className="PlanList">
       <NavBar />
-      <Grid.Container gap={1}>
-        {favourites.map(fav => {
-          return (
-            <Grid xs={12} sm={6} md={6} lg={6} xl={6} key={fav.game.id}>
-              <Game
-                key={fav.game.id} game={fav.game} rating={fav.Rating} status={fav.Status} id={fav.game.id} />
-            </Grid>
-          )
-        })}
-      </Grid.Container>
+      <FavouritesList favourites={favourites} />
     </div>
   )
 };
