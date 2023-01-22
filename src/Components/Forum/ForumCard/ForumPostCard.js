@@ -1,47 +1,52 @@
-import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React, { useState, useEffect } from "react";
 import { auth, db } from "../../../Firebase/firebase";
-import { Card,  Grid, Button, Text, Avatar } from "@nextui-org/react";
-import { useParams } from "react-router-dom";
 import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
+import { Grid, Card, Text, Avatar, Button } from "@nextui-org/react";
 
-const ForumReplyCard = ({ reply }) => {
-  let params = useParams();
+const ForumCard = ({ post }) => {
+
+  const [posts, setPosts] = useState([]);
   const [user, loading, error] = useAuthState(auth);
 
-  const deleteItem = async (replyID) => {
-    const d = query(collection(db, "forumPosts/" + params.id + "/replies"), where('replyID', '==', replyID));
+  const deleteItem = async (postID) => {
+    const d = query(collection(db, "forumPosts"), where('postID', '==', postID));
     const docSnap = await getDocs(d);
     docSnap.forEach((doc) => {
       deleteDoc(doc.ref);
     });
   }
+
   return (
-    <div className="ForumReplyCard">
-     <Grid.Container gap={2}>
+    <div className="ForumPostCard">
+      <Grid.Container gap={1}>
+            <Grid.Container gap={2}>
               <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
                 <Card>
                   <Card.Header>
                     <Avatar
                       size="lg"
-                      src={reply.userProfilePicture}
+                      src={post.userProfilePicture}
                       color="primary"
                       bordered
                     />
-                    <Text b>{reply.userName}</Text>
+                    <Text b>{post.userName}</Text>
                   </Card.Header>
                   <Card.Divider />
                   <Card.Body css={{ py: "$10" }}>
+                    <Link to={`/forum/post/${post.postID}`}>
                       <Text h3>
-                        {reply.replyTitle}
+                        {post.postTitle}
                       </Text>
+                    </Link>
                     <Text>
-                      {reply.replyContent}
+                      {post.postContent}
                     </Text>
-                    {reply.userName === user.displayName && (
+                    {post.userName === user.displayName && (
                       <>
-                        <Button onClick={() => { deleteItem(reply.replyID) }} size="sm">
-                          Delete
+                        <Button onClick={() => { deleteItem(post.postID) }} size="sm">
+                          Delete Post
                         </Button>
                       </>
                     )}
@@ -50,8 +55,9 @@ const ForumReplyCard = ({ reply }) => {
                 </Card>
               </Grid>
             </Grid.Container>
+      </Grid.Container>
     </div>
-  );
+  )
 };
 
-export default ForumReplyCard;
+export default ForumCard;
