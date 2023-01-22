@@ -4,8 +4,8 @@ import { Modal, Input, Card, Textarea, Grid, Button, Text, Avatar } from "@nextu
 import { useParams } from "react-router-dom";
 import NavBar from '../../Navbar/Navbar';
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where, doc, addDoc } from "firebase/firestore";
-import ForumRepliesList from '../ForumRepliesList/ForumRepliesList';
+import { collection, getDocs, deleteDoc, query, where, doc, addDoc, setDoc, onSnapshot } from "firebase/firestore";
+import ForumRepliesList from '../ForumReplyListPage/forumReplyListPage';
 
 const ForumThread = () => {
     let params = useParams();
@@ -18,7 +18,7 @@ const ForumThread = () => {
     const handler = () => setVisible(true);
 
     const addReply = async (postID) => {
-        const docRef = collection(db, "forumPosts/" + postID + "/replies");
+        const docRef = doc(collection(db, "forumPosts/" + postID + "/replies"));
         post.map(p => {
             const data = {
                 userUID: user?.uid,
@@ -31,7 +31,7 @@ const ForumThread = () => {
             }
 
             try {
-                addDoc(docRef, data)
+                setDoc(docRef, data)
                 alert("Reply added")
             } catch (err) {
                 console.error(err);
@@ -65,8 +65,9 @@ const ForumThread = () => {
     useEffect(() => {
         const d = query(collection(db, "forumPosts/" + params.id + "/replies"), where('postID', '==', params.id));
         const getReplies = async () => {
-            const data = await getDocs(d)
-            setReplies(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            onSnapshot(d, (data) => {
+                setReplies(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+              })
         }
         getReplies()
     }, [params.id]);
@@ -146,11 +147,7 @@ const ForumThread = () => {
                     </Card>
                 )
             })}
-
-       
             <ForumRepliesList replies={replies}/>
-        
-
         </div>
     )
 };
