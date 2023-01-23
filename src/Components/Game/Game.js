@@ -35,7 +35,8 @@ const Game = ({ game }) => {
   const data = {
     game: game,
     Status: selectedValue,
-    Rating: selectedRatingValue
+    Rating: selectedRatingValue,
+    userUID: user.uid
   }
 
   const addToList = async () => {

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, where} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import { Grid, Card, Text, Avatar, Button } from "@nextui-org/react";
 
 const ForumCard = ({ post }) => {
 
-  const [posts, setPosts] = useState([]);
   const [user, loading, error] = useAuthState(auth);
 
   const deleteItem = async (postID) => {
@@ -25,12 +24,14 @@ const ForumCard = ({ post }) => {
               <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
                 <Card>
                   <Card.Header>
+                  <Link to={`/profile/${post.userUID}`}>
                     <Avatar
                       size="lg"
                       src={post.userProfilePicture}
                       color="primary"
                       bordered
                     />
+                     </Link>
                     <Text b>{post.userName}</Text>
                   </Card.Header>
                   <Card.Divider />

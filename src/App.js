@@ -56,28 +56,28 @@ function App() {
                   <Route index element={<Home />} />
                   <Route path="gameHomepage" element={<GameHomepage />} />
                   <Route path="forumHomepage" element={<ForumHomepage />} />
-                  <Route path="/forum/announcements" element={<AnnouncementPage />} />
-                  <Route path="/forum/guidelines" element={<GuidelinesPage />} />
-                  <Route path="/forum/suggestions" element={<SuggestionsPage />} />
-                  <Route path="/forum/support" element={<SupportPage />} />
-                  <Route path="/forum/news" element={<NewsPage />} />
-                  <Route path="/forum/gameannouncements" element={<GameAnnouncementPage />} />
-                  <Route path="/forum/recommendations" element={<RecommendationsPage />} />
-                  <Route path="/forum/games-tech-computer-support" element={<CGTSupportPage />} />
-                  <Route path="/forum/introductions" element={<IntroductionsPage />} />
-                  <Route path="/forum/casual-discussion" element={<CasualDiscussionPage />} />
-                  <Route path="/forum/post/:id" element={<ForumThread />} />
+                  <Route path="forum/announcements" element={<AnnouncementPage />} />
+                  <Route path="forum/guidelines" element={<GuidelinesPage />} />
+                  <Route path="forum/suggestions" element={<SuggestionsPage />} />
+                  <Route path="forum/support" element={<SupportPage />} />
+                  <Route path="forum/news" element={<NewsPage />} />
+                  <Route path="forum/gameannouncements" element={<GameAnnouncementPage />} />
+                  <Route path="forum/recommendations" element={<RecommendationsPage />} />
+                  <Route path="forum/games-tech-computer-support" element={<CGTSupportPage />} />
+                  <Route path="forum/introductions" element={<IntroductionsPage />} />
+                  <Route path="forum/casual-discussion" element={<CasualDiscussionPage />} />
+                  <Route path="forum/post/:id" element={<ForumThread />} />
                   <Route path="about" element={<About />} />
-                  <Route path="/games/:id" element={<GameDetail />} />
-                  <Route path="/genres/:name" element={<GenrePage />} />
-                  <Route path="/platforms/:id" element={<PlatformPage />} />
-                  <Route path="/profile/:id" element={<UserProfile />} />
-                  <Route path="/playing/:id" element={<PlayingList />} />
-                  <Route path="/planning/:id" element={<PlanList />} />
-                  <Route path="/on-hold/:id" element={<OnHoldList />} />
-                  <Route path="/dropped/:id" element={<DroppedList />} />
-                  <Route path="/completed/:id" element={<CompletedList />} />
-                  <Route path="/gameAdditions/:id" element={<GameAdditionDetail />} />
+                  <Route path="games/:id" element={<GameDetail />} />
+                  <Route path="genres/:name" element={<GenrePage />} />
+                  <Route path="platforms/:id" element={<PlatformPage />} />
+                  <Route path="profile/:id" element={<UserProfile />} />
+                  <Route path="playing/:id" element={<PlayingList />} />
+                  <Route path="planning/:id" element={<PlanList />} />
+                  <Route path="on-hold/:id" element={<OnHoldList />} />
+                  <Route path="dropped/:id" element={<DroppedList />} />
+                  <Route path="completed/:id" element={<CompletedList />} />
+                  <Route path="gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />
