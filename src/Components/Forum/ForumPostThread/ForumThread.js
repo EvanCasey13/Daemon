@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Modal, Input, Card, Textarea, Grid, Button, Text, Avatar } from "@nextui-org/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import NavBar from '../../Navbar/Navbar';
 import { auth, db } from "../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where, doc, addDoc, setDoc, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, setDoc, onSnapshot } from "firebase/firestore";
 import ForumRepliesList from '../ForumReplyListPage/forumReplyListPage';
 
 const ForumThread = () => {
@@ -67,7 +67,7 @@ const ForumThread = () => {
         const getReplies = async () => {
             onSnapshot(d, (data) => {
                 setReplies(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-              })
+            })
         }
         getReplies()
     }, [params.id]);
@@ -79,12 +79,14 @@ const ForumThread = () => {
                 return (
                     <Card>
                         <Card.Header>
-                            <Avatar
-                                size="lg"
-                                src={p.userProfilePicture}
-                                color="primary"
-                                bordered
-                            />
+                            <Link to={`/profile/${p.userUID}`}>
+                                <Avatar
+                                    size="lg"
+                                    src={p.userProfilePicture}
+                                    color="primary"
+                                    bordered
+                                />
+                            </Link>
                             <Text b>{p.userName}</Text>
                         </Card.Header>
                         <Card.Divider />
@@ -147,7 +149,7 @@ const ForumThread = () => {
                     </Card>
                 )
             })}
-            <ForumRepliesList replies={replies}/>
+            <ForumRepliesList replies={replies} />
         </div>
     )
 };
