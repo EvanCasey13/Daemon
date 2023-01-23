@@ -1,24 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import 'reactjs-popup/dist/index.css';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, where, query } from "firebase/firestore";
 import { Card, Col, Row, Text, Button } from "@nextui-org/react";
 
-const FavouriteGame = ({ game, rating, status, id }) => {
-
+const FavouriteGame = ({ game, rating, status, id, userUID }) => {
+  let params = useParams();
   const [user, loading, error] = useAuthState(auth);
+  const [users, setUsers] = useState([]);
+  const [userId, setUserId] = useState("")
 
-  const deleteItem = async () => {
-    if (user) {
-      const d = query(collection(db, "users/" + user.uid + "/favourites"), where('game.id', '==', id));
-      const docSnap = await getDocs(d);
-      docSnap.forEach((doc) => {
-        console.log(doc.data())
-        deleteDoc(doc.ref);
-      });
+  useEffect(() => {
+    const userRef = collection(db, "users/");
+    const q = query(userRef, where("uid", "==", userId));
+    const getUser = async () => {
+      const data = await getDocs(q)
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     }
+    getUser()
+  }, [userId]);
+
+  const deleteItem = async (gameID) => {
+    const d = query(collection(db, "users/" + user.uid + "/favourites"), where('game.id', '==', gameID));
+    const docSnap = await getDocs(d);
+    docSnap.forEach((doc) => {
+      console.log(doc.data())
+      deleteDoc(doc.ref);
+    });
   }
 
   return (
@@ -54,11 +64,15 @@ const FavouriteGame = ({ game, rating, status, id }) => {
                 Rating: {rating}
               </Text>
               <Text color="#000" size={12}>
-                 Status: {status}
+                Status: {status}
               </Text>
-              <Button onClick={() => { deleteItem() }} size="sm">
-                Delete
-              </Button>
+              {userUID === user?.uid && (
+                <>
+                  <Button onClick={() => { deleteItem(game.id) }} size="sm">
+                    Delete
+                  </Button>
+                </>
+              )}
             </Col>
           </Row>
         </Card.Footer>

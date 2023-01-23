@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { onAuthStateChanged } from "firebase/auth"
 import { auth, db, logout } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Logo from '../../images/daemon_logo_navbar.png'
