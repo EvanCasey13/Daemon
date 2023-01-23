@@ -1,9 +1,10 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../../Firebase/firebase";
-import { Card, Grid, Button, Text, Avatar} from "@nextui-org/react";
+import { Card, Grid, Button, Text, Avatar, Col, Row } from "@nextui-org/react";
 import { useParams, Link } from "react-router-dom";
 import { collection, getDocs, deleteDoc, query, where } from "firebase/firestore";
+import BinIcon from "../../../Icons/BinIcon";
 
 const ForumReplyCard = ({ reply }) => {
   let params = useParams();
@@ -42,9 +43,20 @@ const ForumReplyCard = ({ reply }) => {
               </Text>
               {reply.userName === user.displayName && (
                 <>
-                  <Button onClick={() => { deleteItem(reply.replyID) }} size="sm">
-                    Delete
-                  </Button>
+                  <Col>
+                    <Row justify="center" css={{ paddingTop: "1%" }}>
+                      <Button auto color="error" onClick={() => { deleteItem(reply.replyID) }} size="sm" icon={<BinIcon fill="currentColor" filled />}>
+                        <Text
+                          css={{ color: "inherit" }}
+                          size={12}
+                          weight="bold"
+                          transform="uppercase"
+                        >
+                          Delete Post
+                        </Text>
+                      </Button>
+                    </Row>
+                  </Col>
                 </>
               )}
             </Card.Body>
