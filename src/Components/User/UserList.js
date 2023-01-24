@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { green, blue, yellow, red, grey } from '@mui/material/colors';
 import { db } from "../../Firebase/firebase";
 import { Link } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import CircleIcon from '@mui/icons-material/Circle';
 import { useParams } from "react-router-dom";
 import './User.css'
 import { Table, Grid } from "@nextui-org/react";
 import UserCard from "./UserCard";
+import CompletedIcon from "../../Icons/CompletedIcon";
+import PlanningIcon from "../../Icons/PlanningIcon";
+import DroppedIcon from "../../Icons/DroppedIcon";
+import OnHoldIcon from "../../Icons/OnHoldIcon";
+import PlayingIcon from "../../Icons/PlayingIcon";
 
 const UserList = () => {
     const [user, setUser] = useState([]);
@@ -51,8 +54,8 @@ const UserList = () => {
 
                                 <Table.Body>
                                     <Table.Row key="1">
-                                        <Table.Cell>
-                                            <CircleIcon sx={{ color: green[500], fontSize: 15 }} />
+                                        <Table.Cell >
+                                        <PlayingIcon/>
                                             <Link to={`/playing/${u?.uid}`} underline="none">
                                                 Playing
                                             </Link>
@@ -60,7 +63,7 @@ const UserList = () => {
                                     </Table.Row>
                                     <Table.Row key="2">
                                         <Table.Cell>
-                                            <CircleIcon sx={{ color: blue[500], fontSize: 15 }} />
+                                            <CompletedIcon/>
                                             <Link to={`/completed/${u?.uid}`} underline="none">
                                                 Completed
                                             </Link>
@@ -68,7 +71,7 @@ const UserList = () => {
                                     </Table.Row>
                                     <Table.Row key="3">
                                         <Table.Cell>
-                                            <CircleIcon sx={{ color: yellow[500], fontSize: 15 }} />
+                                            <OnHoldIcon />
                                             <Link to={`/on-hold/${u?.uid}`} underline="none">
                                                 On-Hold
                                             </Link>
@@ -76,7 +79,7 @@ const UserList = () => {
                                     </Table.Row>
                                     <Table.Row key="4">
                                         <Table.Cell>
-                                            <CircleIcon sx={{ color: red[500], fontSize: 15 }} />
+                                            <DroppedIcon />
                                             <Link to={`/dropped/${u?.uid}`} underline="none">
                                                 Dropped
                                             </Link>
@@ -84,7 +87,7 @@ const UserList = () => {
                                     </Table.Row>
                                     <Table.Row key="5">
                                         <Table.Cell>
-                                            <CircleIcon sx={{ color: grey[500], fontSize: 15 }} />
+                                        <PlanningIcon/>
                                             <Link to={`/planning/${u?.uid}`} underline="none">
                                                 Planning to play
                                             </Link>

@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, where, query } from "firebase/firestore";
 import { Card, Col, Row, Text, Button } from "@nextui-org/react";
+import BinIcon from "../../Icons/BinIcon";
 
 const FavouriteGame = ({ game, rating, status, id, userUID }) => {
   let params = useParams();
@@ -68,7 +69,7 @@ const FavouriteGame = ({ game, rating, status, id, userUID }) => {
               </Text>
               {userUID === user?.uid && (
                 <>
-                  <Button onClick={() => { deleteItem(game.id) }} size="sm">
+                  <Button color="error" onClick={() => { deleteItem(game.id) }} size="sm" icon={<BinIcon fill="currentColor" filled />}>
                     Delete
                   </Button>
                 </>
