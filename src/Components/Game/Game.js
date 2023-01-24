@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import { auth, db } from "../../Firebase/firebase";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { Modal, Dropdown, Card, Col, Row, Button, Text } from "@nextui-org/react";
+import AddToListIcon from "../../Icons/AddToListIcon";
 
 const Game = ({ game }) => {
 
@@ -84,7 +85,7 @@ const Game = ({ game }) => {
             </Col>
             <Col>
               <Row justify="flex-end">
-                <Button flat auto rounded color="secondary" onClick={handler}>
+                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" filled />}>
                   <Text
                     css={{ color: "inherit" }}
                     size={12}

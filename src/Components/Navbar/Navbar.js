@@ -5,6 +5,14 @@ import { auth, db, logout } from "../../Firebase/firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Logo from '../../images/daemon_logo_navbar.png'
 import { Navbar, Link, Text, Avatar, Dropdown } from "@nextui-org/react";
+import SettingsIcon from "../../Icons/SettingsIcon";
+import ProfileIcon from "../../Icons/ProfileIcon";
+import LogoutIcon from "../../Icons/LogoutIcon";
+import PlayingIcon from "../../Icons/PlayingIcon";
+import CompletedIcon from "../../Icons/CompletedIcon";
+import OnHoldIcon from "../../Icons/OnHoldIcon";
+import DroppedIcon from "../../Icons/DroppedIcon";
+import PlanningIcon from "../../Icons/PlanningIcon";
 
 const NavBar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -104,27 +112,27 @@ const NavBar = () => {
                       variant="light"
                       onAction={(actionKey) => console.log({ actionKey })}
                     >
-                      <Dropdown.Item key="playing" textValue="Playing">
+                      <Dropdown.Item key="playing" textValue="Playing" icon={<PlayingIcon fill="currentColor" filled />}>
                         <Link href={`/playing/${user?.uid}`} underline="none">
                           Playing
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item key="Completed" textValue="Completed">
+                      <Dropdown.Item key="Completed" textValue="Completed" icon={<CompletedIcon fill="currentColor" filled />}>
                         <Link href={`/completed/${user?.uid}`} underline="none">
                           Completed
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item key="OnHold" textValue="OnHold">
+                      <Dropdown.Item key="OnHold" textValue="OnHold" icon={<OnHoldIcon fill="currentColor" filled />}>
                         <Link href={`/on-hold/${user?.uid}`} underline="none">
                           On-Hold
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item key="Dropped" textValue="Dropped"> 
+                      <Dropdown.Item key="Dropped" textValue="Dropped" icon={<DroppedIcon fill="currentColor" filled />}> 
                         <Link href={`/dropped/${user?.uid}`} underline="none">
                           Dropped
                         </Link>
                       </Dropdown.Item>
-                      <Dropdown.Item key="PlanningToPlay" textValue="PlanningToPlay">
+                      <Dropdown.Item key="PlanningToPlay" textValue="PlanningToPlay" icon={<PlanningIcon fill="currentColor" filled />}>
                         <Link href={`/planning/${user?.uid}`} underline="none">
                           Planning to play
                         </Link>
@@ -165,17 +173,17 @@ const NavBar = () => {
                           {userA?.email}
                         </Text>
                       </Dropdown.Item>
-                      <Dropdown.Item key="settings" withDivider textValue="settings" >
+                      <Dropdown.Item key="settings" withDivider textValue="settings" icon={<SettingsIcon fill="currentColor" filled />}>
                         Settings
                       </Dropdown.Item>
-                      <Dropdown.Item key="my_profile" textValue="myProfile"><Link
+                      <Dropdown.Item key="my_profile" textValue="myProfile" icon={<ProfileIcon fill="currentColor" filled />}><Link
                         color="inherit"
                         css={{
                           minWidth: "100%",
                         }}
                         href={`profile/${userA.uid}`}
                       >My Profile </Link></Dropdown.Item>
-                      <Dropdown.Item key="logout" withDivider color="error" textValue="logout">
+                      <Dropdown.Item key="logout" withDivider color="error" textValue="logout" icon={<LogoutIcon fill="currentColor" filled />}>
                         <Link
                           color="inherit"
                           css={{
@@ -326,17 +334,17 @@ const NavBar = () => {
                           {user?.email}
                         </Text>
                       </Dropdown.Item>
-                      <Dropdown.Item key="settings" withDivider textValue="settings" >
+                      <Dropdown.Item key="settings" withDivider textValue="settings" icon={<SettingsIcon fill="currentColor" filled />}>
                         Settings
                       </Dropdown.Item>
-                      <Dropdown.Item key="my_profile" textValue="myProfile"><Link
+                      <Dropdown.Item key="my_profile" textValue="myProfile"  icon={<ProfileIcon fill="currentColor" filled />}><Link
                         color="inherit"
                         css={{
                           minWidth: "100%",
                         }}
                         href={`profile/${user?.uid}`}
                       >My Profile </Link></Dropdown.Item>
-                      <Dropdown.Item key="logout" withDivider color="error" textValue="logout">
+                      <Dropdown.Item key="logout" withDivider color="error" textValue="logout" icon={<LogoutIcon fill="currentColor" filled />}>
                         <Link
                           color="inherit"
                           css={{
