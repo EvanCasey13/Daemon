@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../Firebase/firebase";
-import { Link } from "react-router-dom";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, onSnapshot } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import './User.css'
-import { Table, Grid } from "@nextui-org/react";
+import { Grid, Card, Text, Link } from "@nextui-org/react";
 import UserCard from "./UserCard";
+import UserStats from "./UserGameStats";
 import CompletedIcon from "../../Icons/CompletedIcon";
 import PlanningIcon from "../../Icons/PlanningIcon";
 import DroppedIcon from "../../Icons/DroppedIcon";
@@ -14,6 +14,11 @@ import PlayingIcon from "../../Icons/PlayingIcon";
 
 const UserList = () => {
     const [user, setUser] = useState([]);
+    const [playingCount, setPlayingCount] = useState([]);
+    const [completedCount, setCompletedCount] = useState([]);
+    const [holdCount, setOnHoldCount] = useState([]);
+    const [droppedCount, setDroppedCount] = useState([]);
+    const [planningCount, setPlanningCount] = useState([]);
     let params = useParams();
 
     useEffect(() => {
@@ -25,6 +30,61 @@ const UserList = () => {
         getUser()
     }, [params.id]);
 
+    useEffect(() => {
+        const favouritesRef = collection(db, "users/" + params.id + "/favourites");
+        const q = query(favouritesRef, where("Status", "==", "On-hold"));
+        const getOnHoldCount = async () => {
+            onSnapshot(q, (data) => {
+                setOnHoldCount(data.size);
+            })
+        }
+        getOnHoldCount()
+    }, [params.id]);
+
+    useEffect(() => {
+        const favouritesRef = collection(db, "users/" + params.id + "/favourites");
+        const q = query(favouritesRef, where("Status", "==", "Completed"));
+        const getCompletedCount = async () => {
+            onSnapshot(q, (data) => {
+                setCompletedCount(data.size);
+            })
+        }
+        getCompletedCount()
+    }, [params.id]);
+
+    useEffect(() => {
+        const favouritesRef = collection(db, "users/" + params.id + "/favourites");
+        const q = query(favouritesRef, where("Status", "==", "Playing"));
+        const getPlayingCount = async () => {
+            onSnapshot(q, (data) => {
+                setPlayingCount(data.size);
+            })
+        }
+        getPlayingCount()
+    }, [params.id]);
+
+    useEffect(() => {
+        const favouritesRef = collection(db, "users/" + params.id + "/favourites");
+        const q = query(favouritesRef, where("Status", "==", "Dropped"));
+        const getDroppedCount = async () => {
+            onSnapshot(q, (data) => {
+                setDroppedCount(data.size);
+            })
+        }
+        getDroppedCount()
+    }, [params.id]);
+
+    useEffect(() => {
+        const favouritesRef = collection(db, "users/" + params.id + "/favourites");
+        const q = query(favouritesRef, where("Status", "==", "Plan to play"));
+        const getPlanningCount = async () => {
+            onSnapshot(q, (data) => {
+                setPlanningCount(data.size);
+            })
+        }
+        getPlanningCount()
+    }, [params.id]);
+
     return (
         <div className="userListPage">
             {user.map(u => {
@@ -32,70 +92,60 @@ const UserList = () => {
                     <Grid container css={{
                         paddingLeft: "14.5%"
                     }}>
-                        <Grid item xs={0} sm={0} md={0} lg={10} xl={10} css={{
-                            height: "auto",
-                            minWidth: "100%",
-                            marginLeft: "31.5%"
-                        }}>
-                            <UserCard />
-                        </Grid>
-                        <Grid item xs={10} sm={10} md={10} lg={10} xl={10} >
-                            <Table
-                                aria-label="List Links"
-                                css={{
-                                    height: "auto",
-                                    minWidth: "100%",
-                                    left: "50%"
-                                }}
-                            >
-                                <Table.Header>
-                                    <Table.Column>Game Statistics</Table.Column>
-                                </Table.Header>
-
-                                <Table.Body>
-                                    <Table.Row key="1">
-                                        <Table.Cell >
-                                        <PlayingIcon/>
-                                            <Link to={`/playing/${u?.uid}`} underline="none">
-                                                Playing
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row key="2">
-                                        <Table.Cell>
-                                            <CompletedIcon/>
-                                            <Link to={`/completed/${u?.uid}`} underline="none">
-                                                Completed
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row key="3">
-                                        <Table.Cell>
+                        <Grid.Container gap={2} >
+                            <Grid item xs={10} sm={10} md={10} lg={10} xl={10} >
+                                <Card>
+                                    <div className="userCard">
+                                        <UserCard />
+                                    </div>
+                                    <Card.Header>
+                                        <Text b>Game list</Text>
+                                    </Card.Header>
+                                    <Card.Divider />
+                                    <Card.Body>
+                                        <Link href={`/playing/${u?.uid}`} underline="none" >
+                                            <PlayingIcon />
+                                            Playing
+                                            <Text css={{ paddingLeft: 108 }}>{playingCount}</Text>
+                                        </Link>
+                                    </Card.Body>
+                                    <Card.Divider />
+                                    <Card.Body css={{ py: "$10" }}>
+                                        <Link href={`/completed/${u?.uid}`} underline="none">
+                                            <CompletedIcon />
+                                            Completed
+                                            <Text css={{ paddingLeft: 82 }}>{completedCount}</Text>
+                                        </Link>
+                                    </Card.Body>
+                                    <Card.Divider />
+                                    <Card.Divider />
+                                    <Card.Body css={{ py: "$10" }}>
+                                        <Link href={`/on-hold/${u?.uid}`} underline="none">
                                             <OnHoldIcon />
-                                            <Link to={`/on-hold/${u?.uid}`} underline="none">
-                                                On-Hold
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row key="4">
-                                        <Table.Cell>
+                                            On-Hold
+                                            <Text css={{ paddingLeft: 100 }}>{holdCount}</Text>
+                                        </Link>
+                                    </Card.Body>
+                                    <Card.Divider />
+                                    <Card.Divider />
+                                    <Card.Body css={{ py: "$10" }}>
+                                        <Link href={`/dropped/${u?.uid}`} underline="none">
                                             <DroppedIcon />
-                                            <Link to={`/dropped/${u?.uid}`} underline="none">
-                                                Dropped
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row key="5">
-                                        <Table.Cell>
-                                        <PlanningIcon/>
-                                            <Link to={`/planning/${u?.uid}`} underline="none">
-                                                Planning to play
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                </Table.Body>
-                            </Table>
-                        </Grid>
+                                            Dropped
+                                            <Text css={{ paddingLeft: 108 }}>{droppedCount}</Text>
+                                        </Link>
+                                    </Card.Body>
+                                    <Card.Divider />
+                                    <Card.Body css={{ py: "$10" }}>
+                                        <Link href={`/planning/${u?.uid}`} underline="none">
+                                            <PlanningIcon />
+                                            Planning to play
+                                            <Text css={{ paddingLeft: 50 }}>{planningCount}</Text>
+                                        </Link>
+                                    </Card.Body>
+                                </Card>
+                            </Grid>
+                        </Grid.Container>
                     </Grid>
                 )
             })}

@@ -181,7 +181,7 @@ const NavBar = () => {
                         css={{
                           minWidth: "100%",
                         }}
-                        href={`profile/${userA.uid}`}
+                        href={`/profile/${userA.uid}`}
                       >My Profile </Link></Dropdown.Item>
                       <Dropdown.Item key="logout" withDivider color="error" textValue="logout" icon={<LogoutIcon fill="currentColor" filled />}>
                         <Link

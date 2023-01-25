@@ -4,3 +4,21 @@
 }
 
 .userListTitle {padding-right: 70%;}
+
+.userCard {
+
+}
+
+.container {
+    width: fit-content;
+}
+
+.row {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.row > *:not(:last-child) {
+    margin-right: .5rem;
+}
