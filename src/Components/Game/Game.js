@@ -85,7 +85,7 @@ const Game = ({ game }) => {
             </Col>
             <Col>
               <Row justify="flex-end">
-                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" filled />}>
+                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" />}>
                   <Text
                     css={{ color: "inherit" }}
                     size={12}
