@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
-import TextField from "@mui/material/TextField";
+import { Input } from "@nextui-org/react";
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { fetchGamesByPlatform } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
@@ -11,9 +11,9 @@ import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
 
 function PlatformPage() {
-    
+
     const { id } = useParams();
-   
+
     const { user } = useContext(AuthContext);
 
     const [activePage, setActivePage] = useState(1);
@@ -50,19 +50,18 @@ function PlatformPage() {
     return (
         <div className='Platform' >
             <NavBar />
-            <br /><br /><br /><br />
+            <br />
             <form>
-                <TextField
+                <Input
                     id="filled-search"
+                    bordered
                     fullWidth
-                    label="Search for a game"
-                    type="search"
-                    variant="filled"
+                    labelPlaceholder="Search for a game"
+                    color="default"
                     value={term == null ? '' : term}
-                    onChange={handleSearchChange}
-                />
+                    onChange={handleSearchChange} />
             </form>
-            <h4>{id}</h4>
+            
             <PageTemplate games={games} />
             <Pagination
                 count={100}
@@ -74,7 +73,7 @@ function PlatformPage() {
                 className='pagination'
                 page={activePage}
                 onChange={handleChange}
-            /> 
+            />
         </div>
     )
 };

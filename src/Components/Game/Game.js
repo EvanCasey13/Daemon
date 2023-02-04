@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import FormControl from '@mui/material/FormControl';
 import { auth, db } from "../../Firebase/firebase";
+import Logo from '../../images/daemon_logo_navbar.png'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { Modal, Dropdown, Card, Col, Row, Button, Text } from "@nextui-org/react";
 import AddToListIcon from "../../Icons/AddToListIcon";
@@ -60,7 +61,8 @@ const Game = ({ game }) => {
               width="100%"
               height="100%"
               objectFit="cover"
-              alt="Card example background"
+              alt="Game Card Image background missing"
+              showSkeleton="true"
             />
           </Link>
         </Card.Body>
@@ -77,10 +79,7 @@ const Game = ({ game }) => {
           <Row>
             <Col>
               <Text color="#000" size={12}>
-                {game.name}
-              </Text>
-              <Text color="#000" size={12}>
-                Rating: {game.rating}
+              {game.name}
               </Text>
             </Col>
             <Col>

@@ -124,7 +124,7 @@ function Home() {
         <div className='Home' >
             <NavBar />
             <br/>
-            <h2>Popular Games</h2>
+            <h2>Recent Games</h2>
             <div className="popular-games">
                 <Slider {...settings}>
                     {games.map(game => {
