@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../../../../Firebase/firebase";
-import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { db } from "../../../../Firebase/firebase";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { Input } from "@nextui-org/react";
 import ForumPostsList from "../../ForumList/ForumPostsList";
 
 const ForumPostsListGA = () => {
 
   const [posts, setPosts] = useState([]);
-  const [user, loading, error] = useAuthState(auth);
+  const [search, setSearch] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   useEffect(() => {
     const postsRef = collection(db, "forumPosts");
@@ -20,9 +21,27 @@ const ForumPostsListGA = () => {
     getPosts()
   }, []);
 
+  useEffect(() => {
+    setFilteredPosts(
+      posts.filter(
+        (post) =>
+          post.postTitle.toLowerCase().includes(search.toLowerCase()) ||
+          post.userName.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, posts]);
+
   return (
     <div className="ForumPostsListGameAnnouncement">
-      <ForumPostsList posts={posts} />
+      <br />
+      <Input
+        id="filled-search"
+        bordered
+        fullWidth
+        labelPlaceholder="Search for a post"
+        color="default"
+        onChange={(e) => setSearch(e.target.value)} />
+      <ForumPostsList posts={filteredPosts} />
     </div>
   )
 };
