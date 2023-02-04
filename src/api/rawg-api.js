@@ -14,7 +14,7 @@ export const fetchPopular = (page, query) => {
 
   export const fetchPopularHome = () => {
     return fetch(
-        `https://rawg.io/api/games?&key=${process.env.REACT_APP_RAWG_API_KEY}`
+        `https://rawg.io/api/games?&key=${process.env.REACT_APP_RAWG_API_KEY}&exclude_additions&ordering=-released&metacritic=80,100`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -42,7 +42,7 @@ export const fetchPopular = (page, query) => {
 
   export const fetchPopularByGenre = (genre, page, query) => {
     return fetch(
-        `https://rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&ordering=-rating`
+        `https://rawg.io/api/games?genres=${genre}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&exclude_additions&ordering=-metacritic`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -56,7 +56,7 @@ export const fetchPopular = (page, query) => {
 
   export const fetchGamesByPlatform = (platform, page, query) => {
     return fetch(
-        `https://rawg.io/api/games?platforms=${platform}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&exclude_additions`
+        `https://rawg.io/api/games?platforms=${platform}&key=${process.env.REACT_APP_RAWG_API_KEY}&page_size=18&page=${page}&search=${query}&exclude_additions&ordering=-metacritic`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);

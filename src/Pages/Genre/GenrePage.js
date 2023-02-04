@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
-import TextField from "@mui/material/TextField";
+import { Input } from "@nextui-org/react";
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { fetchPopularByGenre } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
@@ -12,7 +12,7 @@ import NavBar from "../../Components/Navbar/Navbar"
 
 function GenrePage() {
     const { name } = useParams();
-   
+
     const { user } = useContext(AuthContext);
 
     const [activePage, setActivePage] = useState(1);
@@ -49,18 +49,17 @@ function GenrePage() {
     return (
         <div className='Genre' >
             <NavBar />
-            <br /><br /><br /><br />
+            <br />
             <h4>{name} games</h4>
             <form>
-                <TextField
+                <Input
                     id="filled-search"
+                    bordered
                     fullWidth
-                    label="Search for a game"
-                    type="search"
-                    variant="filled"
+                    labelPlaceholder="Search for a game"
+                    color="default"
                     value={term == null ? '' : term}
-                    onChange={handleSearchChange}
-                />
+                    onChange={handleSearchChange} />
             </form>
             <PageTemplate games={games} />
             <Pagination
@@ -74,7 +73,7 @@ function GenrePage() {
                 page={activePage}
                 onChange={handleChange}
             />
-            
+
         </div>
     )
 };
