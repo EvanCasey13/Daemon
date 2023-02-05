@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, query, where, onSnapshot } from "firebase/firestore";
-import { Table, Row, Col, Tooltip, Avatar, Text } from "@nextui-org/react";
+import { Table, Row, Col, Tooltip, Avatar, Text, Input } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import IconButton from "../IconButton/IconButton";
 import DeleteIcon from "../../Icons/BinIcon";
@@ -9,15 +9,17 @@ import DeleteIcon from "../../Icons/BinIcon";
 const UserTable = () => {
 
     const [users, setUsers] = useState([]);
+    const [search, setSearch] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState([]);
     let params = useParams();
 
-    const deleteUser= async (userUID) => {
+    const deleteUser = async (userUID) => {
         const d = query(collection(db, "users"), where('uid', '==', userUID));
         const docSnap = await getDocs(d);
         docSnap.forEach((doc) => {
-          deleteDoc(doc.ref);
+            deleteDoc(doc.ref);
         });
-      }
+    }
 
     useEffect(() => {
         const usersRef = collection(db, "users");
@@ -28,6 +30,15 @@ const UserTable = () => {
         }
         getUsers()
     }, [params.id]);
+
+    useEffect(() => {
+        setFilteredUsers(
+            users.filter(
+                (user) =>
+                    user.email.toLowerCase().includes(search.toLowerCase())
+            )
+        );
+    }, [search, users]);
 
     const columns = [
         { name: "AVATAR", uid: "avatar" },
@@ -103,6 +114,13 @@ const UserTable = () => {
     return (
         <div className="userTable">
             <Text h3>Users</Text>
+            <Input
+                id="filled-search"
+                bordered
+                fullWidth
+                labelPlaceholder="Search for a user"
+                color="default"
+                onChange={(e) => setSearch(e.target.value)} />
             <Table
                 aria-label="Example table with custom cells"
                 css={{
@@ -122,7 +140,7 @@ const UserTable = () => {
                         </Table.Column>
                     )}
                 </Table.Header>
-                <Table.Body items={users}>
+                <Table.Body items={filteredUsers}>
                     {(item) => (
                         <Table.Row>
                             {(columnKey) => (
