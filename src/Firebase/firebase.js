@@ -45,6 +45,7 @@ const signInWithGoogle = async () => {
         uid: user.uid,
         profilePicture: user.photoURL,
         authProvider: "google",
+        role: "Normal",
         email: user.email,
       }, { merge: true });
     }
@@ -70,6 +71,7 @@ const registerWithEmailAndPassword = async (name, email, password, profilePictur
       name,
       authProvider: "local",
       email,
+      role: "Normal"
     });
   } catch (err) {
     console.error(err);
