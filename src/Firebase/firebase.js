@@ -43,6 +43,7 @@ const signInWithGoogle = async () => {
     if (docs.docs.length === 0) {
       await setDoc(docRef, {
         uid: user.uid,
+        name: user.displayName,
         profilePicture: user.photoURL,
         authProvider: "google",
         role: "Normal",
