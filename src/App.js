@@ -28,6 +28,7 @@ import IntroductionsPage from './Pages/Forum/ForumSectionPages/Introductions';
 import CasualDiscussionPage from './Pages/Forum/ForumSectionPages/CasualDiscussion';
 import ForumThread from './Components/Forum/ForumPostThread/ForumThread';
 import ForumUserPostList from './Pages/UserProfile/ForumUserPostList';
+import UserSearchPage from './Pages/Search/searchUserPage';
 import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
@@ -80,6 +81,7 @@ function App() {
                   <Route path="completed/:id" element={<CompletedList />} />
                   <Route path="gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="user/posts/:id" element={<ForumUserPostList />} />
+                  <Route path="search/users" element={<UserSearchPage />} />
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />

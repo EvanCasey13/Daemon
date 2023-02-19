@@ -139,6 +139,21 @@ const NavBar = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                  <Dropdown>
+                    <Dropdown.Button light>Search</Dropdown.Button>
+                    <Dropdown.Menu
+                      aria-label="User menu actions"
+                      color="secondary"
+                      variant="light"
+                      onAction={(actionKey) => console.log({ actionKey })}
+                    >
+                      <Dropdown.Item key="searchuser" textValue="Search">
+                        <Link href={`/search/users`} underline="none">
+                          Users
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Navbar.Content>
                 <Navbar.Content
                   css={{
@@ -194,6 +209,7 @@ const NavBar = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
+                  
                 </Navbar.Content>
                 <Navbar.Collapse>
                   {menuOptions.map((opt) => (
@@ -296,6 +312,21 @@ const NavBar = () => {
                       <Dropdown.Item key="PlanningToPlay" textValue="PlanningToPlay">
                         <Link href={`/planning/${user?.uid}`} underline="none">
                           Planning to play
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown>
+                    <Dropdown.Button light>Search</Dropdown.Button>
+                    <Dropdown.Menu
+                      aria-label="User menu actions"
+                      color="secondary"
+                      variant="light"
+                      onAction={(actionKey) => console.log({ actionKey })}
+                    >
+                      <Dropdown.Item key="searchuser" textValue="Search">
+                        <Link href={`/search/users`} underline="none">
+                          Users
                         </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>

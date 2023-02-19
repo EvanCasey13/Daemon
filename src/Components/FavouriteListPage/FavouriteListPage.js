@@ -4,7 +4,7 @@ import { Grid } from "@nextui-org/react";
 
 function FavouritesListPage({ favourites }) {
   return (
-    <div className="GameListPageTemplate">   
+    <div className="FavouriteListPageTemplate">   
           <Grid.Container gap={2} >    
               <FavouriteList favourites={favourites} />   
           </Grid.Container>
