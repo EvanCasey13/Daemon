@@ -1,29 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Modal, Dropdown, Card, Col, Row, Grid, Text } from "@nextui-org/react";
+import { Card, Col, Row, Grid, Text } from "@nextui-org/react";
 
 const UserCard = ({ user }) => {
-
-  const [visible, setVisible] = React.useState(false);
-  const [selected, setSelected] = React.useState('');
-  const [selectedRating, setSelectedRating] = React.useState('');
-  const handler = () => setVisible(true);
 
   return (
     <div className="UserCardComponent">
       <Grid.Container gap={1}>
-        <Grid.Container gap={2}>
           <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
             <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
               <Card.Body css={{ p: 0 }}>
                 <Link to={`/profile/${user.uid}`}>
                   <Card.Image
-                    src={user.profilePicture}
-                    width="100%"
-                    height="100%"
+                    src={user?.profilePicture}
+                    width={300}
+                    height={200}
                     objectFit="cover"
                     alt="User Image background missing"
                     showSkeleton="true"
+                    referrerpolicy="no-referrer"
                   />
                 </Link>
               </Card.Body>
@@ -48,7 +43,6 @@ const UserCard = ({ user }) => {
             </Card>
           </Grid>
         </Grid.Container>
-      </Grid.Container>
     </div>
   );
 };
