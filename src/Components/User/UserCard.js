@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Card, Col, Row, Grid, Text, Link } from "@nextui-org/react";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { db } from "../../Firebase/firebase";
 import { query, collection, getDocs, where, onSnapshot } from "firebase/firestore";
 import './User.css'
@@ -68,7 +67,6 @@ const UserCard = () => {
                                                                     {u?.email}
                                                                 </Text>
                                                             </Col>
-                                                            <PersonAddIcon />
                                                         </Row>
                                                         <Row>
                                                             <Col>

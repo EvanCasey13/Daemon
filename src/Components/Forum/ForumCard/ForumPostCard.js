@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { auth, db } from "../../../Firebase/firebase";
 import { collection, getDocs, deleteDoc, query, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -37,19 +37,17 @@ const ForumCard = ({ post }) => {
               </Card.Header>
               <Card.Divider />
               <Card.Body css={{ py: "$10" }}>
-                <Link to={`/forum/post/${post.postID}`}>
                   <Text h3>
                     {post.postTitle}
                   </Text>
-                </Link>
                 <Text>
                   {post.postContent}
                 </Text>
-                {post.userName === user.displayName && (
+                {post.userUID === user.uid && (
                   <>
                     <Col>
-                      <Row justify="center" css={{ paddingTop:"1%" }}>
-                      <Button auto color="error" onClick={() => { deleteItem(post.postID) }} size="sm" icon={<BinIcon fill="currentColor" filled />}>
+                      <Row justify="center" css={{ paddingTop: "1%" }}>
+                        <Button auto color="error" onClick={() => { deleteItem(post.postID) }} size="sm" icon={<BinIcon fill="currentColor" filled />}>
                           <Text
                             css={{ color: "inherit" }}
                             size={12}
@@ -59,16 +57,32 @@ const ForumCard = ({ post }) => {
                             Delete Post
                           </Text>
                         </Button>
-                        </Row>
-                        </Col>
-                      </>
-                    )}
-                    </Card.Body>
-                    <Card.Divider />
-                  </Card>
-              </Grid>
-            </Grid.Container>
+                      </Row>
+                    </Col>
+                  </>
+                )}
+                <Col>
+                  <Row justify="center" css={{ paddingTop: "1%" }}>
+                    <Button auto color="secondary" bordered size="sm">
+                      <Link to={`/forum/post/${post.postID}`}>
+                        <Text
+                          css={{ color: "inherit" }}
+                          size={12}
+                          weight="bold"
+                          transform="uppercase"
+                        >
+                          Replies
+                        </Text>
+                      </Link>
+                    </Button>
+                  </Row>
+                </Col>
+              </Card.Body>
+              <Card.Divider />
+            </Card>
+          </Grid>
         </Grid.Container>
+      </Grid.Container>
     </div>
   )
 };

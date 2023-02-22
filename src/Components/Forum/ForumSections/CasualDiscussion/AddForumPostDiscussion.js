@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../../../Firebase/firebase";
-import { collection, setDoc, doc} from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { Modal, Input, Card, Textarea, Grid, Button, Text } from "@nextui-org/react";
 
 const AddForumPost = () => {
@@ -56,7 +56,7 @@ const AddForumPost = () => {
                 <Card.Divider />
                 <Card.Body css={{ py: "$10" }}>
                     <Text>
-                    General interest topics that do not fall into the above sections.
+                        General interest topics that do not fall into the above sections.
                     </Text>
                 </Card.Body>
                 <Card.Divider />
@@ -74,7 +74,7 @@ const AddForumPost = () => {
                         >
                             <Modal.Header>
                                 <Text id="modal-title" size={18}>
-                                General interest topics that do not fall into the above sections.
+                                    General interest topics that do not fall into the above sections.
                                 </Text>
                             </Modal.Header>
                             <Modal.Body>
