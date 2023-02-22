@@ -6,15 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import { auth, db } from "../../Firebase/firebase";
 import Logo from '../../images/daemon_logo_navbar.png'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
-import { Modal, Dropdown, Card, Col, Row, Button, Text } from "@nextui-org/react";
+import { Modal, Dropdown, Card, Col, Row, Button, Text, Image } from "@nextui-org/react";
 import AddToListIcon from "../../Icons/AddToListIcon";
 
 const Game = ({ game }) => {
 
   const [user, loading, error] = useAuthState(auth);
   const [visible, setVisible] = React.useState(false);
-  const [selected, setSelected] = React.useState('');
-  const [selectedRating, setSelectedRating] = React.useState('');
+  const [selected, setSelected] = React.useState(new Set(["Completed"]));
+  const [selectedRating, setSelectedRating] = React.useState(new Set(["1"]));
   const handler = () => setVisible(true);
 
   const selectedValue = React.useMemo(
@@ -79,7 +79,7 @@ const Game = ({ game }) => {
           <Row>
             <Col>
               <Text color="#000" size={12}>
-              {game.name}
+                {game.name}
               </Text>
             </Col>
             <Col>
@@ -106,14 +106,22 @@ const Game = ({ game }) => {
                       {game.name}
                     </Text>
                   </Modal.Header>
-                  <Modal.Body >
+                  <Image css={{ padding:"1%", borderRadius:"5%" }}
+                      src={game.background_image}
+                      width="100%"
+                      height="100%"
+                      objectFit="cover"
+                      alt="Game Card Image background missing"
+                      showSkeleton="true"
+                    />
+                  <Modal.Body css={{ marginLeft: "5%" }}>
                     <FormControl sx={{ width: '35ch' }}>
                       <div className="status-select">
                         <Text size={14} css={{ textAlign: "center" }}>
                           Status
                         </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" , marginLeft: "30%"}}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "30%" }}>
                             {selectedValue}
                           </Dropdown.Button>
                           <Dropdown.Menu
@@ -137,7 +145,7 @@ const Game = ({ game }) => {
                           Rating
                         </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "30%" }}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "38%" }}>
                             {selectedRatingValue}
                           </Dropdown.Button>
                           <Dropdown.Menu

@@ -17,8 +17,8 @@ import PlanningIcon from "../../Icons/PlanningIcon";
 const NavBar = () => {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
-  const [profilePicture, setProfilePicture] = useState("")
-  const [userId, setUserId] = useState("")
+  const [profilePicture, setProfilePicture] = useState("");
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
