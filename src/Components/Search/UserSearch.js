@@ -32,7 +32,7 @@ const UserSearch = () => {
     }, [search, users]);
 
     return (
-        <div className="userTable">
+        <div className="userSearch">
             <Text h3>Users</Text>
             <Input
                 id="filled-search"

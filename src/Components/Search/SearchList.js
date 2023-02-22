@@ -5,7 +5,7 @@ import { Grid } from "@nextui-org/react";
 function UserList({ users }) {
     return (
         <div className="UsersList">
-            <Grid.Container >
+            <Grid.Container gap={1} >
                 <UserSearchList users={users} />
             </Grid.Container>
         </div>
