@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@nextui-org/react";
 
-const TemplateGamePage = ({ children }) => {
+const GamePageTemplate = ({ children }) => {
 
   return (
     <>
@@ -14,4 +14,4 @@ const TemplateGamePage = ({ children }) => {
   );
 };
 
-export default TemplateGamePage;
+export default GamePageTemplate;

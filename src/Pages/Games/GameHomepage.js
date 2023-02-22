@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import './GameHomepage.css';
 import Pagination from '@mui/material/Pagination';
-import PageTemplate from '../../Components/gameListPage';
+import PageTemplate from '../../Components/gameListPage/gameListPage';
 import { useQuery } from 'react-query';
 import { fetchPopular } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";

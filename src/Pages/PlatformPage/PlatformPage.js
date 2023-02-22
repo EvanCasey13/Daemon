@@ -4,7 +4,7 @@ import { Input } from "@nextui-org/react";
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { fetchGamesByPlatform } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
-import PageTemplate from '../../Components/gameListPage/index';
+import PageTemplate from '../../Components/gameListPage/gameListPage';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import useDebounce from "../../hooks/useDebounce"
