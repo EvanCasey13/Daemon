@@ -1,5 +1,5 @@
 import React from "react";
-import GameList from "../gameList";
+import GameList from "../gameList/gameList";
 import { Grid } from "@nextui-org/react";
 
 function GameListPageTemplate({ games }) {

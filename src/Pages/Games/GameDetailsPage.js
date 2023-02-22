@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 import GameDetails from "../../Components/Game/GameDetail";
-import PageTemplate from '../../Components/templateGamePage';
+import PageTemplate from '../../Components/GamePageTemplate/gamePageTemplate';
 import { fetchDetails } from '../../api/rawg-api'
 import { useQuery } from "react-query";
 import NavBar from "../../Components/Navbar/Navbar"
