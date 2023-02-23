@@ -171,6 +171,7 @@ const NavBar = () => {
                         as="button"
                         color="secondary"
                         size="md"
+                        id="profileButton"
                         src={profilePicture}
                       />
                     </Dropdown.Trigger>

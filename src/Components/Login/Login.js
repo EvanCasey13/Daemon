@@ -69,11 +69,11 @@ function Login() {
               helperText={formik.touched.password && formik.errors.password}
             />
             <br />
-            <Button onClick={() => logInWithEmailAndPassword(formik.values.email, formik.values.password)} color="gradient" type="submit">
+            <Button id="loginButton" onClick={() => logInWithEmailAndPassword(formik.values.email, formik.values.password)} color="gradient" type="submit">
               Login
             </Button>
             <br />
-            <Button className="login__btn login__google" onClick={signInWithGoogle} color="gradient">Login with Google</Button>
+            <Button className="login__btn login__google"  onClick={signInWithGoogle} color="gradient">Login with Google</Button>
             <Text>
               Don't have an account? <Link to="/register">Register</Link> now.
             </Text>
