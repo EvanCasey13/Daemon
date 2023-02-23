@@ -81,7 +81,7 @@ function Register() {
           <Input labelPlaceholder="Account name"
             size="md" 
             id="accountName"
-            className="register__textBox"
+            className="accountName"
             value={formik.values.accountName}
             onChange={formik.handleChange}
             error={formik.touched.accountName && Boolean(formik.errors.accountName)}
@@ -91,7 +91,7 @@ function Register() {
           <Input labelPlaceholder="Email address"
             size="md" 
             id="email"
-            className="register__textBox"
+            className="emailAddress"
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
@@ -101,14 +101,14 @@ function Register() {
           <Input.Password labelPlaceholder="Password"
             size="md" 
             id="password"
-            className="register__textBox"
+            className="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
           <br />
-          <Button className="register__btn" onClick={register} color="gradient" type="submit">Register</Button>
+          <Button className="register__btn" id="registerButton" onClick={register} color="gradient" type="submit">Register</Button>
           <br />
           <Button className="register__btn register__google"
             onClick={signInWithGoogle} color="gradient">Register with Google</Button>
