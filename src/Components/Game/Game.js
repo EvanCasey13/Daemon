@@ -53,7 +53,7 @@ const Game = ({ game }) => {
 
   return (
     <div className="HomeComponent">
-      <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable>
+      <Card css={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} isHoverable >
         <Card.Body css={{ p: 0 }}>
           <Link to={`/games/${game.id}`}>
             <Card.Image
@@ -84,7 +84,7 @@ const Game = ({ game }) => {
             </Col>
             <Col>
               <Row justify="flex-end">
-                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" />}>
+                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" />} id={game.id}>
                   <Text
                     css={{ color: "inherit" }}
                     size={12}
