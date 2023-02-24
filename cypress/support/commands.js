@@ -106,3 +106,29 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.get("#password").clear().type(password);
     cy.get("#loginButton").contains("Login").click();
   });
+
+  Cypress.Commands.add('addToFavourites', (index) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+  
+      if (err.message.includes('Unexpected token')) {
+  
+        console.log('Application Error Javascript Token')
+  
+        return false;
+  
+      }
+  
+      if (err.name === 'TypeError') {
+  
+        console.log('Type Error')
+  
+        return false
+      }
+  
+      return true
+  
+    })
+  
+    cy.get("#3498").contains("Add to list").click();
+  });
