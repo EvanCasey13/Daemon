@@ -107,7 +107,7 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.get("#loginButton").contains("Login").click();
   });
 
-  Cypress.Commands.add('addToFavourites', (index) => {
+  Cypress.Commands.add('addToFavourites', (slug) => {
 
     cy.on('uncaught:exception', (err, runnable) => {
   
@@ -130,5 +130,67 @@ Cypress.Commands.add('clickButton', (label) => {
   
     })
   
-    cy.get("#3498").contains("Add to list").click();
+    cy.get('#' + slug).contains("Add to list").click();
+
+    cy.get('#statusDropdown').click();
+
+    cy.contains('Plan to play').click();
+
+    cy.get('#ratingDropdown').click();
+
+    cy.contains('Submit').click();
+  });
+
+  Cypress.Commands.add('getDetails', (id) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+  
+      if (err.message.includes('Unexpected token')) {
+  
+        console.log('Application Error Javascript Token')
+  
+        return false;
+  
+      }
+  
+      if (err.name === 'TypeError') {
+  
+        console.log('Type Error')
+  
+        return false
+      }
+  
+      return true
+  
+    })
+  
+    cy.get('#' + id).click();
+    cy.url().should("include", `/games/${id}`);
+  });
+
+  Cypress.Commands.add('search', (query) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+  
+      if (err.message.includes('Unexpected token')) {
+  
+        console.log('Application Error Javascript Token')
+  
+        return false;
+  
+      }
+  
+      if (err.name === 'TypeError') {
+  
+        console.log('Type Error')
+  
+        return false
+      }
+  
+      return true
+  
+    })
+  
+    cy.get("#filled-search").clear().type(query);
+    cy.url().should("include", `/gamehomepage?query=The+Witcher+3+Wild+Hunt`);
   });
