@@ -61,7 +61,8 @@ const Game = ({ game }) => {
               width="100%"
               height="100%"
               objectFit="cover"
-              alt="Game Card Image background missing"
+              alt={game.name}
+              id={game.id}
               showSkeleton="true"
             />
           </Link>
@@ -84,7 +85,7 @@ const Game = ({ game }) => {
             </Col>
             <Col>
               <Row justify="flex-end">
-                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" />} id={game.id}>
+                <Button flat auto rounded color="secondary" onClick={handler} icon={<AddToListIcon fill="currentColor" />} id={game.slug}>
                   <Text
                     css={{ color: "inherit" }}
                     size={12}
@@ -121,7 +122,7 @@ const Game = ({ game }) => {
                           Status
                         </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "30%" }}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "30%" }} id="statusDropdown">
                             {selectedValue}
                           </Dropdown.Button>
                           <Dropdown.Menu
@@ -145,7 +146,7 @@ const Game = ({ game }) => {
                           Rating
                         </Text>
                         <Dropdown>
-                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "38%" }}>
+                          <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", marginLeft: "38%" }} id="ratingDropdown">
                             {selectedRatingValue}
                           </Dropdown.Button>
                           <Dropdown.Menu
