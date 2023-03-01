@@ -15,6 +15,7 @@ const Genre = ({ genre }) => {
               height={200}
               objectFit="cover"
               alt="Genre card"
+              id={genre.slug}
             />
           </Link>
         </Card.Body>
