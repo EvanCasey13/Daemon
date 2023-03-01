@@ -18,6 +18,7 @@ describe("Forum", () => {
             cy.addForumPost(title, content);
 
             cy.get("h3").contains(title); 
+            cy.clickButton("Delete Post");
         });
     });
 });
