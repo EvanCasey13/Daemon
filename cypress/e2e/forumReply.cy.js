@@ -1,8 +1,8 @@
 import '../support/commands'
 
-describe("Forum", () => {
+describe("Forum Reply", () => {
     describe("Guidelines", () => {
-        it("Navigate to Guidelines page and add a post", () => {
+        it("Navigate to Guidelines page and add a reply", () => {
             cy.visit("http://localhost:3000/");
             cy.get("a").contains("Forum").click();
 
@@ -12,12 +12,12 @@ describe("Forum", () => {
 
             cy.url().should("include", `/forum/guidelines`);
 
-            const title = "New rules will be implemented in the site in the near future";
-            const content = "New rules to be added based on increase in users";
+            const title = "This is a great change";
+            const content = "The current rules are being abused by users of the platform, this is a well needed and required change.";
 
-            cy.addForumPost(title, content);
+            cy.get("p").contains("Replies").click();
 
-            cy.get("h3").contains(title);
+            cy.addPostReply(title, content);
             cy.clickButton("Delete Post");
         });
     });

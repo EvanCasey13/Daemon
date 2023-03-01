@@ -224,6 +224,37 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.get(`[aria-label="Close"]`).click()
   });
 
+  Cypress.Commands.add('addPostReply', (title, content) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+  
+      if (err.message.includes('Unexpected token')) {
+  
+        console.log('Application Error Javascript Token')
+  
+        return false;
+  
+      }
+  
+      if (err.name === 'TypeError') {
+  
+        console.log('Type Error')
+  
+        return false
+      }
+  
+      return true
+  
+    })
+  
+    cy.get('button').contains("Add Reply").click();
+    cy.get("#replyTitle").clear().type(title);
+    cy.get("#replyContent").clear().type(content);
+    cy.get('button').contains("Submit").click();
+
+    cy.get(`[aria-label="Close"]`).click()
+  });
+
   Cypress.Commands.add('getDetails', (id) => {
 
     cy.on('uncaught:exception', (err, runnable) => {

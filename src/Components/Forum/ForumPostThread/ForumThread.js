@@ -128,6 +128,7 @@ const ForumThread = () => {
                                             size="lg"
                                             placeholder="Reply title"
                                             onChange={handleTitleChange}
+                                            id="replyTitle"
                                         />
                                         <Textarea
                                             bordered
@@ -136,6 +137,7 @@ const ForumThread = () => {
                                             label="Content"
                                             value={content}
                                             onChange={handleContentChange}
+                                            id="replyContent"
                                         />
                                     </Modal.Body>
                                     <Modal.Footer>
