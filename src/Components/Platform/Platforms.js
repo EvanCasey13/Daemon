@@ -14,6 +14,7 @@ const Platform = ({ platform }) => {
                             height={200}
                             objectFit="cover"
                             alt="Platform card"
+                            id={platform.slug}
                         />
                     </Link>
                 </Card.Body>

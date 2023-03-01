@@ -88,6 +88,7 @@ const AddForumPost = () => {
                                     size="lg"
                                     placeholder="Post Title"
                                     onChange={handleTitleChange}
+                                    id="postTitle"
                                 />
                                 <Textarea
                                     bordered
@@ -96,6 +97,7 @@ const AddForumPost = () => {
                                     label="Content"
                                     value={content}
                                     onChange={handleContentChange}
+                                    id="postContent"
                                 />
                             </Modal.Body>
                             <Modal.Footer>
