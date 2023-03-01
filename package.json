@@ -64,6 +64,9 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": "16.x"
+  },
   "devDependencies": {
     "cypress": "^12.6.0"
   }
