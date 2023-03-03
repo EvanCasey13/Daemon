@@ -9,7 +9,7 @@ describe("Login use case", () => {
     });
 
     describe("login to account", () => {
-        it("Enter account details & log in", () => {
+        it("Enter account details & login, then logout", () => {
             cy.visit("http://localhost:3000/login");
             cy.url().should("include", `/login`);
 
@@ -17,6 +17,8 @@ describe("Login use case", () => {
             const password = "123456789";
 
             cy.Login(email, password);
+
+            cy.Logout();
         });
     });
 });

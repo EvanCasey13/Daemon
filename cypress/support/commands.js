@@ -308,3 +308,31 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.get("#filled-search").clear().type(query);
     cy.url().should("include", `/gamehomepage?query=The+Witcher+3+Wild+Hunt`);
   });
+
+  Cypress.Commands.add('Logout', (query) => {
+
+    cy.on('uncaught:exception', (err, runnable) => {
+  
+      if (err.message.includes('Unexpected token')) {
+  
+        console.log('Application Error Javascript Token')
+  
+        return false;
+  
+      }
+  
+      if (err.name === 'TypeError') {
+  
+        console.log('Type Error')
+  
+        return false
+      }
+  
+      return true
+  
+    })
+  
+    cy.get('[class*="nextui-avatar-bg"]').click();
+
+    cy.get('a').contains("Logout").click({force: true});
+  });
