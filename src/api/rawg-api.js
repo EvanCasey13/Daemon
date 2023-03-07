@@ -1,6 +1,6 @@
-export const fetchPopular = (page, query) => {
+export const fetchPopular = (page, query, genres) => {
     return fetch(
-        `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&page_size=18&search=${query}`
+        `https://rawg.io/api/games?token&key=${process.env.REACT_APP_RAWG_API_KEY}&page=${page}&genres=${genres}&page_size=18&search=${query}`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
