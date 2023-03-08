@@ -33,6 +33,7 @@ import Login from './Components/Login/Login'
 import Register from "./Components/Register/Register";
 import Reset from "./Components/Reset/Reset";
 import AdminPage from './Pages/Admin/admin';
+import SearchFilterGamesPage from './Pages/Search/searchFilterGamesPage';
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -82,6 +83,7 @@ function App() {
                   <Route path="gameAdditions/:id" element={<GameAdditionDetail />} />
                   <Route path="user/posts/:id" element={<ForumUserPostList />} />
                   <Route path="search/users" element={<UserSearchPage />} />
+                  <Route path="search/games" element={<SearchFilterGamesPage />} />
                   <Route path="/admin" element={<AdminPage />} />
                   <Route path="/login" element={<Login />} />
                   <Route exact path="/register" element={<Register />} />

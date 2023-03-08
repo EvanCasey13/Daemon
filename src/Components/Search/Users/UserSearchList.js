@@ -1,5 +1,5 @@
 import React from "react";
-import UserSearchList from "./SearchListPage"
+import UserSearchList from "./UserSearchListPage"
 import { Grid } from "@nextui-org/react";
 
 function UserList({ users }) {

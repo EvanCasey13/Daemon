@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../Firebase/firebase";
+import { db } from "../../../Firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import { Text, Input } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
-import UserList from "./SearchList";
+import UserList from "./UserSearchList";
 
 const UserSearch = () => {
 

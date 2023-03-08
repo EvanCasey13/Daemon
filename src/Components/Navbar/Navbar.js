@@ -152,6 +152,11 @@ const NavBar = () => {
                           Users
                         </Link>
                       </Dropdown.Item>
+                      <Dropdown.Item key="searchgames" textValue="Search">
+                        <Link href={`/search/games`} underline="none">
+                          Games
+                        </Link>
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </Navbar.Content>
@@ -328,6 +333,11 @@ const NavBar = () => {
                       <Dropdown.Item key="searchuser" textValue="Search">
                         <Link href={`/search/users`} underline="none">
                           Users
+                        </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item key="searchgames" textValue="Search">
+                        <Link href={`/search/games`} underline="none">
+                          Games
                         </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>
