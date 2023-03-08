@@ -1,13 +1,12 @@
-
 .Underline {
-    text-decoration: underline;     
+    text-decoration: underline;
 }
 
-.userListTitle {padding-right: 70%;}
-
-.userCard {
-
+.userListTitle {
+    padding-right: 70%;
 }
+
+.userCard {}
 
 .container {
     width: fit-content;
@@ -19,6 +18,14 @@
     justify-content: center;
 }
 
-.row > *:not(:last-child) {
+.row>*:not(:last-child) {
     margin-right: .5rem;
+}
+
+.breadcrumb-not-active {
+    color: #cccccc;
+}
+
+.breadcrumb-active {
+    color: #000000;
 }

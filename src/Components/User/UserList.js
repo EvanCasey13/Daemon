@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../Firebase/firebase";
 import { query, collection, getDocs, where, onSnapshot } from "firebase/firestore";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import './User.css'
 import { Grid, Card, Text, Link } from "@nextui-org/react";
 import UserCard from "./UserCard";
@@ -11,6 +11,7 @@ import PlanningIcon from "../../Icons/PlanningIcon";
 import DroppedIcon from "../../Icons/DroppedIcon";
 import OnHoldIcon from "../../Icons/OnHoldIcon";
 import PlayingIcon from "../../Icons/PlayingIcon";
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 const UserList = () => {
     const [user, setUser] = useState([]);
@@ -20,6 +21,8 @@ const UserList = () => {
     const [droppedCount, setDroppedCount] = useState([]);
     const [planningCount, setPlanningCount] = useState([]);
     let params = useParams();
+    const breadcrumbs = useBreadcrumbs();
+    const location = useLocation();
 
     useEffect(() => {
         const d = query(collection(db, "users"), where("uid", "==", params.id));
@@ -87,6 +90,17 @@ const UserList = () => {
 
     return (
         <div className="userListPage">
+            <nav>
+                {breadcrumbs.map(({ match, breadcrumb }) => (
+                    <Link
+                        key={match.url}
+                        to={match.url}
+                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+                    >
+                        {breadcrumb} /
+                    </Link>
+                ))}
+            </nav>
             {user.map(u => {
                 return (
                     <Grid container css={{

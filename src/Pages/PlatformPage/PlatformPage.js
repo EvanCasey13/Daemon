@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Pagination from '@mui/material/Pagination';
 import { Input } from "@nextui-org/react";
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams, useLocation, Link } from 'react-router-dom';
 import { fetchGamesByPlatform } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import PageTemplate from '../../Components/gameListPage/gameListPage';
@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 function PlatformPage() {
 
@@ -20,6 +21,8 @@ function PlatformPage() {
 
     const [searchTerm, setSearchTerm] = useSearchParams();
     const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+    const breadcrumbs = useBreadcrumbs();
+    const location = useLocation();
 
     const handleChange = (event, value) => {
         setActivePage(value);
@@ -61,7 +64,17 @@ function PlatformPage() {
                     value={term == null ? '' : term}
                     onChange={handleSearchChange} />
             </form>
-            
+            <nav>
+                {breadcrumbs.map(({ match, breadcrumb }) => (
+                    <Link
+                        key={match.url}
+                        to={match.url}
+                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+                    >
+                        {breadcrumb}/
+                    </Link>
+                ))}
+            </nav>
             <PageTemplate games={games} />
             <Pagination
                 count={100}

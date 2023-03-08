@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams, useLocation, Link } from 'react-router-dom';
 import './GameHomepage.css';
 import Pagination from '@mui/material/Pagination';
 import PageTemplate from '../../Components/gameListPage/gameListPage';
@@ -9,10 +9,13 @@ import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
 import { Input, Button } from "@nextui-org/react";
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 function GameHomepage() {
 
   const { user } = useContext(AuthContext);
   const [activePage, setActivePage] = useState(1);
+  const breadcrumbs = useBreadcrumbs();
+  const location = useLocation();
 
   const handleChange = (event, value) => {
     setActivePage(value);
@@ -46,6 +49,17 @@ function GameHomepage() {
   return (
     <div className='Home' >
       <NavBar />
+      <nav>
+        {breadcrumbs.map(({ match, breadcrumb }) => (
+          <Link
+            key={match.url}
+            to={match.url}
+            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+          >
+            {breadcrumb}/
+          </Link>
+        ))}
+      </nav>
       <br />
       <h2>Popular Games</h2>
       <form>
