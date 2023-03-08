@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams, Link } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
 import PageTemplate from '../../Components/gameListPage/gameListPage';
 import { useQuery } from 'react-query';
@@ -9,6 +9,7 @@ import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
 import { Input, Collapse, Text } from "@nextui-org/react";
 import './search.css';
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 function SearchFilterGamesPage() {
 
@@ -16,6 +17,8 @@ function SearchFilterGamesPage() {
   const [activePage, setActivePage] = useState(1);
   const [checked, setChecked] = useState([]);
   const [checkedP, setCheckedP] = useState([]);
+  const breadcrumbs = useBreadcrumbs();
+  const location = useLocation();
 
   const handleChange = (event, value) => {
     setActivePage(value);
@@ -87,7 +90,17 @@ function SearchFilterGamesPage() {
           value={term == null ? '' : term}
           onChange={handleSearchChange} />
       </form>
-
+      <nav>
+        {breadcrumbs.map(({ match, breadcrumb }) => (
+          <Link
+            key={match.url}
+            to={match.url}
+            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+          >
+            {breadcrumb}/
+          </Link>
+        ))}
+      </nav>
       <Collapse.Group>
       <Collapse title="Genres">
       <div className="list-container">

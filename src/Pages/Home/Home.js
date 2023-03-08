@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './Home.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation, Link } from 'react-router-dom';
 import { fetchPopularHome, fetchGenres, fetchPlatforms } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import { useQuery } from 'react-query';
@@ -12,6 +12,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "@fontsource/press-start-2p";
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 function Home() {
 
@@ -97,6 +98,9 @@ function Home() {
 
     const { user } = useContext(AuthContext);
 
+    const breadcrumbs = useBreadcrumbs();
+    const location = useLocation();
+
     const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres });
 
     const platformResults = useQuery({ queryKey: ['platforms'], queryFn: fetchPlatforms });
@@ -123,6 +127,17 @@ function Home() {
     return (
         <div className='Home' >
             <NavBar />
+            <nav>
+                {breadcrumbs.map(({ match, breadcrumb }) => (
+                    <Link
+                        key={match.url}
+                        to={match.url}
+                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+                    >
+                        {breadcrumb}/
+                    </Link>
+                ))}
+            </nav>
             <br/>
             <h2>Recent Games</h2>
             <div className="popular-games">

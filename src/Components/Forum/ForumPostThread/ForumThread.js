@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Modal, Input, Card, Textarea, Grid, Button, Text, Avatar } from "@nextui-org/react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import NavBar from '../../Navbar/Navbar';
 import { auth, db } from "../../../Firebase/firebase";
 import { collection, getDocs, query, where, doc, setDoc, onSnapshot } from "firebase/firestore";
 import ForumRepliesList from '../ForumReplyListPage/forumReplyListPage';
+import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 const ForumThread = () => {
     let params = useParams();
@@ -16,6 +17,8 @@ const ForumThread = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const handler = () => setVisible(true);
+    const breadcrumbs = useBreadcrumbs();
+    const location = useLocation();
 
     const addReply = async (postID) => {
         const docRef = doc(collection(db, "forumPosts/" + postID + "/replies"));
@@ -75,6 +78,17 @@ const ForumThread = () => {
     return (
         <div className="ForumThread">
             <NavBar />
+            <nav>
+                {breadcrumbs.map(({ match, breadcrumb }) => (
+                    <Link
+                        key={match.url}
+                        to={match.url}
+                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
+                    >
+                        {breadcrumb}/
+                    </Link>
+                ))}
+            </nav>
             {post.map(p => {
                 return (
                     <Card>
