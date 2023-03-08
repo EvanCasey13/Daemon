@@ -8,32 +8,16 @@ import { fetchPopular, fetchGenres, } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
-import { Input } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 function GameHomepage() {
 
   const { user } = useContext(AuthContext);
   const [activePage, setActivePage] = useState(1);
-  const [checked, setChecked] = useState([]);
 
   const handleChange = (event, value) => {
     setActivePage(value);
     console.log(value)
   };
-
-  // Add/Remove checked item from list
-  const handleCheck = (event) => {
-    var updatedList = [...checked];
-    if (event.target.checked) {
-      updatedList = [...checked, event.target.value];
-    } else {
-      updatedList.splice(checked.indexOf(event.target.value), 1);
-    }
-    setChecked(updatedList);
-  };
-
-  // Return classes based on whether item is checked
-  var isChecked = (item) =>
-    checked.includes(item) ? "checked-item" : "not-checked-item";
 
   const [searchTerm, setSearchTerm] = useSearchParams();
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
@@ -44,9 +28,7 @@ function GameHomepage() {
 
   const term = searchTerm.get("query")
 
-  const { data, error, isLoading, isError } = useQuery(['games', activePage, term, checked], () => fetchPopular(activePage, searchTerm, checked), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
-
-  const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres });
+  const { data, error, isLoading, isError } = useQuery(['games', activePage, term], () => fetchPopular(activePage, searchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
 
   if (isLoading) {
     return <h1>Games loading...</h1>
@@ -56,8 +38,6 @@ function GameHomepage() {
     return <h1>{error.message}</h1>
   }
   const games = data?.results;
-
-  const genres = genreResults.data?.results;
 
   if (!user) {
     return <Navigate replace to="/login" />;
@@ -78,16 +58,6 @@ function GameHomepage() {
           value={term == null ? '' : term}
           onChange={handleSearchChange} />
       </form>
-
-      <div className="list-container">
-        {genres.map((item) => (
-          <div >
-            <input value={item.slug} type="checkbox" defaultValue='Action' onChange={handleCheck} />
-            <span >{item.name}</span>
-          </div>
-        ))}
-        {`Items checked are: ${checked}`}
-      </div>
 
       <PageTemplate
         games={games}
