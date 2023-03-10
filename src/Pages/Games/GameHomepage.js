@@ -10,10 +10,26 @@ import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
 import { Input, Button } from "@nextui-org/react";
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
+
 function GameHomepage() {
 
   const { user } = useContext(AuthContext);
   const [activePage, setActivePage] = useState(1);
+
+  const breadcrumbs = useBreadcrumbs();
+  const location = useLocation();
+
+  const [selectedGenres, setSelectedGenres] = useState(["action"]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState(["4"]);
+
+  const handleChangeGenre = (e) => {
+    setSelectedGenres(e.target.value);
+  };
+
+  const handleChangePlatform = (e) => {
+    setSelectedPlatforms(e.target.value);
+  };
+
 
   const handleChange = (event, value) => {
     setActivePage(value);
