@@ -4,15 +4,25 @@ import './GameHomepage.css';
 import Pagination from '@mui/material/Pagination';
 import PageTemplate from '../../Components/gameListPage/gameListPage';
 import { useQuery } from 'react-query';
-import { fetchPopular, fetchGenres, } from "../../api/rawg-api";
+import { fetchPopular, fetchGenres, fetchPlatforms } from "../../api/rawg-api";
 import AuthContext from "../../AuthContext";
 import useDebounce from "../../hooks/useDebounce"
 import NavBar from "../../Components/Navbar/Navbar"
-import { Input, Button } from "@nextui-org/react";
+import { Input, Dropdown } from "@nextui-org/react";
 function GameHomepage() {
 
   const { user } = useContext(AuthContext);
   const [activePage, setActivePage] = useState(1);
+  const [selectedGenres, setSelectedGenres] = useState(["action"]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState(["4"]);
+
+  const handleChangeGenre = (e) => {
+    setSelectedGenres(e.target.value);
+  };
+
+  const handleChangePlatform = (e) => {
+    setSelectedPlatforms(e.target.value);
+  };
 
   const handleChange = (event, value) => {
     setActivePage(value);
@@ -28,7 +38,11 @@ function GameHomepage() {
 
   const term = searchTerm.get("query")
 
-  const { data, error, isLoading, isError } = useQuery(['games', activePage, term], () => fetchPopular(activePage, searchTerm), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
+  const { data, error, isLoading, isError } = useQuery(['games', activePage, term, selectedGenres, selectedPlatforms], () => fetchPopular(activePage, searchTerm, selectedGenres, selectedPlatforms), { keepPreviousData: true }, { enabled: !!debouncedSearchTerm })
+
+  const genreResults = useQuery({ queryKey: ['genres'], queryFn: fetchGenres });
+
+  const platformResults = useQuery({ queryKey: ['platforms'], queryFn: fetchPlatforms });
 
   if (isLoading) {
     return <h1>Games loading...</h1>
@@ -38,6 +52,10 @@ function GameHomepage() {
     return <h1>{error.message}</h1>
   }
   const games = data?.results;
+
+  const genres = genreResults.data.results;
+
+  const platforms = platformResults.data.results;
 
   if (!user) {
     return <Navigate replace to="/login" />;
@@ -58,6 +76,24 @@ function GameHomepage() {
           value={term == null ? '' : term}
           onChange={handleSearchChange} />
       </form>
+      <br />
+      <div className="genreSelect">
+        <h5>Genre</h5>
+        <select onChange={handleChangeGenre}>
+          {genres?.map((item) => (
+            <><option value={item.slug}>{item.name}</option></>
+          ))}
+        </select>
+      </div>
+      <br />
+      <div className="platformSelect">
+      <h5>Platform</h5>
+        <select onChange={handleChangePlatform}>
+          {platforms?.map((item) => (
+            <><option value={item.id}>{item.name}</option></>
+          ))}
+        </select>
+      </div>
 
       <PageTemplate
         games={games}
