@@ -73,7 +73,7 @@ const GameDetail = ({ game }) => {
         </Grid>
         <Grid css={{ float: "right", marginTop: "2%" }}>
           <Text h3>
-            {game.name}
+            {game?.name}
           </Text>
           Publishers:
           {game.publishers?.map(p =>
@@ -90,7 +90,7 @@ const GameDetail = ({ game }) => {
                 </Badge>
               </Popover.Trigger>
               <Popover.Content css={{ px: '$4', py: '$2' }}>
-                {p.name}
+                {p?.name}
               </Popover.Content>
             </Popover>
           )}
@@ -121,7 +121,7 @@ const GameDetail = ({ game }) => {
           <Text h5>
             Total games in the series: {game.game_series_count} Games
           </Text>
-          <Badge size="sm" enableShadow disableOutline color="error">ESRB Rating: {game.esrb_rating.name}</Badge>
+       
         </Grid>
         <Collapse.Group>
           <Collapse title="Description" expanded>

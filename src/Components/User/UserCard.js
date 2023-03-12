@@ -64,7 +64,7 @@ const UserCard = () => {
                                                         <Row>
                                                             <Col>
                                                                 <Text color="#d1d1d1" size={12}>
-                                                                    {u?.email}
+                                                                    {u?.name}
                                                                 </Text>
                                                             </Col>
                                                         </Row>

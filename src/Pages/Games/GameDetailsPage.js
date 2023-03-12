@@ -17,7 +17,7 @@ const GameDetailsPage = (props) => {
   }
 
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <h1>Failed to retrieve game details</h1>;
   }
 
   return (
