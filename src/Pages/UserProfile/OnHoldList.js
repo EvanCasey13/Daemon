@@ -39,15 +39,16 @@ const OnHoldList = () => {
     <div className="OnHoldList">
       <NavBar />
       <nav>
-        {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link
-            key={match.url}
-            to={match.url}
-            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-          >
-            {breadcrumb}/
-          </Link>
-        ))}
+        <Link to="/"
+          className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          Home/
+        </Link>
+        <Link to="/"
+          className={location.pathname.startsWith("/on-hold") ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          On-Hold/{params.id}
+        </Link>
       </nav>
       <FavouritesList favourites={favourites} />
     </div>

@@ -74,7 +74,7 @@ const NavBar = () => {
         return (
           userA.role === "Admin" && (
             <>
-              <Navbar isBordered variant="floating" color="inherit"
+              <Navbar isBordered variant="floating" color="inherit" key="adminNav"
               >
                 <Navbar.Toggle showIn="xs" />
                 <Navbar.Brand
@@ -104,7 +104,7 @@ const NavBar = () => {
                       {opt.label}
                     </Navbar.Link>
                   ))}
-                  <Dropdown placement="bottom-right">
+                  <Dropdown placement="bottom-right" key="listDrop">
                     <Dropdown.Button light>Lists</Dropdown.Button>
                     <Dropdown.Menu
                       aria-label="User menu actions"
@@ -139,7 +139,7 @@ const NavBar = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Dropdown>
+                  <Dropdown key="">
                     <Dropdown.Button light>Search</Dropdown.Button>
                     <Dropdown.Menu
                       aria-label="User menu actions"
@@ -184,6 +184,7 @@ const NavBar = () => {
                     <Dropdown.Menu
                       aria-label="User menu actions"
                       color="secondary"
+                      key="userMenu"
                       onAction={(actionKey) => console.log({ actionKey })}
                     >
                       <Dropdown.Item key="profile" css={{ height: "$18" }} textValue="profileEmail">
@@ -257,7 +258,7 @@ const NavBar = () => {
         return (
           userN.role === "Normal" && (
             <>
-              <Navbar isBordered variant="floating" color="inherit"
+              <Navbar isBordered variant="floating" color="inherit" key="normalNav"
               >
                 <Navbar.Toggle showIn="xs" />
                 <Navbar.Brand
@@ -287,7 +288,7 @@ const NavBar = () => {
                       {opt.label}
                     </Navbar.Link>
                   ))}
-                   <Dropdown placement="bottom-right">
+                   <Dropdown placement="bottom-right" key="">
                     <Dropdown.Button light>Lists</Dropdown.Button>
                     <Dropdown.Menu
                       aria-label="User menu actions"
@@ -322,7 +323,7 @@ const NavBar = () => {
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-                  <Dropdown>
+                  <Dropdown key="">
                     <Dropdown.Button light>Search</Dropdown.Button>
                     <Dropdown.Menu
                       aria-label="User menu actions"
@@ -366,6 +367,7 @@ const NavBar = () => {
                     <Dropdown.Menu
                       aria-label="User menu actions"
                       color="secondary"
+                      key=""
                       onAction={(actionKey) => console.log({ actionKey })}
                     >
                       <Dropdown.Item key="profile" css={{ height: "$18" }} textValue="profileEmail">

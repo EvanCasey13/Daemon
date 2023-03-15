@@ -72,15 +72,16 @@ function GameHomepage() {
     <div className='Home' >
       <NavBar />
       <nav>
-        {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link
-            key={match.url}
-            to={match.url}
-            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-          >
-            {breadcrumb}/
-          </Link>
-        ))}
+        <Link to="/"
+          className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          Home/
+        </Link>
+        <Link to="/GameHomePage"
+          className={location.pathname.startsWith("/gamehomepage") ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          GamesPage
+        </Link>
       </nav>
       <br />
       <h2>Popular Games</h2>
@@ -89,26 +90,27 @@ function GameHomepage() {
           id="filled-search"
           bordered
           fullWidth
+          key="searchBar"
           labelPlaceholder="Search for a game"
           color="default"
           value={term == null ? '' : term}
           onChange={handleSearchChange} />
       </form>
       <br />
-      <div className="genreSelect">
+      <div className="genreSelect" key="genreSelect">
         <h5>Genre</h5>
         <select onChange={handleChangeGenre}>
           {genres?.map((item) => (
-            <><option value={item.slug}>{item.name}</option></>
+            <><option  key={item.id} value={item.slug}>{item.name}</option></>
           ))}
         </select>
       </div>
       <br />
-      <div className="platformSelect">
-      <h5>Platform</h5>
+      <div className="platformSelect" key="platformSelect">
+        <h5>Platform</h5>
         <select onChange={handleChangePlatform}>
           {platforms?.map((item) => (
-            <><option value={item.id}>{item.name}</option></>
+            <><option key={item.id} value={item.id}>{item.name}</option></>
           ))}
         </select>
       </div>

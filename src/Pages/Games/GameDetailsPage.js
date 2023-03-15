@@ -24,15 +24,21 @@ const GameDetailsPage = (props) => {
     <>
       <NavBar />
       <nav>
-        {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link
-            key={match.url}
-            to={match.url}
-            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-          >
-            {breadcrumb}/
-          </Link>
-        ))}
+        <Link to="/"
+          className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          Home/
+        </Link>
+        <Link to="/GameHomePage"
+          className={location.pathname.startsWith("/gamehomepage") ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          GamesPage/
+        </Link>
+        <Link to="/gamehomepage"
+          className={location.pathname.startsWith("/games/") ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          {id}
+        </Link>
       </nav>
       {game ? (
         <>
