@@ -91,15 +91,16 @@ const UserList = () => {
     return (
         <div className="userListPage">
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb} /
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to={`/profile/${params.id}`}
+                    className={location.pathname.startsWith("/profile/") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Profile/{params.id}
+                </Link>
             </nav>
             {user.map(u => {
                 return (

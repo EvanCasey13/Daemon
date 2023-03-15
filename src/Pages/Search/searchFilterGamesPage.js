@@ -79,6 +79,18 @@ function SearchFilterGamesPage() {
     <div className='Home' >
       <NavBar />
       <br />
+      <nav>
+        <Link to="/"
+          className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          Home/
+        </Link>
+        <Link to="/search/games"
+          className={location.pathname.startsWith("/search/games") ? "breadcrumb-active" : "breadcrumb-not-active"}
+        >
+          Search/Games
+        </Link>
+      </nav>
       <h3>Search & Filter Games</h3>
       <form>
         <Input
@@ -90,39 +102,28 @@ function SearchFilterGamesPage() {
           value={term == null ? '' : term}
           onChange={handleSearchChange} />
       </form>
-      <nav>
-        {breadcrumbs.map(({ match, breadcrumb }) => (
-          <Link
-            key={match.url}
-            to={match.url}
-            className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-          >
-            {breadcrumb}/
-          </Link>
-        ))}
-      </nav>
       <Collapse.Group>
-      <Collapse title="Genres">
-      <div className="list-container">
-        {genres?.map((item) => (
-          <div className='genreCheck'>
-            <input value={item.slug} type="checkbox" defaultValue='action' onChange={handleCheck}/>
-            <span >{item.name}</span>
+        <Collapse title="Genres">
+          <div className="list-container">
+            {genres?.map((item) => (
+              <div className='genreCheck'>
+                <input value={item.slug} type="checkbox" defaultValue='action' onChange={handleCheck} />
+                <span >{item.name}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      </Collapse>
-      <Collapse title="Platforms">
-      <div className="list-container">
-        {platforms?.map((item) => (
-          <div className='platformCheck'>
-            <input value={item.id} type="checkbox" defaultValue='action' onChange={handleCheckP}/>
-            <span >{item.name}</span>
+        </Collapse>
+        <Collapse title="Platforms">
+          <div className="list-container">
+            {platforms?.map((item) => (
+              <div className='platformCheck'>
+                <input value={item.id} type="checkbox" defaultValue='action' onChange={handleCheckP} />
+                <span >{item.name}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      </Collapse>
-    </Collapse.Group>
+        </Collapse>
+      </Collapse.Group>
 
       <PageTemplate
         games={games}

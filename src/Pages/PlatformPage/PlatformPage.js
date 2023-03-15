@@ -65,15 +65,16 @@ function PlatformPage() {
                     onChange={handleSearchChange} />
             </form>
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb}/
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to="/"
+                    className={location.pathname.startsWith("/platforms/") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Platform/{id}
+                </Link>
             </nav>
             <PageTemplate games={games} />
             <Pagination

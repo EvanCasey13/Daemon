@@ -3,10 +3,8 @@ import { Navigate, useLocation, Link } from 'react-router-dom';
 import AuthContext from "../../AuthContext";
 import NavBar from "../../Components/Navbar/Navbar"
 import ForumList from '../../Components/ForumList/ForumList';
-import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 function ForumHomepage() {
-    const breadcrumbs = useBreadcrumbs();
     const location = useLocation();
     const { user } = useContext(AuthContext);
     if (!user) {
@@ -17,15 +15,16 @@ function ForumHomepage() {
         <div className='forumHome'>
             <NavBar />
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb}/
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to="/forumhomepage"
+                    className={location.pathname.startsWith("/forumhomepage") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Forum
+                </Link>
             </nav>
             <ForumList />
         </div>

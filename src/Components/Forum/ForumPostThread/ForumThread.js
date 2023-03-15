@@ -79,15 +79,21 @@ const ForumThread = () => {
         <div className="ForumThread">
             <NavBar />
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb}/
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to="/forumhomepage"
+                    className={location.pathname.startsWith("/forumhomepage") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Forum/
+                </Link>
+                <Link to={`/post/${params.id}`}
+                    className={location.pathname.startsWith("/forum/post/") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Post/{params.id}
+                </Link>
             </nav>
             {post.map(p => {
                 return (

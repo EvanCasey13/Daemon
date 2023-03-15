@@ -54,18 +54,18 @@ function GenrePage() {
         <div className='Genre' >
             <NavBar />
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb}/
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to="/"
+                    className={location.pathname.startsWith("/genres/") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Genres/{name}
+                </Link>
             </nav>
             <br />
-            <h4>{name} games</h4>
             <form>
                 <Input
                     id="filled-search"

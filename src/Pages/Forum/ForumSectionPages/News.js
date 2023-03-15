@@ -3,24 +3,28 @@ import NavBar from "../../../Components/Navbar/Navbar"
 import AddForumPost from "../../../Components/Forum/ForumSections/News/AddForumPostNews";
 import ForumPostsListNews from "../../../Components/Forum/ForumSections/News/ForumPostListNews";
 import { useLocation, Link } from 'react-router-dom';
-import useBreadcrumbs from 'use-react-router-breadcrumbs';
 
 const News = () => {
-    const breadcrumbs = useBreadcrumbs();
     const location = useLocation();
     return (
         <div className="News">
             <NavBar />
             <nav>
-                {breadcrumbs.map(({ match, breadcrumb }) => (
-                    <Link
-                        key={match.url}
-                        to={match.url}
-                        className={match.pathname === location.pathname ? "breadcrumb-active" : "breadcrumb-not-active"}
-                    >
-                        {breadcrumb}/
-                    </Link>
-                ))}
+                <Link to="/"
+                    className={location.pathname === "/" ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Home/
+                </Link>
+                <Link to="/forumhomepage"
+                    className={location.pathname.startsWith("/forumhomepage") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    Forum/
+                </Link>
+                <Link to="/forum/news"
+                    className={location.pathname.startsWith("/forum/news") ? "breadcrumb-active" : "breadcrumb-not-active"}
+                >
+                    News
+                </Link>
             </nav>
             <AddForumPost />
             <ForumPostsListNews />
