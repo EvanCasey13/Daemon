@@ -8,6 +8,8 @@ import Logo from '../../images/daemon_logo_navbar.png'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { Modal, Dropdown, Card, Col, Row, Button, Text, Image } from "@nextui-org/react";
 import AddToListIcon from "../../Icons/AddToListIcon";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Game = ({ game }) => {
 
@@ -44,10 +46,10 @@ const Game = ({ game }) => {
   const addToList = async () => {
     try {
       setDoc(docRef, data)
-      alert("Game added successfully")
+      toast("Game added successfully")
     } catch (err) {
       console.error(err);
-      alert("An error occured while adding a game");
+      toast("An error occured while adding a game");
     }
   }
 
@@ -97,7 +99,6 @@ const Game = ({ game }) => {
                 </Button>
                 <Modal
                   closeButton
-                  blur
                   aria-labelledby="modal-title"
                   open={visible}
                   onClose={closeHandler}
@@ -107,14 +108,14 @@ const Game = ({ game }) => {
                       {game.name}
                     </Text>
                   </Modal.Header>
-                  <Image css={{ padding:"1%", borderRadius:"5%" }}
-                      src={game.background_image}
-                      width="100%"
-                      height="100%"
-                      objectFit="cover"
-                      alt="Game Card Image background missing"
-                      showSkeleton="true"
-                    />
+                  <Image css={{ padding: "1%", borderRadius: "5%" }}
+                    src={game.background_image}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    alt="Game Card Image background missing"
+                    showSkeleton="true"
+                  />
                   <Modal.Body css={{ marginLeft: "5%" }}>
                     <FormControl sx={{ width: '35ch' }}>
                       <div className="status-select">

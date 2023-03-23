@@ -13,6 +13,7 @@ import CompletedIcon from "../../Icons/CompletedIcon";
 import OnHoldIcon from "../../Icons/OnHoldIcon";
 import DroppedIcon from "../../Icons/DroppedIcon";
 import PlanningIcon from "../../Icons/PlanningIcon";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -37,12 +38,11 @@ const NavBar = () => {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
-      setName(data.name);
-      setProfilePicture(data.profilePicture);
-      setUserId(data.uid);
+      setName(user.name);
+      setProfilePicture(user.profilePicture);
+      setUserId(user.uid);
     } catch (err) {
       console.error(err);
-      alert("An error occured while fetching user data");
     }
   };
   useEffect(() => {

@@ -37,6 +37,8 @@ import SearchFilterGamesPage from './Pages/Search/searchFilterGamesPage';
 import { AuthProvider } from "./AuthProvider";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -50,50 +52,62 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <div className="App"> 
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <AuthProvider>
-              <NextUIProvider>
-                <Routes>
-                  <Route index element={<Home />} />
-                  <Route path="gameHomepage" element={<GameHomepage />} />
-                  <Route path="forumHomepage" element={<ForumHomepage />} />
-                  <Route path="forum/announcements" element={<AnnouncementPage />} />
-                  <Route path="forum/guidelines" element={<GuidelinesPage />} />
-                  <Route path="forum/suggestions" element={<SuggestionsPage />} />
-                  <Route path="forum/support" element={<SupportPage />} />
-                  <Route path="forum/news" element={<NewsPage />} />
-                  <Route path="forum/gameannouncements" element={<GameAnnouncementPage />} />
-                  <Route path="forum/recommendations" element={<RecommendationsPage />} />
-                  <Route path="forum/games-tech-computer-support" element={<CGTSupportPage />} />
-                  <Route path="forum/introductions" element={<IntroductionsPage />} />
-                  <Route path="forum/casual-discussion" element={<CasualDiscussionPage />} />
-                  <Route path="forum/post/:id" element={<ForumThread />} />
-                  <Route path="about" element={<About />} />
-                  <Route path="games/:id" element={<GameDetail />} />
-                  <Route path="genres/:name" element={<GenrePage />} />
-                  <Route path="platforms/:id" element={<PlatformPage />} />
-                  <Route path="profile/:id" element={<UserProfile />} />
-                  <Route path="playing/:id" element={<PlayingList />} />
-                  <Route path="planning/:id" element={<PlanList />} />
-                  <Route path="on-hold/:id" element={<OnHoldList />} />
-                  <Route path="dropped/:id" element={<DroppedList />} />
-                  <Route path="completed/:id" element={<CompletedList />} />
-                  <Route path="gameAdditions/:id" element={<GameAdditionDetail />} />
-                  <Route path="user/posts/:id" element={<ForumUserPostList />} />
-                  <Route path="search/users" element={<UserSearchPage />} />
-                  <Route path="search/games" element={<SearchFilterGamesPage />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route exact path="/register" element={<Register />} />
-                  <Route exact path="/reset" element={<Reset />} />   
-                </Routes>
-              </NextUIProvider>
-            </AuthProvider>
-          </BrowserRouter>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+    <div className="App">
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+            <NextUIProvider>
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="gameHomepage" element={<GameHomepage />} />
+                <Route path="forumHomepage" element={<ForumHomepage />} />
+                <Route path="forum/announcements" element={<AnnouncementPage />} />
+                <Route path="forum/guidelines" element={<GuidelinesPage />} />
+                <Route path="forum/suggestions" element={<SuggestionsPage />} />
+                <Route path="forum/support" element={<SupportPage />} />
+                <Route path="forum/news" element={<NewsPage />} />
+                <Route path="forum/gameannouncements" element={<GameAnnouncementPage />} />
+                <Route path="forum/recommendations" element={<RecommendationsPage />} />
+                <Route path="forum/games-tech-computer-support" element={<CGTSupportPage />} />
+                <Route path="forum/introductions" element={<IntroductionsPage />} />
+                <Route path="forum/casual-discussion" element={<CasualDiscussionPage />} />
+                <Route path="forum/post/:id" element={<ForumThread />} />
+                <Route path="about" element={<About />} />
+                <Route path="games/:id" element={<GameDetail />} />
+                <Route path="genres/:name" element={<GenrePage />} />
+                <Route path="platforms/:id" element={<PlatformPage />} />
+                <Route path="profile/:id" element={<UserProfile />} />
+                <Route path="playing/:id" element={<PlayingList />} />
+                <Route path="planning/:id" element={<PlanList />} />
+                <Route path="on-hold/:id" element={<OnHoldList />} />
+                <Route path="dropped/:id" element={<DroppedList />} />
+                <Route path="completed/:id" element={<CompletedList />} />
+                <Route path="gameAdditions/:id" element={<GameAdditionDetail />} />
+                <Route path="user/posts/:id" element={<ForumUserPostList />} />
+                <Route path="search/users" element={<UserSearchPage />} />
+                <Route path="search/games" element={<SearchFilterGamesPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route exact path="/register" element={<Register />} />
+                <Route exact path="/reset" element={<Reset />} />
+              </Routes>
+            </NextUIProvider>
+          </AuthProvider>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </div>
   );
 }
