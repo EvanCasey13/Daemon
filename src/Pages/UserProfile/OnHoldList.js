@@ -25,8 +25,8 @@ const OnHoldList = () => {
   }, [params.id]);
 
   useEffect(() => {
-    const playingRef = collection(db, "users/" + params.id + "/favourites");
-    const q = query(playingRef, where("Status", "==", "On-hold"));
+    const ref = collection(db, "users/" + params.id + "/favourites");
+    const q = query(ref, where("Status", "==", "On-hold"));
     const getFavourites = async () => {
       onSnapshot(q, (data) => {
         setFavourites(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))

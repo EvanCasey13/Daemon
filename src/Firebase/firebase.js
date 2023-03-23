@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage"
+import { getStorage } from "firebase/storage";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -52,7 +54,7 @@ const signInWithGoogle = async () => {
     }
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    toast(err.message);
   }
 };
 const logInWithEmailAndPassword = async (email, password) => {
@@ -82,10 +84,10 @@ const registerWithEmailAndPassword = async (name, email, password, profilePictur
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
+    toast("Password reset link sent!");
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    toast(err.message);
   }
 };
 const logout = () => {

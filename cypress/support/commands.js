@@ -309,7 +309,7 @@ Cypress.Commands.add('clickButton', (label) => {
     cy.url().should("include", `/gamehomepage?query=The+Witcher+3+Wild+Hunt`);
   });
 
-  Cypress.Commands.add('Logout', (query) => {
+  Cypress.Commands.add('Logout', () => {
 
     cy.on('uncaught:exception', (err, runnable) => {
   
