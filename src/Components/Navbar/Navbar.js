@@ -54,14 +54,12 @@ const NavBar = () => {
     { label: "Home", path: "/" },
     { label: "Games", path: "/gamehomepage" },
     { label: "Forum", path: "/forumhomepage" },
-    { label: "About", path: "/about" }
   ];
 
   const menuOptionsAdmin = [
     { label: "Home", path: "/" },
     { label: "Games", path: "/gamehomepage" },
     { label: "Forum", path: "/forumhomepage" },
-    { label: "About", path: "/about" },
     { label: "Admin Dashboard", path: "/admin" }
   ];
   const handleMenuSelect = (pageURL) => {
@@ -194,9 +192,6 @@ const NavBar = () => {
                         <Text b color="inherit" css={{ d: "flex" }}>
                           {userA?.email}
                         </Text>
-                      </Dropdown.Item>
-                      <Dropdown.Item key="settings" withDivider textValue="settings" icon={<SettingsIcon fill="currentColor" filled />}>
-                        Settings
                       </Dropdown.Item>
                       <Dropdown.Item key="my_profile" textValue="myProfile" icon={<ProfileIcon fill="currentColor" filled />}><Link
                         color="inherit"
@@ -377,9 +372,6 @@ const NavBar = () => {
                         <Text b color="inherit" css={{ d: "flex" }}>
                           {user?.email}
                         </Text>
-                      </Dropdown.Item>
-                      <Dropdown.Item key="settings" withDivider textValue="settings" icon={<SettingsIcon fill="currentColor" filled />}>
-                        Settings
                       </Dropdown.Item>
                       <Dropdown.Item key="my_profile" textValue="myProfile"  icon={<ProfileIcon fill="currentColor" filled />}><Link
                         color="inherit"

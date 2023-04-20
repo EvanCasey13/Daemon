@@ -125,7 +125,7 @@ function Home() {
         <div className='Home' >
             <NavBar />
             <br/>
-            <h2>Recent Games</h2>
+            <h4>Recent Games</h4>
             <div className="popular-games">
                 <Slider {...settings}>
                     {games.map(game => {
@@ -136,7 +136,7 @@ function Home() {
                 </Slider>
             </div>
 
-      <h2>Genres</h2>
+      <h4>Genres</h4>
       <div className="genres">
         <Slider {...genreSettings}>
           {genres.map(genre => {
@@ -147,7 +147,7 @@ function Home() {
         </Slider>
       </div>
 
-      <h2>Platforms</h2>
+      <h4>Platforms</h4>
       <div className="platforms">
         <Slider {...genreSettings}>
           {platforms.map(platform => {

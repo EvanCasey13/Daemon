@@ -6,7 +6,6 @@ import Home from './Pages/Home/Home';
 import GameHomepage from './Pages/Games/GameHomepage';
 import ForumHomepage from './Pages/Forum/ForumHomepage';
 import UserProfile from './Pages/UserProfile/UserProfile';
-import About from './Pages/About/About';
 import GameDetail from './Pages/Games/GameDetailsPage';
 import GenrePage from './Pages/Genre/GenrePage';
 import PlatformPage from './Pages/PlatformPage/PlatformPage';
@@ -84,7 +83,6 @@ function App() {
                 <Route path="forum/introductions" element={<IntroductionsPage />} />
                 <Route path="forum/casual-discussion" element={<CasualDiscussionPage />} />
                 <Route path="forum/post/:id" element={<ForumThread />} />
-                <Route path="about" element={<About />} />
                 <Route path="games/:id" element={<GameDetail />} />
                 <Route path="genres/:name" element={<GenrePage />} />
                 <Route path="platforms/:id" element={<PlatformPage />} />
