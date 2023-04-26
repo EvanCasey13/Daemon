@@ -13,7 +13,7 @@ import CompletedIcon from "../../Icons/CompletedIcon";
 import OnHoldIcon from "../../Icons/OnHoldIcon";
 import DroppedIcon from "../../Icons/DroppedIcon";
 import PlanningIcon from "../../Icons/PlanningIcon";
-import { toast } from "react-toastify";
+import {onAuthStateChanged} from 'firebase/auth'
 
 const NavBar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -22,6 +22,14 @@ const NavBar = () => {
   const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [us, setU] = useState({});
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+        setU(currentUser);
+    });
+
+}, [])
 
   useEffect(() => {
     const userRef = collection(db, "users/");
@@ -175,7 +183,7 @@ const NavBar = () => {
                         color="secondary"
                         size="md"
                         id="profileButton"
-                        src={profilePicture}
+                        src={auth.currentUser.photoURL}
                       />
                     </Dropdown.Trigger>
 
@@ -355,7 +363,7 @@ const NavBar = () => {
                         as="button"
                         color="secondary"
                         size="md"
-                        src={profilePicture}
+                        src={auth.currentUser.photoURL}
                       />
                     </Dropdown.Trigger>
 
